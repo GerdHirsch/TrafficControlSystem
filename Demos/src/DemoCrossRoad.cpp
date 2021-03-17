@@ -9,6 +9,7 @@
 
 using namespace std;
 namespace CR = CrossRoad;
+namespace SPT = SimplePeriodicTimer;
 
 void demoCrossRoad(){
 	std::cout << __PRETTY_FUNCTION__ << std::endl;
@@ -19,8 +20,8 @@ void demoCrossRoad(){
 	{
 		// ---------- configure TrafficLights
 		cout << "configure TrafficLights" << endl;
-		using TrafficLightTimerRepo = DefaultTimerRepository<Demo::TrafficLight, 3>;
-		PeriodicTimerImpl<TrafficLightTimerRepo> trafficLightTimer;
+		using TrafficLightTimerRepo = SPT::DefaultTimerRepository<Demo::TrafficLight, 3>;
+		SPT::PeriodicTimerImpl<TrafficLightTimerRepo> trafficLightTimer;
 
 		Demo::TrafficLight a1("a1", trafficLightTimer);
 		Demo::TrafficLight a2("a2", trafficLightTimer);
@@ -28,8 +29,8 @@ void demoCrossRoad(){
 
 		// ---------- configure CrossRoad
 		cout << "configure CrossRoad" << endl;
-		using CrossRoadTimerRepo = DefaultTimerRepository<CR::CrossRoad, 1>;
-		PeriodicTimerImpl<CrossRoadTimerRepo> crossRoadTimer;
+		using CrossRoadTimerRepo = SPT::DefaultTimerRepository<CR::CrossRoad, 1>;
+		SPT::PeriodicTimerImpl<CrossRoadTimerRepo> crossRoadTimer;
 		CR::CrossRoad crossRoad(a1, a2, a3, crossRoadTimer);
 
 		std::cout << "demoCrossRoad sleep " << this_thread::get_id() << std::endl;

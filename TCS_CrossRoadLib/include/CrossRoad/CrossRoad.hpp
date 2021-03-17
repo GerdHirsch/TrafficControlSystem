@@ -7,18 +7,18 @@
 #include <mutex>
 
 namespace CrossRoad{
+namespace SPT = SimplePeriodicTimer;
 
 class CrossRoad{
 public:
 	using Mutex = std::timed_mutex;
 	using Guard = std::unique_lock<Mutex>;
 	using Duration = std::chrono::milliseconds;
-
 	CrossRoad(
 			TrafficLight& a1,
 			TrafficLight& a2,
 			TrafficLight& a3,
-			PeriodicTimer<CrossRoad>& timer);
+			SPT::PeriodicTimer<CrossRoad>& timer);
 
 	enum struct States{ //todo Off/FlashingMinDuration
 		Off, OffMinDuration, Flashing, FlashingMinDuration, MinorFlashing,
@@ -69,7 +69,7 @@ private: // Members
 	//------------------------------------------------
 	States currentState = States::Off;
 	TrafficLight *a1, *a2, *a3;
-	PeriodicTimer<CrossRoad>* timer;
+	SPT::PeriodicTimer<CrossRoad>* timer;
 	Mutex myMutex;
 	//------------------------------------------------
 	// defered Events

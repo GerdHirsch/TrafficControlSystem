@@ -15,7 +15,7 @@ CrossRoad::CrossRoad(
 		TrafficLight& a1,
 		TrafficLight& a2,
 		TrafficLight& a3,
-		PeriodicTimer<CrossRoad>& timer)
+		SPT::PeriodicTimer<CrossRoad>& timer)
 :
 	currentState(States::Off)
 	, a1(&a1), a2(&a2), a3(&a3)
