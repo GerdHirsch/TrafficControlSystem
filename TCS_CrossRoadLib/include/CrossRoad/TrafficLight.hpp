@@ -8,6 +8,8 @@
 #ifndef INCLUDE_CROSSROAD_TRAFFICLIGHT_HPP_
 #define INCLUDE_CROSSROAD_TRAFFICLIGHT_HPP_
 
+namespace CrossRoad{
+
 class TrafficLight{
 public:
 	virtual void off() = 0;
@@ -15,6 +17,6 @@ public:
 	virtual void flash() = 0;
 };
 
-
+} // namespace Crossroad
 
 #endif /* INCLUDE_CROSSROAD_TRAFFICLIGHT_HPP_ */

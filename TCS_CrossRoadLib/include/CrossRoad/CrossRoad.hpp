@@ -6,6 +6,8 @@
 
 #include <mutex>
 
+namespace CrossRoad{
+
 class CrossRoad{
 public:
 	using Mutex = std::timed_mutex;
@@ -75,6 +77,6 @@ private: // Members
 	bool flashDeferred = false;
 };
 
-
+} // namespace CrossRoad
 
 #endif /* CROSSROAD_HPP_ */

@@ -1,12 +1,14 @@
 
-#include <CrossRoad/CrossRoad.hpp>
 #include "../include/TrafficLight.hpp"
+
+#include <CrossRoad/CrossRoad.hpp>
 #include <PeriodicTimer/PeriodicTimerImpl.hpp>
 
 #include <iostream>
 #include <chrono>
 
 using namespace std;
+namespace CR = CrossRoad;
 
 void demoCrossRoad(){
 	std::cout << __PRETTY_FUNCTION__ << std::endl;
@@ -17,18 +19,18 @@ void demoCrossRoad(){
 	{
 		// ---------- configure TrafficLights
 		cout << "configure TrafficLights" << endl;
-		using TrafficLightTimerRepo = DefaultTimerRepository<TrafficLight, 3>;
+		using TrafficLightTimerRepo = DefaultTimerRepository<Demo::TrafficLight, 3>;
 		PeriodicTimerImpl<TrafficLightTimerRepo> trafficLightTimer;
 
-		TrafficLight a1("a1", trafficLightTimer);
-		TrafficLight a2("a2", trafficLightTimer);
-		TrafficLight a3("a3", trafficLightTimer);
+		Demo::TrafficLight a1("a1", trafficLightTimer);
+		Demo::TrafficLight a2("a2", trafficLightTimer);
+		Demo::TrafficLight a3("a3", trafficLightTimer);
 
 		// ---------- configure CrossRoad
 		cout << "configure CrossRoad" << endl;
-		using CrossRoadTimerRepo = DefaultTimerRepository<CrossRoad, 1>;
+		using CrossRoadTimerRepo = DefaultTimerRepository<CR::CrossRoad, 1>;
 		PeriodicTimerImpl<CrossRoadTimerRepo> crossRoadTimer;
-		CrossRoad crossRoad(a1, a2, a3, crossRoadTimer);
+		CR::CrossRoad crossRoad(a1, a2, a3, crossRoadTimer);
 
 		std::cout << "demoCrossRoad sleep " << this_thread::get_id() << std::endl;
 		std::this_thread::sleep_for(sleepDuration);

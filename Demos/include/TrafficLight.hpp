@@ -1,14 +1,17 @@
 #ifndef TRAFFICLIGHT_HPP_
 #define TRAFFICLIGHT_HPP_
 
+#include <CrossRoad/TrafficLight.hpp>
+
 #include <PeriodicTimer/PeriodicTimer.hpp>
 
 #include <string>
 #include <iostream>
 #include <mutex>
 #include <chrono>
+namespace Demo{
 
-class TrafficLight{
+class TrafficLight : public CrossRoad::TrafficLight {
 public:
 	using Mutex = std::timed_mutex;
 	using Guard = std::unique_lock<Mutex>;
@@ -124,6 +127,7 @@ private:
 	Mutex myMutex;
 };
 
+} // namespace Demo
 
 
 #endif /* TRAFFICLIGHT_HPP_ */

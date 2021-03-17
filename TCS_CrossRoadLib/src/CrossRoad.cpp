@@ -6,6 +6,7 @@
 #include <chrono>
 
 using namespace std;
+namespace CrossRoad {
 //==========================================
 // public Interface
 //==========================================
@@ -273,3 +274,5 @@ std::string CrossRoad::stateToString()const{
 		return "no State ??";
 	}
 }
+
+} // namespace CrossRoad

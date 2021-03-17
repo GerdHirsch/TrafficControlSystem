@@ -3,6 +3,7 @@
 	<name>Demos</name>
 	<comment></comment>
 	<projects>
+		<project>SimplePeriodicTimer</project>
 		<project>TCS_CrossRoadLib</project>
 	</projects>
 	<buildSpec>
