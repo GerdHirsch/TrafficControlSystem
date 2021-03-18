@@ -1,24 +1,27 @@
 #ifndef CROSSROAD_HPP_
 #define CROSSROAD_HPP_
 
-#include <PeriodicTimer/PeriodicTimer.hpp>
 #include "TrafficLight.hpp"
+#include "Timer.hpp"
+
+//#include <PeriodicTimer/PeriodicTimer.hpp>
 
 #include <mutex>
 
-namespace CrossRoad{
-namespace SPT = SimplePeriodicTimer;
+namespace CrossRoadLib{
+//namespace SPT = SimplePeriodicTimer;
 
 class CrossRoad{
 public:
 	using Mutex = std::timed_mutex;
 	using Guard = std::unique_lock<Mutex>;
-	using Duration = std::chrono::milliseconds;
+	using IntervalDuration = std::chrono::milliseconds;
 	CrossRoad(
 			TrafficLight& a1,
 			TrafficLight& a2,
 			TrafficLight& a3,
-			SPT::PeriodicTimer<CrossRoad>& timer);
+			Timer &timer);
+//			SPT::PeriodicTimer<CrossRoad>& timer);
 
 	enum struct States{ //todo Off/FlashingMinDuration
 		Off, OffMinDuration, Flashing, FlashingMinDuration, MinorFlashing,
@@ -69,7 +72,8 @@ private: // Members
 	//------------------------------------------------
 	States currentState = States::Off;
 	TrafficLight *a1, *a2, *a3;
-	SPT::PeriodicTimer<CrossRoad>* timer;
+//	SPT::PeriodicTimer<CrossRoad>* timer;
+	Timer *timer = nullptr;
 	Mutex myMutex;
 	//------------------------------------------------
 	// defered Events
@@ -77,6 +81,6 @@ private: // Members
 	bool flashDeferred = false;
 };
 
-} // namespace CrossRoad
+} // namespace CrossRoadLib
 
 #endif /* CROSSROAD_HPP_ */

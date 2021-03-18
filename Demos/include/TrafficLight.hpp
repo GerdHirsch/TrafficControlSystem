@@ -12,8 +12,9 @@
 namespace Demo{
 
 namespace SPT = SimplePeriodicTimer;
+namespace CR = CrossRoadLib;
 
-class TrafficLight : public CrossRoad::TrafficLight {
+class TrafficLight : public CR::TrafficLight {
 public:
 	using Mutex = std::timed_mutex;
 	using Guard = std::unique_lock<Mutex>;

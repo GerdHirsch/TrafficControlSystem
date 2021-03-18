@@ -6,7 +6,7 @@
 #include <chrono>
 
 using namespace std;
-namespace CrossRoad {
+namespace CrossRoadLib {
 //==========================================
 // public Interface
 //==========================================
@@ -15,7 +15,8 @@ CrossRoad::CrossRoad(
 		TrafficLight& a1,
 		TrafficLight& a2,
 		TrafficLight& a3,
-		SPT::PeriodicTimer<CrossRoad>& timer)
+		Timer& timer)
+//		SPT::PeriodicTimer<CrossRoad>& timer)
 :
 	currentState(States::Off)
 	, a1(&a1), a2(&a2), a3(&a3)
@@ -23,11 +24,14 @@ CrossRoad::CrossRoad(
 	, regulateTrafficDeferred(false), flashDeferred(false)
 {
 	entryOff();
-	static bool registerCallback = true;
-	if(registerCallback){
-		registerCallback = false;
-		this->timer->setCallback(&CrossRoad::trigger);
-	}
+	this->timer->add(*this);
+	this->timer->setCallback(&CrossRoad::trigger);
+
+	//	static bool registerCallback = true;
+//	if(registerCallback){
+//		registerCallback = false;
+//		this->timer->setCallback(&CrossRoad::trigger);
+//	}
 }
 //==========================================
 void CrossRoad::flash()
@@ -64,7 +68,8 @@ void CrossRoad::on(){
 		a2->switchOver();
 		setState(States::MinorFlashing);
 		wait(Times::MinorFlashing);
-		timer->addReceiver(*this);
+		timer->startTimer();
+//		timer->addReceiver(*this);
 	}
 	// else ignore event on()
 }
@@ -78,7 +83,8 @@ void CrossRoad::regulateTraffic(){
 		regulateTrafficDeferred = false;
 		setState(States::MajorYellow);
 		wait(Times::MajorYellow);
-		timer->addReceiver(*this);
+		timer->startTimer();
+//		timer->addReceiver(*this);
 	}else if(currentState != States::Off
 			&& currentState != States::Flashing){
 		regulateTrafficDeferred = true;
@@ -109,7 +115,8 @@ void CrossRoad::defect(){
 		a2->off();
 		a3->off();
 		cout << "CrossRoad::defect removeReceiver(*this)" << endl;
-		timer->removeReceiver(*this);
+		timer->stopTimer();
+//		timer->removeReceiver(*this);
 	// all other states
 	}else if(currentState != States::Off
 			&& currentState != States::Defect){
@@ -118,7 +125,8 @@ void CrossRoad::defect(){
 		a2->flash();
 		a3->flash();
 		wait(Times::FlashingMinDuration);
-		timer->addReceiver(*this);
+		timer->startTimer();
+//		timer->addReceiver(*this);
 	}
 	//else ignore
 }
@@ -149,7 +157,8 @@ void CrossRoad::trigger(){
 		setState(States::MajorDrive);
 		entryMajorDrive();
 		cout << "CrossRoad::trigger MajorMinDuration removeReceiver(*this)" << endl;
-		timer->removeReceiver(*this);
+		timer->stopTimer();
+//		timer->removeReceiver(*this);
 
 		//handle deferred events
 		if(flashDeferred){ // Priority = 1
@@ -181,7 +190,8 @@ void CrossRoad::trigger(){
 	case States::Off:
 	default:
 		cout << "CrossRoad::trigger default removeReceiver(*this)" << endl;
-		timer->removeReceiver(*this);
+		timer->stopTimer();
+//		timer->removeReceiver(*this);
 		break;
 	}
 
@@ -192,11 +202,12 @@ void CrossRoad::setState(States state){
 }
 //------------------------------------------
 void CrossRoad::wait(unsigned long long msDuration){
-	timer->setIntervalDuration(msDuration);
+	timer->setIntervalDuration(IntervalDuration(msDuration));
+//	timer->setIntervalDuration(msDuration);
 }
 //------------------------------------------
 CrossRoad::Guard CrossRoad::tryLock(){
-	static constexpr Duration tryLockDuration{10};
+	static constexpr IntervalDuration tryLockDuration{10};
 	Guard guard(myMutex, std::defer_lock);
 	while(!guard.try_lock_for(tryLockDuration))
 		;
@@ -275,4 +286,4 @@ std::string CrossRoad::stateToString()const{
 	}
 }
 
-} // namespace CrossRoad
+} // namespace CrossRoadLib

@@ -1,5 +1,6 @@
 
 #include "../include/TrafficLight.hpp"
+#include "../include/TimerAdapter.hpp"
 
 #include <CrossRoad/CrossRoad.hpp>
 #include <PeriodicTimer/PeriodicTimerImpl.hpp>
@@ -8,7 +9,7 @@
 #include <chrono>
 
 using namespace std;
-namespace CR = CrossRoad;
+namespace CR = CrossRoadLib;
 namespace SPT = SimplePeriodicTimer;
 
 void demoCrossRoad(){
@@ -29,8 +30,10 @@ void demoCrossRoad(){
 
 		// ---------- configure CrossRoad
 		cout << "configure CrossRoad" << endl;
-		using CrossRoadTimerRepo = SPT::DefaultTimerRepository<CR::CrossRoad, 1>;
-		SPT::PeriodicTimerImpl<CrossRoadTimerRepo> crossRoadTimer;
+		using CrossRoadTimerRepo = SPT::DefaultTimerRepository<CR::CrossRoad, 1, CR::CrossRoad::IntervalDuration>;
+		SPT::PeriodicTimerImpl<CrossRoadTimerRepo> periodicTimer;
+		Demo::TimerAdapter crossRoadTimer(periodicTimer);
+
 		CR::CrossRoad crossRoad(a1, a2, a3, crossRoadTimer);
 
 		std::cout << "demoCrossRoad sleep " << this_thread::get_id() << std::endl;
