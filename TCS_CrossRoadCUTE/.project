@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>TCS_CrossRoadCUTE</name>
+	<name>CrossRoadCUTE</name>
 	<comment></comment>
 	<projects>
-		<project>TCS_CrossRoadLib</project>
+		<project>CrossRoadLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

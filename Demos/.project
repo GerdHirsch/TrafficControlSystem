@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>TCS_CrossRoadDemos</name>
+	<name>CrossRoadDemos</name>
 	<comment></comment>
 	<projects>
+		<project>CrossRoadLib</project>
 		<project>SimplePeriodicTimer</project>
-		<project>TCS_CrossRoadLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
