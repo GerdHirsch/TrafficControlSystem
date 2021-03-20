@@ -1,0 +1,7 @@
+<testsuites>
+	<testsuite name="ResultManager" tests="3">
+		<testcase classname="ResultManager" name="ResultManagerTest::testTestSuccess"/>
+		<testcase classname="ResultManager" name="ResultManagerTest::testTestFailed"/>
+		<testcase classname="ResultManager" name="ResultManagerTest::testWrongExpected"/>
+	</testsuite>
+</testsuites>
