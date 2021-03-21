@@ -1,7 +1,10 @@
 #ifndef TRAFFICLIGHT_HPP_
 #define TRAFFICLIGHT_HPP_
 
+#include "Lamp.h"
+
 #include <PeriodicTimer/PeriodicTimer.hpp>
+#include <CrossRoad/TrafficLight.hpp>
 
 #include <string>
 #include <iostream>
@@ -11,25 +14,22 @@
 namespace TCS{
 
 namespace SPT = SimplePeriodicTimer;
+namespace CR = CrossRoadLib;
 
-class TrafficLight{
+class TrafficLight : public CR::TrafficLight{
 public:
 	using Mutex = std::timed_mutex;
 	using Guard = std::unique_lock<Mutex>;
 
-	TrafficLight(std::string name, SPT::PeriodicTimer<TrafficLight>& timer)
+	TrafficLight(Lamp &red, Lamp &yellow, Lamp &green, SPT::PeriodicTimer<TrafficLight>& timer, std::string name="tl")
 	:
 		currentState(Off)
-		, name(std::move(name))
+		, red(&red), yellow(&yellow), green(&green)
 		, timer(&timer)
+		, name(std::move(name))
 	{
 		entryOff();
-		static bool registerCallback = true;
-		if(registerCallback){
-			this->timer->setCallback(&TrafficLight::doFlashing);
-			registerCallback = false;
-		}
-
+		this->timer->setCallback(&TrafficLight::doFlashing);
 	}
 	~TrafficLight(){
 		timer->removeReceiver(*this);
@@ -42,6 +42,7 @@ public:
 		switch(currentState){
 		case Flashing:
 			currentState = Yellow;
+			timer->removeReceiver(*this);
 			entryYellow();
 			break;
 		case Yellow:
@@ -73,7 +74,6 @@ public:
 			;
 		currentState = Flashing;
 		entryFlashing();
-		timer->addReceiver(*this);
 	}
 	void off(){
 		Guard guard(myMutex);
@@ -96,35 +96,44 @@ private:
 			std::cout << name << " removeReceiver(*this)" << std::endl;
 			timer->removeReceiver(*this);
 		}
+		if(yellow->isOn()) yellow->off();
+		else yellow->on();
 	}
 	// state entry behaviors
 	void entryRed(){
+		red->on(); yellow->off(); green->off();
 		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 	}
 	void entryRedYellow(){
+		red->on(); yellow->on(); green->off();
 		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 	}
 	void entryGreen(){
+		red->off(); yellow->off(); green->on();
 		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 	}
 	void entryYellow(){
+		red->off(); yellow->on(); green->off();
 		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 	}
 	void entryFlashing(){
 		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 		lampsOff();
+		timer->addReceiver(*this);
 	}
 	void entryOff(){
 		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 		lampsOff();
 	}
 	void lampsOff(){
+		red->off(); yellow->off(); green->off();
 		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 	}
 private:
 	States currentState = Off;
-	std::string name;
+	Lamp *red, *yellow, *green;
 	SPT::PeriodicTimer<TrafficLight>* timer;
+	std::string name;
 	Mutex myMutex;
 };
 } // namespace TCS

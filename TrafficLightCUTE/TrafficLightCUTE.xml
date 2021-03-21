@@ -1,6 +1,12 @@
 <testsuites>
-	<testsuite name="TrafficLightReferenceTest" tests="2">
-		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest::testConstructor"/>
-		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest::testFlashing_off"/>
+	<testsuite name="TrafficLightReferenceTest" tests="3">
+		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest&lt;TrafficLightReference&gt;::testConstructor"/>
+		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest&lt;TrafficLightReference&gt;::testOff_flash"/>
+		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest&lt;TrafficLightReference&gt;::testFlashing_off"/>
+	</testsuite>
+	<testsuite name="TCSTrafficLightTest" tests="3">
+		<testcase classname="TCSTrafficLightTest" name="TrafficLightReferenceTest&lt;TCS::TrafficLight&gt;::testConstructor"/>
+		<testcase classname="TCSTrafficLightTest" name="TrafficLightReferenceTest&lt;TCS::TrafficLight&gt;::testOff_flash"/>
+		<testcase classname="TCSTrafficLightTest" name="TrafficLightReferenceTest&lt;TCS::TrafficLight&gt;::testFlashing_off"/>
 	</testsuite>
 </testsuites>

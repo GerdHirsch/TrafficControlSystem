@@ -11,6 +11,7 @@
 #include <PeriodicTimer/PeriodicTimer.hpp>
 #include <Mock/ResultManager.hpp>
 
+#include <string>
 
 namespace SPT = SimplePeriodicTimer;
 
@@ -22,21 +23,45 @@ public:
 
 	using MemberFunction = typename base_type::MemberFunction;
 	using IntervalDuration = unsigned long long;
+	//==========================
 	// Timer Interface
-	virtual void addReceiver(Receiver&)=0;
-	virtual void removeReceiver(Receiver&)=0;
-	virtual void setCallback(this_type::MemberFunction function)=0;
-	virtual void setIntervalDuration(unsigned long long intervalDuration)=0;
+	//==========================
+	virtual void addReceiver(Receiver& receiver){
+		this->receiver = &receiver;
+	};
+	bool hasReceiver() const { return receiver != nullptr; }
+	virtual void removeReceiver(Receiver&  receiver){
+		if(this->receiver == &receiver){
+			this->receiver = nullptr;
+		}
+	};
+	virtual void setCallback(this_type::MemberFunction function){
+		this->function = function;
+	};
+	bool hasCallback() const { return function != nullptr; }
 
-// Test Interface
+	virtual void setIntervalDuration(unsigned long long intervalDuration){
+		resultManager->addString("setI:");
+		resultManager->addString(std::to_string(intervalDuration));
+		resultManager->addString(("|"));
+		this->intervalDuration = intervalDuration;
+	};
+
+	//==========================
+	// Test Interface
+	//==========================
+	MockPeriodicTimer(Mock::ResultManager& resultManager) : resultManager(&resultManager)
+	{}
 	void tick(){
-		(receiver->*function)();
+		if(receiver && function){
+			(receiver->*function)();
+		}
 	}
 private:
+	Mock::ResultManager *resultManager;
 	IntervalDuration intervalDuration;
 	Receiver* receiver=nullptr;
 	MemberFunction function=nullptr;
-	Mock::ResultManager *resultManager;
 
 };
 

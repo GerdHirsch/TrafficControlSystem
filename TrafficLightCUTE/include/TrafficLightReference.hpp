@@ -10,21 +10,25 @@
 #ifndef INCLUDE_TRAFFICLIGHTREFERENCE_HPP_
 #define INCLUDE_TRAFFICLIGHTREFERENCE_HPP_
 
+#include <PeriodicTimer/PeriodicTimer.hpp>
 #include <CrossRoad/TrafficLight.hpp>
 #include <TCS/Lamp.h>
 
 namespace CR = CrossRoadLib;
+namespace SPT = SimplePeriodicTimer;
 
 class TrafficLightReference : public CR::TrafficLight{
 public:
 	enum AmpelState{ Off, Flashing, Red, RedYellow, Yellow, Green} state;
+	using this_type = TrafficLightReference;
 
-	TrafficLightReference(Lamp& red, Lamp& yellow, Lamp& green):
+	TrafficLightReference(Lamp& red, Lamp& yellow, Lamp& green, SPT::PeriodicTimer<this_type>& timer):
 		state(Off),
-//		timer(timer),
+		timer(&timer),
 		red(red), yellow(yellow), green(green)
 {
 		entryOff();
+		this->timer->setCallback(&this_type::doFlashing);
 }
 	void off(){
 		if(state == Flashing){
@@ -34,10 +38,15 @@ public:
 	}
 	void flash(){
 			state = Flashing;
+			entryFlashing();
+			timer->addReceiver(*this);
 	}
 	void switchOver(){}
 private:
 	void entryOff(){
+		allLampsOff();
+	}
+	void entryFlashing(){
 		allLampsOff();
 	}
 	void allLampsOff(){
@@ -53,7 +62,7 @@ private:
 			yellow.on();
 		}
 	}
-//	Timer timer;
+	SPT::PeriodicTimer<this_type>* timer;
 	Lamp &red, &yellow, &green;
 };
 
