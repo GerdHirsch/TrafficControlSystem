@@ -8,9 +8,9 @@
 #ifndef INCLUDE_TRAFFICLIGHTTEST_H_
 #define INCLUDE_TRAFFICLIGHTTEST_H_
 
-//#include "ResultManager.h"
-#include "MockLamp.h"
-#include <TCS/Lamp.h>
+#include "../Mocks/MockLamp.h"
+
+//#include <TCS/Lamp.h>
 
 #include <Mock/ResultManager.hpp>
 
