@@ -1,13 +1,15 @@
 /*
  * ResultManager.h
  *
- *  Created on: 19.03.2021
+ *  Created on: 26.11.17
  *      Author: Gerd
  */
 
 #ifndef RESULTMANAGER_H_
 #define RESULTMANAGER_H_
+
 #include <string>
+
 namespace Mock {
 
 class ResultManager {
@@ -22,6 +24,8 @@ public:
 	void endTest();
 	void addString(std::string message);
 	bool succeed() const;
+	std::string const& getExpected(){return expected;}
+	std::string const& getResult(){return result;}
 private:
 	States currentState = NoTracking;
 	std::string expected;

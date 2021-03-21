@@ -22,6 +22,9 @@ public:
 			TrafficLight& a3,
 			Timer &timer);
 //			SPT::PeriodicTimer<CrossRoad>& timer);
+	// Move
+	CrossRoad(CrossRoad&&);
+	CrossRoad& operator=(CrossRoad&&);
 
 	enum struct States{ //todo Off/FlashingMinDuration
 		Off, OffMinDuration, Flashing, FlashingMinDuration, MinorFlashing,

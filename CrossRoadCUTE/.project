@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>CrossRoadLib</project>
+		<project>ResultManagerMock</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

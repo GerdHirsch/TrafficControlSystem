@@ -17,6 +17,8 @@ ResultManager::ResultManager()
 ResultManager::~ResultManager() { }
 
 void ResultManager::beginInit(){
+	expected.clear();
+	result.clear();
 	if(currentState == NoTracking)
 		currentState = Init;
 }
@@ -33,14 +35,21 @@ void ResultManager::endTest(){
 		currentState = Finished;
 }
 void ResultManager::addString(std::string message){
-	if(currentState == Init){
-		expected.append(std::move(message));
-	}else if(currentState == Test){
-		result.append(std::move(message));
+	switch(currentState){
+	case Init:
+		expected+=std::move(message);
+		break;
+	case Test:
+		result+=std::move(message);
+		break;
+	case Finished:
+	default: // nothing to do
+		break;
 	}
 }
 bool ResultManager::succeed() const{
-	return expected == result;
+	if(currentState != Finished) return false;
+	else return expected == result;
 }
 
 } /* namespace Mock */

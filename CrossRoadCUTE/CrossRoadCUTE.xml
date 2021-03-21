@@ -1,7 +1,7 @@
 <testsuites>
 	<testsuite name="CrossRoadTest" tests="1">
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::ConstuctorTest">
-			<failure message="../src/../include/CrossRoadTest.hpp:38 ConstuctorTest: Todo implement Test">
+			<failure message="../src/../include/CrossRoadTest.hpp:52 ConstuctorTest: Todo implement Test">
 ConstuctorTest: Todo implement Test
 			</failure>
 		</testcase>

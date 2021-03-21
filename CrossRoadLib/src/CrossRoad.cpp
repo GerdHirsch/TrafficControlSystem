@@ -33,6 +33,28 @@ CrossRoad::CrossRoad(
 //		this->timer->setCallback(&CrossRoad::trigger);
 //	}
 }
+CrossRoad::CrossRoad(CrossRoad&& rhs)
+	:
+		currentState(rhs.currentState),
+		a1(rhs.a1), a2(rhs.a2), a3(rhs.a3),
+		timer(rhs.timer),
+		myMutex(),
+		regulateTrafficDeferred(rhs.regulateTrafficDeferred),
+		flashDeferred(rhs.flashDeferred)
+{
+
+}
+CrossRoad& CrossRoad::operator=(CrossRoad&& rhs){
+	currentState = rhs.currentState;
+	a1 = rhs.a1;
+	a2 = rhs.a2;
+	a3 = rhs.a3;
+//	myMutex = std::move(rhs.myMutex); not moveable
+	regulateTrafficDeferred = rhs.regulateTrafficDeferred;
+	flashDeferred = rhs.flashDeferred;
+
+	return *this;
+}
 //==========================================
 void CrossRoad::flash()
 {

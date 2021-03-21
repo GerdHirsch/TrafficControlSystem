@@ -18,12 +18,26 @@
 namespace CR = CrossRoadLib;
 
 class CrossRoadTest{
+public:
 	using this_type = CrossRoadTest;
+	CrossRoadTest()
+	:
+		resultManager(),
+		timer(resultManager),
+		a1(resultManager), a2(resultManager), a3(resultManager)
+	{}
 	// Tests
 	void ConstuctorTest();
 
 	// Types
 	using SUT = CR::CrossRoad;
+	SUT createSUT(){
+		return CR::CrossRoad(a1, a2, a3, timer);
+	}
+	// Member
+	Mock::ResultManager resultManager;
+	Mock::MockTimer timer;
+	Mock::MockTrafficLight a1, a2, a3;
 public:
 	template<class DerivedTest = this_type>
 	static cute::suite make_suite(){

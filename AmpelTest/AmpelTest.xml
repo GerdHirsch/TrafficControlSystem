@@ -1,0 +1,9 @@
+<testsuites>
+	<testsuite name="AmpelReferenceTest" tests="1">
+		<testcase classname="AmpelReferenceTest" name="AmpelReferenceTest::testBlinkend_aus">
+			<failure message="..\src\AmpelTest.cpp:23 testBlinkend_aus: rm.getExpected() == rm.getResult() expected:	r.off | y.off | g.on | 	but was:	r.off | y.off | g.off | 	">
+testBlinkend_aus: rm.getExpected() == rm.getResult() expected:	r.off | y.off | g.on | 	but was:	r.off | y.off | g.off | 	
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

@@ -8,14 +8,22 @@
 #ifndef MOCKS_MOCKTIMER_HPP_
 #define MOCKS_MOCKTIMER_HPP_
 
+
+#include <Mock/ResultManager.hpp>
 #include <CrossRoad/Timer.hpp>
 #include <CrossRoad/CrossRoad.hpp>
-namespace CR = CrossRoadLib;
 
+
+namespace Mock{
+
+namespace CR = CrossRoadLib;
 
 
 class MockTimer : public CR::Timer{
 public:
+	MockTimer(ResultManager& resultManager)
+	: resultManager(&resultManager){}
+
 	// Timer Interface
 	virtual void add(CR::CrossRoad& crossRoad) override;
 	virtual void setCallback(CallbackType callback) override;
@@ -42,6 +50,7 @@ public:
 	IntervalDuration intervalDuration;
 	CR::CrossRoad* crossRoad=nullptr;
 	CallbackType function=nullptr;
+	ResultManager *resultManager;
 
 };
 inline
@@ -65,5 +74,5 @@ void MockTimer::startTimer(){
 
 }
 
-
+} // namespace Mock
 #endif /* MOCKS_MOCKTIMER_HPP_ */
