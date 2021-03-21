@@ -1,0 +1,5 @@
+<testsuites>
+	<testsuite name="TrafficLightReferenceTest" tests="1">
+		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest::testFlashing_off"/>
+	</testsuite>
+</testsuites>

@@ -5,8 +5,8 @@
  *      Author: Gerd
  */
 
-#ifndef INCLUDE_AMPELTEST_H_
-#define INCLUDE_AMPELTEST_H_
+#ifndef INCLUDE_TRAFFICLIGHTTEST_H_
+#define INCLUDE_TRAFFICLIGHTTEST_H_
 
 //#include "ResultManager.h"
 #include "MockLamp.h"
@@ -22,14 +22,14 @@
 
 namespace CR = CrossRoadLib;
 
-class AmpelTest {
+class TrafficLightTest {
 public:
-	AmpelTest(): rm(), red("r", rm), yellow("y", rm), green("g", rm)
+	TrafficLightTest(): rm(), red("r", rm), yellow("y", rm), green("g", rm)
 	{ };
-	virtual ~AmpelTest(){};
+	virtual ~TrafficLightTest(){};
 	// tests
-	void testBlinkend_aus();
-	virtual void initBlinkend_aus() = 0;
+	void testFlashing_off();
+	virtual void initFlashing_off() = 0;
 
 	// Types
 	using SUT = CR::TrafficLight;
@@ -51,10 +51,10 @@ public:
 	static cute::suite make_suite(){
 		cute::suite s {};
 
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testBlinkend_aus));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_off));
 
 		return s;
 	}
 };
 
-#endif /* INCLUDE_AMPELTEST_H_ */
+#endif /* INCLUDE_TRAFFICLIGHTTEST_H_ */

@@ -5,13 +5,13 @@
  *      Author: Gerd
  */
 
-#include "../include/AmpelTest.h"
+#include "../include/TrafficLightTest.h"
 
-void AmpelTest::testBlinkend_aus(){
+void TrafficLightTest::testFlashing_off(){
 	SUT& sut = createSUT();
 
 	rm.beginInit();
-	initBlinkend_aus();
+	initFlashing_off();
 	rm.endInit();
 
 	sut.flash();

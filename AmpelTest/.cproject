@@ -51,7 +51,7 @@
 								<option id="gnu.cpp.link.option.libs.1888576573" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="ResultManagerMock"/>
 								</option>
-								<option id="gnu.cpp.link.option.paths.341230364" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
+								<option id="gnu.cpp.link.option.paths.341230364" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ResultManagerMock/Debug}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.683325103" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
