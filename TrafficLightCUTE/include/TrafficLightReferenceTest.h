@@ -8,7 +8,7 @@
 #ifndef INCLUDE_TRAFFICLIGHTREFERENCETEST_H_
 #define INCLUDE_TRAFFICLIGHTREFERENCETEST_H_
 
-#include "TrafficLightReference.h"
+#include "TrafficLightReference.hpp"
 
 #include "TrafficLightTest.h"
 
@@ -18,19 +18,21 @@ public:
 	using this_type = TrafficLightReferenceTest;
 	using base_type = TrafficLightTest;
 
-	TrafficLightReferenceTest() : referenceImplementation(red, yellow, green)
-{}
+	TrafficLightReferenceTest()
+	{
+		std::cout << __PRETTY_FUNCTION__ << std::endl;
+	}
 	static cute::suite make_suite(){
 		return base_type::make_suite<this_type>();
 	}
 protected:
-	SUT& createSUT() {
-		return referenceImplementation;
+	std::unique_ptr<SUT> createSUT() {
+		return std::unique_ptr<SUT>(new TrafficLightReference(getRed(), getYellow(), getGreen()));
 	}
 
+	void initConstructor() { red.off(); yellow.off(); green.off();	}
 	void initFlashing_off() { red.off(); yellow.off(); green.off();	}
 private:
-	TrafficLightReference referenceImplementation;
 };
 
 

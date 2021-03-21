@@ -9,6 +9,7 @@
 #include <chrono>
 
 namespace TCS{
+
 namespace SPT = SimplePeriodicTimer;
 
 class TrafficLight{

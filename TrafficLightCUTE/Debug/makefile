@@ -38,19 +38,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: AmpelTest.exe
+all: TrafficLightCUTE.exe
 
 # Tool invocations
-AmpelTest.exe: $(OBJS) $(USER_OBJS)
+TrafficLightCUTE.exe: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cygwin C++ Linker'
-	g++  -o "AmpelTest.exe" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -L"C:\Users\Gerd\git\TrafficControlSystem\ResultManagerMock\Debug" -o "TrafficLightCUTE.exe" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(CPP_DEPS)$(C_DEPS) AmpelTest.exe
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(CPP_DEPS)$(C_DEPS) TrafficLightCUTE.exe
 	-@echo ' '
 
 .PHONY: all clean dependents

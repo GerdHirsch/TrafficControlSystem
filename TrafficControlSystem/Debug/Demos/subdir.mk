@@ -17,7 +17,7 @@ CPP_DEPS += \
 Demos/%.o: ../Demos/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cygwin C++ Compiler'
-	g++ -std=c++0x -I"C:\Users\Gerd\git\RepositoriesNeon\SimplePeriodicTimer\SimplePeriodicTimer\include" -I"C:\Users\Gerd\git\RepositoriesNeon\TCS_CrossRoadLib\TCS_CrossRoadLib\include" -O0 -g3 -Wall -c -fmessage-length=0 -Wno-attributes -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	g++ -std=c++0x -I"C:\Users\Gerd\git\PeriodicTimer\SimplePeriodicTimer\include" -I"C:\Users\Gerd\git\TrafficControlSystem\CrossRoadLib\include" -O0 -g3 -Wall -c -fmessage-length=0 -Wno-attributes -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

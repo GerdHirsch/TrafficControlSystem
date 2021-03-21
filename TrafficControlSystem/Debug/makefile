@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include src/subdir.mk
 -include Demos/subdir.mk
 -include subdir.mk
 -include objects.mk
@@ -38,19 +39,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: TCS_TrafficControlSystem.exe
+all: TrafficControlSystem.exe
 
 # Tool invocations
-TCS_TrafficControlSystem.exe: $(OBJS) $(USER_OBJS)
+TrafficControlSystem.exe: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cygwin C++ Linker'
-	g++  -o "TCS_TrafficControlSystem.exe" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -L"C:\Users\Gerd\git\TrafficControlSystem\CrossRoadLib\Debug" -o "TrafficControlSystem.exe" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(CPP_DEPS)$(C_DEPS) TCS_TrafficControlSystem.exe
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(CPP_DEPS)$(C_DEPS) TrafficControlSystem.exe
 	-@echo ' '
 
 .PHONY: all clean dependents

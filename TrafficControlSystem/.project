@@ -3,8 +3,8 @@
 	<name>TrafficControlSystem</name>
 	<comment></comment>
 	<projects>
+		<project>CrossRoadLib</project>
 		<project>SimplePeriodicTimer</project>
-		<project>TCS_CrossRoadLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-#include "../include/TrafficLightReference.h"
+#include "../include/TrafficLightReference.hpp"
 #include "../include/TrafficLightReferenceTest.h"
 using namespace std;
 

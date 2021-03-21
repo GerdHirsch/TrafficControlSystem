@@ -4,23 +4,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/AmpelTest.cpp \
-../src/Test.cpp 
+../src/Test.cpp \
+../src/TrafficLightTest.cpp 
 
 OBJS += \
-./src/AmpelTest.o \
-./src/Test.o 
+./src/Test.o \
+./src/TrafficLightTest.o 
 
 CPP_DEPS += \
-./src/AmpelTest.d \
-./src/Test.d 
+./src/Test.d \
+./src/TrafficLightTest.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
 src/%.o: ../src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cygwin C++ Compiler'
-	g++ -std=c++1y -I"D:\DevProjects\Cpp\GitProjectsNeon\AmpelTest\cute" -I"D:\DevProjects\Cpp\GitProjectsNeon\AmpelTest\boost" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	g++ -std=c++0x -I"C:\Users\Gerd\git\TrafficControlSystem\TrafficLightCUTE\cute" -I"C:\Users\Gerd\git\PeriodicTimer\SimplePeriodicTimer\include" -I"C:\Users\Gerd\git\TrafficControlSystem\CrossRoadLib\include" -I"C:\Users\Gerd\git\TrafficControlSystem\ResultManagerMock\include" -I"C:\Users\Gerd\git\TrafficControlSystem\TrafficControlSystem\include" -O0 -g3 -Wall -c -fmessage-length=0 -Wno-attributes -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
