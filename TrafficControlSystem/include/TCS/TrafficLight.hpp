@@ -72,13 +72,15 @@ public:
 		std::chrono::milliseconds lockDuration(10);
 		while(!guard.try_lock_for(lockDuration))
 			;
-		currentState = Flashing;
-		entryFlashing();
+		if(currentState != Flashing){
+			currentState = Flashing;
+			entryFlashing();
+		}
 	}
 	void off(){
 		Guard guard(myMutex);
 		if(currentState != Flashing && currentState != Off){
-			std::cout << "off not in state Flashing" << std::endl;
+			//std::cout << "off not in state Flashing" << std::endl;
 			return; // throw Exception
 		}else if(currentState == Flashing){
 			currentState = Off;
@@ -91,9 +93,9 @@ private:
 	void doFlashing(){
 		Guard guard (myMutex);
 
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		//std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 		if(currentState != Flashing){
-			std::cout << name << " removeReceiver(*this)" << std::endl;
+			//std::cout << name << " removeReceiver(*this)" << std::endl;
 			timer->removeReceiver(*this);
 		}
 		if(yellow->isOn()) yellow->off();
@@ -102,32 +104,32 @@ private:
 	// state entry behaviors
 	void entryRed(){
 		red->on(); yellow->off(); green->off();
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		//std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 	}
 	void entryRedYellow(){
 		red->on(); yellow->on(); green->off();
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		//std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 	}
 	void entryGreen(){
 		red->off(); yellow->off(); green->on();
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		//std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 	}
 	void entryYellow(){
 		red->off(); yellow->on(); green->off();
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		//std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 	}
 	void entryFlashing(){
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		//std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 		lampsOff();
 		timer->addReceiver(*this);
 	}
 	void entryOff(){
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		//std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 		lampsOff();
 	}
 	void lampsOff(){
 		red->off(); yellow->off(); green->off();
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		//std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 	}
 private:
 	States currentState = Off;

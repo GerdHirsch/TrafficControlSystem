@@ -26,32 +26,50 @@ class TrafficLightTest {
 public:
 	TrafficLightTest(): rm(), red("r", rm), yellow("y", rm), green("g", rm), timer(rm)
 	{
-		std::cout << __PRETTY_FUNCTION__ << std::endl;
+//		std::cout << __PRETTY_FUNCTION__ << std::endl;
 	};
+
 	virtual ~TrafficLightTest(){};
 	// tests
 	void testConstructor();
 	virtual void initConstructor() = 0;
+
 	void testOff_flash();
 	virtual void initOff_flash() = 0;
 	void testFlashing_off();
 	virtual void initFlashing_off() = 0;
+	void testFlashing_flash();
+	virtual void initFlashing_flash() = 0;
+
+	void testFlashing_switchOver();
+	 virtual void initFlashing_switchOver() = 0;
+
+	void testOperation_switchOver();
+	virtual void initOperation_switchOver() = 0;
+
+	void testOperation_timerTick();
+	virtual void initOperation_timerTick() = 0;
+
+	void testExceptionOff_switchOver();
+	virtual void initExceptionOff_switchOver() = 0;
+	void testExceptionOperation_off();
+	virtual void initExceptionOperation_off() = 0;
 
 	// Types
 	using SUT = CR::TrafficLight;
 	using Timer = MockPeriodicTimer<SUTImplementation>;
 protected:
 	virtual std::unique_ptr<SUT> createSUT() = 0;
-
-	Lamp& getRed()		{ return red; }
-	Lamp& getYellow()	{ return yellow; }
-	Lamp& getGreen()	{ return green; }
-	Timer& getTimer() 	{ return timer; }
 	SUT& getSUT(){
 		if(!pSUT)
 			pSUT = createSUT();
 		return *pSUT;
 	}
+
+	Lamp& getRed()		{ return red; }
+	Lamp& getYellow()	{ return yellow; }
+	Lamp& getGreen()	{ return green; }
+	Timer& getTimer() 	{ return timer; }
 
 protected:
 	Mock::ResultManager rm;
@@ -69,6 +87,12 @@ public:
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testConstructor));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOff_flash));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_off));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_flash));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_switchOver));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_timerTick));
+
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testExceptionOff_switchOver));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testExceptionOperation_off));
 
 		return s;
 	}
@@ -84,7 +108,7 @@ void TrafficLightTest<SUTImpl>::testConstructor(){
 
 
 	rm.beginTest();
-	createSUT();
+	getSUT();
 	rm.endTest();
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
@@ -93,14 +117,14 @@ void TrafficLightTest<SUTImpl>::testConstructor(){
 template<class SUTImpl>
 inline
 void TrafficLightTest<SUTImpl>::testOff_flash(){
-	auto sut = createSUT();
+	auto &sut = getSUT();
 
 	rm.beginInit();
 	initOff_flash();
 	rm.endInit();
 
 	rm.beginTest();
-	sut->flash();
+	sut.flash();
 	ASSERTM("hasReceiver", timer.hasReceiver());
 	ASSERTM("hasCallback", timer.hasCallback());
 
@@ -113,19 +137,115 @@ void TrafficLightTest<SUTImpl>::testOff_flash(){
 template<class SUTImpl>
 inline
 void TrafficLightTest<SUTImpl>::testFlashing_off(){
-	auto sut = createSUT();
+	auto &sut = getSUT();
 
 	rm.beginInit();
 	initFlashing_off();
 	rm.endInit();
 
-	sut->flash();
+	sut.flash();
 
 	rm.beginTest();
-	sut->off();
+	sut.off();
 	rm.endTest();
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+template<class SUTImpl>
+inline
+void TrafficLightTest<SUTImpl>::testFlashing_flash(){
+	auto &sut = getSUT();
+
+	rm.beginInit();
+	initFlashing_flash();
+	rm.endInit();
+
+	sut.flash();
+
+	rm.beginTest();
+	sut.flash();
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+template<class SUTImpl>
+inline
+void TrafficLightTest<SUTImpl>::testOperation_switchOver(){
+	auto &sut = getSUT();
+
+	rm.beginInit();
+	initOperation_switchOver();
+	rm.endInit();
+
+	sut.flash();
+	sut.switchOver();//yellow
+
+	rm.beginTest();
+	sut.switchOver();//red
+	sut.switchOver();
+	sut.switchOver();
+	sut.switchOver();
+	sut.switchOver();//red
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+template<class SUTImpl>
+inline
+void TrafficLightTest<SUTImpl>::testOperation_timerTick(){
+	auto &sut = getSUT();
+
+	rm.beginInit();
+	initOperation_timerTick();
+	rm.endInit();
+
+	sut.flash();
+	sut.switchOver();//yellow
+
+	rm.beginTest();
+	timer.tick();
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+	ASSERTM("timer not inactive", !timer.hasReceiver());
+}
+template<class SUTImpl>
+inline
+void TrafficLightTest<SUTImpl>::testExceptionOperation_off(){
+//	auto &sut = getSUT();
+//
+//	rm.beginInit();
+//	initOperation_timerTick();
+//	rm.endInit();
+//
+//	sut.flash();
+//	sut.switchOver();//yellow
+//
+//	rm.beginTest();
+//	timer.tick();
+//	rm.endTest();
+
+//	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+	ASSERTM("todo implement test", false);
+}
+template<class SUTImpl>
+inline
+void TrafficLightTest<SUTImpl>::testExceptionOff_switchOver(){
+//	auto &sut = getSUT();
+//
+//	rm.beginInit();
+//	initOperation_timerTick();
+//	rm.endInit();
+//
+//	sut.flash();
+//	sut.switchOver();//yellow
+//
+//	rm.beginTest();
+//	timer.tick();
+//	rm.endTest();
+
+//	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+	ASSERTM("todo implement test", false);
 }
 
 #endif /* INCLUDE_TRAFFICLIGHTTEST_H_ */

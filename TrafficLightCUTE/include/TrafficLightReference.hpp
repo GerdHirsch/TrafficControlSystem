@@ -37,11 +37,40 @@ public:
 		}//else Todo handle ProtocolViolation
 	}
 	void flash(){
+		if(state != Flashing){
 			state = Flashing;
 			entryFlashing();
 			timer->addReceiver(*this);
+		}
 	}
-	void switchOver(){}
+	void switchOver(){
+		switch(state){
+		case Red:
+			state = RedYellow;
+			entryRedYellow();
+			break;
+		case RedYellow:
+			state = Green;
+			entryGreen();
+			break;
+		case Green:
+			state = Yellow;
+			entryYellow();
+			break;
+		case Yellow:
+			state = Red;
+			entryRed();
+			break;
+		case Flashing:
+			state = Yellow;
+			entryYellow();
+			break;
+		case Off:
+		default:
+			// throw ProtocolViolationException;
+			break;
+		}
+	}
 private:
 	void entryOff(){
 		allLampsOff();
@@ -49,13 +78,25 @@ private:
 	void entryFlashing(){
 		allLampsOff();
 	}
+	void entryRed(){
+		red.on(); yellow.off(); green.off();
+	}
+	void entryRedYellow(){
+		red.on(); yellow.on(); green.off();
+	}
+	void entryGreen(){
+		red.off(); yellow.off(); green.on();
+	}
+	void entryYellow(){
+		red.off(); yellow.on(); green.off();
+	}
 	void allLampsOff(){
 		red.off(); yellow.off(); green.off();
 	}
 
 	void doFlashing(){
 		if(state != Flashing){
-//			timer.stop(this);
+			timer->removeReceiver(*this);
 		}else if(yellow.isOn()){
 			yellow.off();
 		} else{

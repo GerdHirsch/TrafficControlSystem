@@ -40,18 +40,31 @@ protected:
 		);
 	}
 	// init tests
-	void initConstructor() { allOff(); this->timer.setCallback(nullptr);	}
+	void initConstructor() 	{ allOff();	}
 	void initFlashing_off() { allOff();	}
 	void initOff_flash() { /* 6 ticks */
 		allOff();
 		yellow.on(); yellow.off(); yellow.on();  yellow.off(); yellow.on();  yellow.off();
 	}
+	void initFlashing_flash(){ 	}
+	void initFlashing_switchOver(){ red.off(); yellow.on(); green.off();}
+	void initOperation_switchOver(){ /*5 times switchOver */
+		red.on(); yellow.off(); green.off();
+		red.on(); yellow.on(); green.off();
+		red.off(); yellow.off(); green.on();
+		red.off(); yellow.on(); green.off();
+		red.on(); yellow.off(); green.off();
+	}
+	void initOperation_timerTick(){}
+	void initExceptionOff_switchOver(){}
+	void initExceptionOperation_off(){}
+
+
+
 	// helper
 	void allOff(){ red.off(); yellow.off(); green.off();}
 private:
 
 };
-
-
 
 #endif /* INCLUDE_TRAFFICLIGHTREFERENCETEST_H_ */
