@@ -67,11 +67,6 @@ protected:
 		return *pSUT;
 	}
 
-	Lamp& getRed()		{ return red; }
-	Lamp& getYellow()	{ return yellow; }
-	Lamp& getGreen()	{ return green; }
-	Timer& getTimer() 	{ return timer; }
-
 protected:
 	Mock::ResultManager rm;
 	MockLamp red;
@@ -79,8 +74,8 @@ protected:
 	MockLamp green;
 	Timer timer;
 	std::unique_ptr<SUT> pSUT;
-public:
 
+public:
 	template<class DerivedTest>
 	static cute::suite make_suite(){
 		cute::suite s {};

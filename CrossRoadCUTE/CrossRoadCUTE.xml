@@ -1,8 +1,10 @@
 <testsuites>
-	<testsuite name="CrossRoadTest" tests="1">
-		<testcase classname="CrossRoadTest" name="CrossRoadTest::ConstuctorTest">
-			<failure message="../src/../include/CrossRoadTest.hpp:52 ConstuctorTest: Todo implement Test">
-ConstuctorTest: Todo implement Test
+	<testsuite name="CrossRoadTest" tests="3">
+		<testcase classname="CrossRoadTest" name="CrossRoadTest::testConstuctor"/>
+		<testcase classname="CrossRoadTest" name="CrossRoadTest::testOFF_flash"/>
+		<testcase classname="CrossRoadTest" name="CrossRoadTest::testOFFMinDuration_flash">
+			<failure message="../src/../include/CrossRoadTest.hpp:164 testOFFMinDuration_flash: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|startTimer|	but was:	a1.flash|a2.flash|a3.flash|stopTimer|	">
+testOFFMinDuration_flash: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|startTimer|	but was:	a1.flash|a2.flash|a3.flash|stopTimer|	
 			</failure>
 		</testcase>
 	</testsuite>

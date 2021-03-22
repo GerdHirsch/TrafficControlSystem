@@ -17,27 +17,32 @@ namespace Mock{
 
 class MockTrafficLight : public CR::TrafficLight{
 public:
-	MockTrafficLight(ResultManager& resultManager)
+	MockTrafficLight(std::string name, ResultManager& resultManager)
 	:
+		name(name),
 		resultManager(&resultManager)
 	{}
 	void off() override;
 	void flash() override;
 	void switchOver() override;
 
+	std::string name;
 	ResultManager *resultManager=nullptr;
 };
 inline
 void MockTrafficLight::off(){
-
+	resultManager->addString(name);
+	resultManager->addString(".off|");
 }
 inline
 void MockTrafficLight::flash(){
-
+	resultManager->addString(name);
+	resultManager->addString(".flash|");
 }
 inline
 void MockTrafficLight::switchOver(){
-
+	resultManager->addString(name);
+	resultManager->addString(".switchOver|");
 }
 
 } // namespace Mock

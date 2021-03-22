@@ -13,6 +13,8 @@
 #include <CrossRoad/Timer.hpp>
 #include <CrossRoad/CrossRoad.hpp>
 
+#include <string>
+
 
 namespace Mock{
 
@@ -30,28 +32,18 @@ public:
 	virtual void setIntervalDuration(IntervalDuration nextInterval) override;
 	virtual void stopTimer() override;
 	virtual void startTimer() override;
+
 	// Test Interface
-	void tick(){
-		(crossRoad->*function)();
-	}
-//	bool addCalled(){
-//		return crossRoad != nullptr;
-//	}
-//	bool setCallbackCalled(){
-//		return function != nullptr;
-//	}
-//	bool stopTimerCalled(){
-//		return false;
-//	}
-//	auto getIntervalDuration() -> decltype(intervalDuration.count())
-//	{
-//		return intervallDuration.count();
-//	}
+	void tick(){ (crossRoad->*function)(); }
+	bool hasReceiver() const { return crossRoad != nullptr; }
+	bool hasCallback() const { return function != nullptr; }
+	IntervalDuration getIntervalDuration(){ return intervalDuration;}
+
+private:
 	IntervalDuration intervalDuration;
 	CR::CrossRoad* crossRoad=nullptr;
 	CallbackType function=nullptr;
 	ResultManager *resultManager;
-
 };
 inline
 void MockTimer::add(CR::CrossRoad& crossroad){
@@ -64,13 +56,18 @@ void MockTimer::setCallback(CallbackType callback){
 inline
 void MockTimer::setIntervalDuration(IntervalDuration nextInterval){
 	this->intervalDuration = nextInterval;
-}
-inline
-void MockTimer::stopTimer(){
+	resultManager->addString("Interval:");
+	resultManager->addString( std::to_string(nextInterval.count()) );
+	resultManager->addString("|");
 
 }
 inline
+void MockTimer::stopTimer(){
+	resultManager->addString("stopTimer|");
+}
+inline
 void MockTimer::startTimer(){
+	resultManager->addString("startTimer|");
 
 }
 
