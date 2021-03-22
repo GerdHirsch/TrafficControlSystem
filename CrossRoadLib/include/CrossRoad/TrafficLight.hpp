@@ -12,8 +12,14 @@ namespace CrossRoadLib{
 
 class TrafficLight{
 public:
-	virtual void off() = 0;
-	virtual void switchOver() = 0;
+	/// Invariant: Operation: Red->RedYellow->Green->Yellow
+	///Pre: currentState == Flashing or Off
+	///Post: currentState == Off
+	virtual void off() = 0; // throws ProtocolViolationException in Operation
+	///Pre: currentState == Flashing or Operation
+	///Post: currentState == next State: Flashing->Yellow->Red->RedYellow->Green->Yellow
+	virtual void switchOver() = 0; // throws ProtocolViolationException in Off
+	///Post: currentState == Flashing
 	virtual void flash() = 0;
 };
 

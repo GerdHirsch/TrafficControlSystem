@@ -5,6 +5,7 @@
 
 #include <PeriodicTimer/PeriodicTimer.hpp>
 #include <CrossRoad/TrafficLight.hpp>
+#include <CrossRoad/ProtocolViolationException.hpp>
 
 #include <string>
 #include <iostream>
@@ -63,7 +64,7 @@ public:
 			break;
 		case Off:
 		default:
-//			throw Exception;
+			throw ProtocolViolationException("switchOver in State Off");
 			break;
 		}
 	}
@@ -81,7 +82,7 @@ public:
 		Guard guard(myMutex);
 		if(currentState != Flashing && currentState != Off){
 			//std::cout << "off not in state Flashing" << std::endl;
-			return; // throw Exception
+			throw ProtocolViolationException("off in state Operation");
 		}else if(currentState == Flashing){
 			currentState = Off;
 			entryOff();

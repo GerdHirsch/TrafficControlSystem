@@ -14,6 +14,7 @@
 #include <Mock/ResultManager.hpp>
 
 #include <CrossRoad/TrafficLight.hpp>
+#include <CrossRoad/ProtocolViolationException.hpp>
 
 #include <cute.h>
 
@@ -212,40 +213,19 @@ void TrafficLightTest<SUTImpl>::testOperation_timerTick(){
 template<class SUTImpl>
 inline
 void TrafficLightTest<SUTImpl>::testExceptionOperation_off(){
-//	auto &sut = getSUT();
-//
-//	rm.beginInit();
-//	initOperation_timerTick();
-//	rm.endInit();
-//
-//	sut.flash();
-//	sut.switchOver();//yellow
-//
-//	rm.beginTest();
-//	timer.tick();
-//	rm.endTest();
+	auto &sut = getSUT();
 
-//	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
-	ASSERTM("todo implement test", false);
+	sut.flash();
+	sut.switchOver();//yellow
+	ASSERT_THROWS(sut.off(), ProtocolViolationException);
+
 }
 template<class SUTImpl>
 inline
 void TrafficLightTest<SUTImpl>::testExceptionOff_switchOver(){
-//	auto &sut = getSUT();
-//
-//	rm.beginInit();
-//	initOperation_timerTick();
-//	rm.endInit();
-//
-//	sut.flash();
-//	sut.switchOver();//yellow
-//
-//	rm.beginTest();
-//	timer.tick();
-//	rm.endTest();
+	auto &sut = getSUT();
 
-//	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
-	ASSERTM("todo implement test", false);
+	ASSERT_THROWS(sut.switchOver(), ProtocolViolationException);
 }
 
 #endif /* INCLUDE_TRAFFICLIGHTTEST_H_ */
