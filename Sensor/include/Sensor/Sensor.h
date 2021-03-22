@@ -12,6 +12,7 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
+#include <chrono>
 
 namespace SensorHersteller{
 /**
@@ -21,13 +22,16 @@ namespace SensorHersteller{
 template<class ObserverPolicy>
 class Sensor : public ObserverPolicy{
 public:
+	using this_type = Sensor<ObserverPolicy>;
 	Sensor():ObserverPolicy(){}
 
 	void externalSignal(){
-		this->fireTrigger(getTimestamp());
+		this->fireTrigger(this_type::getTimestamp());
 	}
 private:
-	static unsigned long getTimestamp(){ return 0;/*todo systime*/}
+	static unsigned long getTimestamp(){
+		return std::chrono::steady_clock::now().time_since_epoch().count();
+	}
 
 };
 

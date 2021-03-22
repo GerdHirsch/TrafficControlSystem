@@ -20,7 +20,7 @@ class MyListener : public SH::SensorListener{
 public:
 	MyListener(std::string const& name):name(name){}
 	void trigger(unsigned long timestamp){
-		std::cout << name << ".trigger() called" << std::endl;
+		std::cout << name << ".trigger() called timestamp: " << timestamp << std::endl;
 	}
 	virtual ~MyListener(){ std::cout << "MyListener::~MyListener(): " << name << std::endl;  }
 	std::string name;
