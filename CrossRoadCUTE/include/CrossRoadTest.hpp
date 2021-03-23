@@ -73,9 +73,9 @@ public:
 	void testMinorDrive_trigger();
 	virtual void initMinorDrive_trigger();
 
-//	void testMajorDrive_flash();
-//	virtual void initMajorDrive_flash();
-//
+	void testMajorDrive_flash();
+	virtual void initMajorDrive_flash();
+
 //	// deferred from all states but MajorDrive
 //	void testOperation_flash_deferred();
 //	virtual void initOperation_flash_deferred();
@@ -115,6 +115,9 @@ public:
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorYellow_trigger));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMinorRedYellow_trigger));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMinorDrive_trigger));
+
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorDrive_flash));
+
 		return s;
 	}
 
@@ -510,7 +513,34 @@ void CrossRoadTest::initMinorDrive_trigger(){
 	a3.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorYellow));
 }
+//--------------------------------
+inline
+void CrossRoadTest::testMajorDrive_flash(){
+	rm.beginInit();
+	initMajorDrive_flash();
+	rm.endInit();
 
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+	timer.tick();	// MajorDrive stopTimer
+
+	rm.beginTest();
+	sut.flash();
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+inline
+void CrossRoadTest::initMajorDrive_flash(){
+	a1.flash(); a2.flash(); a3.flash();
+	timer.setIntervalDuration(IntervalDuration(SUT::FlashingMinDuration));
+	timer.startTimer();
+}
 
 
 #endif /* INCLUDE_CROSSROADTEST_HPP_ */
