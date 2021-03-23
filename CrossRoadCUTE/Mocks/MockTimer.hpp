@@ -22,9 +22,19 @@ namespace CR = CrossRoadLib;
 
 
 class MockTimer : public CR::Timer{
+private:
+	IntervalDuration intervalDuration;
+	CR::CrossRoad* crossRoad=nullptr;
+	CallbackType function=nullptr;
+	ResultManager *resultManager;
+
 public:
+
 	MockTimer(ResultManager& resultManager)
-	: resultManager(&resultManager){}
+	:
+		intervalDuration(IntervalDuration(0))
+		, resultManager(&resultManager)
+	{}
 
 	// Timer Interface
 	virtual void add(CR::CrossRoad& crossRoad) override;
@@ -37,13 +47,8 @@ public:
 	void tick(){ (crossRoad->*function)(); }
 	bool hasReceiver() const { return crossRoad != nullptr; }
 	bool hasCallback() const { return function != nullptr; }
-	IntervalDuration getIntervalDuration(){ return intervalDuration;}
 
-private:
-	IntervalDuration intervalDuration;
-	CR::CrossRoad* crossRoad=nullptr;
-	CallbackType function=nullptr;
-	ResultManager *resultManager;
+	IntervalDuration getIntervalDuration(){ return intervalDuration;}
 };
 inline
 void MockTimer::add(CR::CrossRoad& crossroad){
