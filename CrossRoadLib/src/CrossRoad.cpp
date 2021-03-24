@@ -18,12 +18,13 @@ CrossRoad::CrossRoad(
 		Timer& timer)
 //		SPT::PeriodicTimer<CrossRoad>& timer)
 :
-	currentState(States::Off)
+	currentState(States::Off) // initialState
 	, a1(&a1), a2(&a2), a3(&a3)
 	, timer(&timer)
 	, regulateTrafficDeferred(false), flashDeferred(false), offDeferred(false), onDeferred(false)
 {
-	entryOff();
+	entryOffMinDuration(); // ax.off() all trafficLights
+	// configure Timer
 	this->timer->add(*this);
 	this->timer->setCallback(&CrossRoad::trigger);
 }
@@ -65,12 +66,12 @@ void CrossRoad::flash()
 	}
 	else if(currentState != States::Flashing && currentState != States::FlashingMinDuration )
 	{
-		std::cout << "CrossRoad::flash() deferred state: " << stateToString() << std::endl;
+		//std::cout << "CrossRoad::flash() deferred state: " << stateToString() << std::endl;
 		flashDeferred = true;
 	}
 	else
 	{
-		std::cout << "CrossRoad.flash() in state " << stateToString() << " ignore" << std::endl;
+		//std::cout << "CrossRoad.flash() in state " << stateToString() << " ignore" << std::endl;
 	}
 }
 //------------------------------------------
@@ -95,16 +96,16 @@ void CrossRoad::regulateTraffic(){
 
 	if(currentState == States::MajorDrive){
 		setState(States::MajorYellow);
-		// entryMajorYellow();
+		entryMajorYellow();
 		regulateTrafficDeferred = false;
 		wait(Times::MajorYellow);
 		timer->startTimer();
 //		timer->addReceiver(*this);
 	}else if(	currentState == States::MinorYellow
-			||	currentState == States::MajorYellow
+			||	currentState == States::MajorRedYellow
 			||	currentState == States::MajorMinDuration){
 		regulateTrafficDeferred = true;
-		std::cout << "CrossRoad::regulateTraffic() deferred in State: " << stateToString() << std::endl;
+		//std::cout << "CrossRoad::regulateTraffic() deferred in State: " << stateToString() << std::endl;
 	}
 	// else ignore event regulateTraffic
 }
@@ -118,7 +119,7 @@ void CrossRoad::off(){
 		offDeferred = false;
 		wait(Times::OffMinDuration);
 		timer->startTimer();
-	}else if(currentState == States::FlashingMinDuration){
+	}else if(currentState == States::FlashingMinDuration || currentState == States::OffMinDuration){
 		offDeferred = true;
 	}
 	// else ignore event off
@@ -174,7 +175,6 @@ void CrossRoad::trigger(){
 	case States::MajorMinDuration:
 		setState(States::MajorDrive);
 		entryMajorDrive();
-		cout << "CrossRoad::trigger MajorMinDuration removeReceiver(*this)" << endl;
 		timer->stopTimer();
 //		timer->removeReceiver(*this);
 
@@ -213,7 +213,7 @@ void CrossRoad::trigger(){
 		//handle deferred events
 		if(flashDeferred){
 			guard.unlock();
-			off();
+			flash();
 		}
 		break;
 	case States::MajorYellow:
@@ -260,9 +260,7 @@ CrossRoad::Guard CrossRoad::tryLock(){
 //================================================
 // entry behaviors
 void CrossRoad::entryOff(){ // called from Ctor
-	a1->off();
-	a2->off();
-	a3->off();
+	// nothing to do
 }
 void CrossRoad::entryOffMinDuration(){
 	a1->off();
@@ -282,8 +280,6 @@ void CrossRoad::entryMinorFlashing(){
 	a2->switchOver();
 }
 void CrossRoad::entryMinorYellow(){
-	a1->switchOver(); // Red
-	a2->switchOver();
 	a3->switchOver(); // Yellow
 }
 void CrossRoad::entryMajorRedYellow(){
@@ -315,8 +311,12 @@ std::string CrossRoad::stateToString()const{
 	switch(currentState){
 	case States::Off:
 		return "Off";
+	case States::OffMinDuration:
+		return "OffMinDuration";
 	case States::Flashing:
 		return "Flashing";
+	case States::FlashingMinDuration:
+		return "FlashingMinDuration";
 	case States::MinorFlashing:
 		return "MinorFlashing";
 	case States::MinorYellow:

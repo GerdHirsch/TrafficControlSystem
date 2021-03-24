@@ -220,11 +220,8 @@ void CrossRoadTest::testFlashing_off(){
 	rm.endInit();
 
 	auto &sut = getSUT();
-	ASSERT_EQUALM("currentState", SUT::States::Off, sut.currentState);
 	sut.flash();	// FlashingMinDuration
-	ASSERT_EQUALM("currentState", SUT::States::FlashingMinDuration, sut.currentState);
 	timer.tick();	// Flashing
-	ASSERT_EQUALM("currentState", SUT::States::Flashing, sut.currentState);
 
 	rm.beginTest();
 	sut.off();
@@ -272,13 +269,14 @@ void CrossRoadTest::testOFFMinDuration_flash_deferred(){
 	rm.endInit();
 
 	auto &sut = getSUT();
-	sut.flash(); // FlashingMinDuration
-	timer.tick();
-	sut.off(); // OffMinDuration
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.off();		// OffMinDuration
+
+	sut.flash();	// -> deferred
 
 	rm.beginTest();
-	sut.flash(); // deferred
-	timer.tick(); // Off->flash->FlashingMinDuration
+	timer.tick();	// Off->flash->FlashingMinDuration
 	rm.endTest();
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
@@ -297,17 +295,13 @@ void CrossRoadTest::testFlashing_on(){
 	rm.endInit();
 
 	auto &sut = getSUT();
-	ASSERT_EQUALM("currentState", SUT::States::Off, sut.currentState);
 	sut.flash();
-	ASSERT_EQUALM("currentState", SUT::States::FlashingMinDuration, sut.currentState);
 	timer.tick(); // Flashing
-	ASSERT_EQUALM("currentState", SUT::States::Flashing, sut.currentState);
 
 	rm.beginTest();
 	sut.on();
 	rm.endTest();
 
-//	ASSERT_EQUALM("currentState", SUT::States::MinorYellow, sut.currentState);
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
@@ -358,7 +352,6 @@ void CrossRoadTest::testMinorFlashing_trigger(){
 }
 inline
 void CrossRoadTest::initMinorFlashing_trigger(){
-	a1.switchOver(); a2.switchOver(); // Red
 	a3.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorYellow));
 }
@@ -401,7 +394,6 @@ void CrossRoadTest::testMajorRedYellow_trigger(){
 
 	rm.beginTest();
 	timer.tick(); // MajorMinDuration
-	timer.tick(); // MajorDrive
 	rm.endTest();
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
@@ -581,8 +573,10 @@ void CrossRoadTest::initMajorDrive_flash(){
 //--------------------------------
 inline
 void CrossRoadTest::initOperation_flash_deferred(){
+	timer.stopTimer();
 	a1.flash(); a2.flash(); a3.flash();
 	timer.setIntervalDuration(IntervalDuration(SUT::FlashingMinDuration));
+	timer.startTimer();
 }
 //--------------------------------
 void CrossRoadTest::testMinorYellow_flash_defered(){
@@ -667,7 +661,7 @@ void CrossRoadTest::testMajorYellow_flash_deferred(){
 	timer.tick();	// MajorRedYellow
 	timer.tick();	// MajorMinDuration
 	timer.tick();	// MajorDrive
-	timer.tick();	// MajorYellow
+	sut.regulateTraffic();	// MajorYellow
 
 	sut.flash();	// -> deferred
 
@@ -697,7 +691,7 @@ void CrossRoadTest::testMinorRedYellow_flash_deferred(){
 	timer.tick();	// MajorRedYellow
 	timer.tick();	// MajorMinDuration
 	timer.tick();	// MajorDrive
-	timer.tick();	// MajorYellow
+	sut.regulateTraffic();	// MajorYellow
 	timer.tick();	// MinorRedYellow
 
 	sut.flash();	// -> deferred
@@ -726,7 +720,7 @@ void CrossRoadTest::testMinorDrive_flash_deferred(){
 	timer.tick();	// MinorYellow
 	timer.tick();	// MajorRedYellow
 	timer.tick();	// MajorMinDuration
-	timer.tick();	// MajorDrive
+	sut.regulateTraffic();	// MajorDrive
 	timer.tick();	// MajorYellow
 	timer.tick();	// MinorRedYellow
 	timer.tick();	// MinorDrive
@@ -748,6 +742,7 @@ void CrossRoadTest::testMinorDrive_flash_deferred(){
 //--------------------------------
 inline
 void CrossRoadTest::initOperation_regulateTraffic_deferred(){
+	timer.stopTimer();
 	a1.switchOver(); a2.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MajorYellow));
 	timer.startTimer();

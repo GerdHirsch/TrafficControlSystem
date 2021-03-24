@@ -74,10 +74,7 @@ private:
 
 private: // Members
 	//================================================
-public:
 	States currentState = States::Off;
-	//------------------------------------------------
-private:
 	TrafficLight *a1, *a2, *a3;
 //	SPT::PeriodicTimer<CrossRoad>* timer;
 	Timer *timer = nullptr;
