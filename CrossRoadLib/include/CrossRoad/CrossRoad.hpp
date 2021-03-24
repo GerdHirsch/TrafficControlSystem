@@ -60,7 +60,9 @@ private:
 	//================================================
 	// entry behaviors
 	void entryOff();
+	void entryOffMinDuration();
 	void entryFlashing();
+	void entryFlashingMinDuration();
 	void entryMinorFlashing();
 	void entryMinorYellow();
 	void entryMajorRedYellow();
@@ -72,8 +74,10 @@ private:
 
 private: // Members
 	//================================================
-	//------------------------------------------------
+public:
 	States currentState = States::Off;
+	//------------------------------------------------
+private:
 	TrafficLight *a1, *a2, *a3;
 //	SPT::PeriodicTimer<CrossRoad>* timer;
 	Timer *timer = nullptr;
@@ -82,6 +86,8 @@ private: // Members
 	// defered Events
 	bool regulateTrafficDeferred = false;
 	bool flashDeferred = false;
+	bool offDeferred = false;
+	bool onDeferred = false;
 };
 
 } // namespace CrossRoadLib
