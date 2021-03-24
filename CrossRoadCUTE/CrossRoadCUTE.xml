@@ -1,36 +1,36 @@
 <testsuites>
-	<testsuite name="CrossRoadTest" tests="16">
+	<testsuite name="CrossRoadTest" tests="22">
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testConstuctor"/>
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testOFF_flash">
-			<failure message="../src/../include/CrossRoadTest.hpp:178 testOFF_flash: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|startTimer|	but was:	a1.flash|a2.flash|a3.flash|	">
+			<failure message="../src/../include/CrossRoadTest.hpp:191 testOFF_flash: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|startTimer|	but was:	a1.flash|a2.flash|a3.flash|	">
 testOFF_flash: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|startTimer|	but was:	a1.flash|a2.flash|a3.flash|	
 			</failure>
 		</testcase>
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testOFFMinDuration_flash_deferred">
-			<failure message="../src/../include/CrossRoadTest.hpp:254 testOFFMinDuration_flash_deferred: rm.getExpected() == rm.getResult() expected:	stopTimer|a1.flash|a2.flash|a3.flash|Interval:2000|startTimer|	but was:	a1.flash|a2.flash|a3.flash|stopTimer|	">
+			<failure message="../src/../include/CrossRoadTest.hpp:267 testOFFMinDuration_flash_deferred: rm.getExpected() == rm.getResult() expected:	stopTimer|a1.flash|a2.flash|a3.flash|Interval:2000|startTimer|	but was:	a1.flash|a2.flash|a3.flash|stopTimer|	">
 testOFFMinDuration_flash_deferred: rm.getExpected() == rm.getResult() expected:	stopTimer|a1.flash|a2.flash|a3.flash|Interval:2000|startTimer|	but was:	a1.flash|a2.flash|a3.flash|stopTimer|	
 			</failure>
 		</testcase>
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testFlashing_off">
-			<failure message="../src/../include/CrossRoadTest.hpp:202 testFlashing_off: rm.getExpected() == rm.getResult() expected:	a1.off|a2.off|a3.off|Interval:2000|startTimer|	but was:	a1.off|a2.off|a3.off|	">
+			<failure message="../src/../include/CrossRoadTest.hpp:215 testFlashing_off: rm.getExpected() == rm.getResult() expected:	a1.off|a2.off|a3.off|Interval:2000|startTimer|	but was:	a1.off|a2.off|a3.off|	">
 testFlashing_off: rm.getExpected() == rm.getResult() expected:	a1.off|a2.off|a3.off|Interval:2000|startTimer|	but was:	a1.off|a2.off|a3.off|	
 			</failure>
 		</testcase>
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testFlashingMinDuration_off_deferred">
-			<failure message="../src/../include/CrossRoadTest.hpp:227 testFlashingMinDuration_off_deferred: rm.getExpected() == rm.getResult() expected:	stopTimer|a1.off|a2.off|a3.off|Interval:2000|startTimer|	but was:	a1.off|a2.off|a3.off|stopTimer|	">
+			<failure message="../src/../include/CrossRoadTest.hpp:240 testFlashingMinDuration_off_deferred: rm.getExpected() == rm.getResult() expected:	stopTimer|a1.off|a2.off|a3.off|Interval:2000|startTimer|	but was:	a1.off|a2.off|a3.off|stopTimer|	">
 testFlashingMinDuration_off_deferred: rm.getExpected() == rm.getResult() expected:	stopTimer|a1.off|a2.off|a3.off|Interval:2000|startTimer|	but was:	a1.off|a2.off|a3.off|stopTimer|	
 			</failure>
 		</testcase>
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testFlashing_on"/>
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testFlashingMinDuration_on_deferred">
-			<failure message="../src/../include/CrossRoadTest.hpp:299 testFlashingMinDuration_on_deferred: rm.getExpected() == rm.getResult() expected:	stopTimer|a1.switchOver|a2.switchOver|Interval:2000|startTimer|	but was:	a1.switchOver|a2.switchOver|Interval:2000|startTimer|a1.switchOver|a2.switchOver|a3.switchOver|Interval:1500|	">
+			<failure message="../src/../include/CrossRoadTest.hpp:312 testFlashingMinDuration_on_deferred: rm.getExpected() == rm.getResult() expected:	stopTimer|a1.switchOver|a2.switchOver|Interval:2000|startTimer|	but was:	a1.switchOver|a2.switchOver|Interval:2000|startTimer|a1.switchOver|a2.switchOver|a3.switchOver|Interval:1500|	">
 testFlashingMinDuration_on_deferred: rm.getExpected() == rm.getResult() expected:	stopTimer|a1.switchOver|a2.switchOver|Interval:2000|startTimer|	but was:	a1.switchOver|a2.switchOver|Interval:2000|startTimer|a1.switchOver|a2.switchOver|a3.switchOver|Interval:1500|	
 			</failure>
 		</testcase>
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMinorFlashing_trigger"/>
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMinorYellow_trigger"/>
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMajorRedYellow_trigger">
-			<failure message="../src/../include/CrossRoadTest.hpp:373 testMajorRedYellow_trigger: rm.getExpected() == rm.getResult() expected:	a1.switchOver|a2.switchOver|Interval:5000|	but was:	a1.switchOver|a2.switchOver|Interval:5000|stopTimer|	">
+			<failure message="../src/../include/CrossRoadTest.hpp:386 testMajorRedYellow_trigger: rm.getExpected() == rm.getResult() expected:	a1.switchOver|a2.switchOver|Interval:5000|	but was:	a1.switchOver|a2.switchOver|Interval:5000|stopTimer|	">
 testMajorRedYellow_trigger: rm.getExpected() == rm.getResult() expected:	a1.switchOver|a2.switchOver|Interval:5000|	but was:	a1.switchOver|a2.switchOver|Interval:5000|stopTimer|	
 			</failure>
 		</testcase>
@@ -39,13 +39,43 @@ testMajorRedYellow_trigger: rm.getExpected() == rm.getResult() expected:	a1.swit
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMajorYellow_trigger"/>
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMinorRedYellow_trigger"/>
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMinorDrive_trigger">
-			<failure message="../src/../include/CrossRoadTest.hpp:509 testMinorDrive_trigger: rm.getExpected() == rm.getResult() expected:	a3.switchOver|Interval:1500|	but was:	a1.switchOver|a2.switchOver|a3.switchOver|Interval:1500|	">
+			<failure message="../src/../include/CrossRoadTest.hpp:522 testMinorDrive_trigger: rm.getExpected() == rm.getResult() expected:	a3.switchOver|Interval:1500|	but was:	a1.switchOver|a2.switchOver|a3.switchOver|Interval:1500|	">
 testMinorDrive_trigger: rm.getExpected() == rm.getResult() expected:	a3.switchOver|Interval:1500|	but was:	a1.switchOver|a2.switchOver|a3.switchOver|Interval:1500|	
 			</failure>
 		</testcase>
 		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMajorDrive_flash">
-			<failure message="../src/../include/CrossRoadTest.hpp:536 testMajorDrive_flash: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|startTimer|	but was:	a1.flash|a2.flash|a3.flash|	">
+			<failure message="../src/../include/CrossRoadTest.hpp:549 testMajorDrive_flash: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|startTimer|	but was:	a1.flash|a2.flash|a3.flash|	">
 testMajorDrive_flash: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|startTimer|	but was:	a1.flash|a2.flash|a3.flash|	
+			</failure>
+		</testcase>
+		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMinorYellow_flash_defered">
+			<failure message="../src/../include/CrossRoadTest.hpp:587 testMinorYellow_flash_defered: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|	but was:	stopTimer|a1.flash|a2.flash|a3.flash|	">
+testMinorYellow_flash_defered: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|	but was:	stopTimer|a1.flash|a2.flash|a3.flash|	
+			</failure>
+		</testcase>
+		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMajorRedYellow_flash_defered">
+			<failure message="../src/../include/CrossRoadTest.hpp:610 testMajorRedYellow_flash_defered: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|	but was:	stopTimer|a1.flash|a2.flash|a3.flash|	">
+testMajorRedYellow_flash_defered: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|	but was:	stopTimer|a1.flash|a2.flash|a3.flash|	
+			</failure>
+		</testcase>
+		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMajorMinDuration_flash_deferred">
+			<failure message="../src/../include/CrossRoadTest.hpp:633 testMajorMinDuration_flash_deferred: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|	but was:	stopTimer|a1.flash|a2.flash|a3.flash|	">
+testMajorMinDuration_flash_deferred: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|	but was:	stopTimer|a1.flash|a2.flash|a3.flash|	
+			</failure>
+		</testcase>
+		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMajorYellow_flash_deferred">
+			<failure message="../src/../include/CrossRoadTest.hpp:663 testMajorYellow_flash_deferred: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|	but was:	stopTimer|	">
+testMajorYellow_flash_deferred: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|	but was:	stopTimer|	
+			</failure>
+		</testcase>
+		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMinorRedYellow_flash_deferred">
+			<failure message="../src/../include/CrossRoadTest.hpp:693 testMinorRedYellow_flash_deferred: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|	but was:	stopTimer|	">
+testMinorRedYellow_flash_deferred: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|	but was:	stopTimer|	
+			</failure>
+		</testcase>
+		<testcase classname="CrossRoadTest" name="CrossRoadTest::testMinorDrive_flash_deferred">
+			<failure message="../src/../include/CrossRoadTest.hpp:723 testMinorDrive_flash_deferred: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|	but was:	stopTimer|	">
+testMinorDrive_flash_deferred: rm.getExpected() == rm.getResult() expected:	a1.flash|a2.flash|a3.flash|Interval:2000|	but was:	stopTimer|	
 			</failure>
 		</testcase>
 	</testsuite>

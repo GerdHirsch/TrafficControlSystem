@@ -45,6 +45,7 @@ public:
 
 	void testFlashing_off();
 	virtual void initFlashing_off();
+
 	void testFlashingMinDuration_off_deferred();
 	virtual void initFlashingMinDuration_off_deferred();
 
@@ -66,6 +67,13 @@ public:
 	void testMajorDrive_regulateTraffic();
 	virtual void initMajorDrive_regulateTraffic();
 
+	// defered regultateTraffic from MinorYellow, MajorRedYellow, MajorMinDuration
+	virtual void initOperation_regulateTraffic_deferred();
+
+	void testMinorYellow_regulateTraffic_deferred();
+	void testMajorRedYellow_regulateTraffic_deferred();
+	void testMajorMinDuration_regulateTraffic_deferred();
+
 	void testMajorYellow_trigger();
 	virtual void initMajorYellow_trigger();
 	void testMinorRedYellow_trigger();
@@ -76,9 +84,15 @@ public:
 	void testMajorDrive_flash();
 	virtual void initMajorDrive_flash();
 
-//	// deferred from all states but MajorDrive
-//	void testOperation_flash_deferred();
-//	virtual void initOperation_flash_deferred();
+	// deferred flash from all Operation states but MajorDrive
+	virtual void initOperation_flash_deferred();
+
+	void testMinorYellow_flash_defered();
+	void testMajorRedYellow_flash_defered();
+	void testMajorMinDuration_flash_deferred();
+	void testMajorYellow_flash_deferred();
+	void testMinorRedYellow_flash_deferred();
+	void testMinorDrive_flash_deferred();
 //
 //	// tests priority: regulateTraffic=0, flash=1
 //	void testOperation_regulateTrafficAndflash_deferred();
@@ -117,6 +131,13 @@ public:
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMinorDrive_trigger));
 
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorDrive_flash));
+		// flash deferred
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testMinorYellow_flash_defered));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorRedYellow_flash_defered));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorMinDuration_flash_deferred));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorYellow_flash_deferred));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testMinorRedYellow_flash_deferred));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testMinorDrive_flash_deferred));
 
 		return s;
 	}
@@ -542,5 +563,201 @@ void CrossRoadTest::initMajorDrive_flash(){
 	timer.startTimer();
 }
 
+//--------------------------------
+// Operation flash deferred
+//--------------------------------
+inline
+void CrossRoadTest::initOperation_flash_deferred(){
+	a1.flash(); a2.flash(); a3.flash();
+	timer.setIntervalDuration(IntervalDuration(SUT::FlashingMinDuration));
+}
+//--------------------------------
+void CrossRoadTest::testMinorYellow_flash_defered(){
+	rm.beginInit();
+	initOperation_flash_deferred();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+
+	sut.flash();	// -> deferred
+
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	rm.beginTest();
+	timer.tick(); // MajorDrive
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
+void CrossRoadTest::testMajorRedYellow_flash_defered(){
+	rm.beginInit();
+	initOperation_flash_deferred();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+	timer.tick();	// MajorRedYellow
+
+	sut.flash();	// -> deferred
+
+	timer.tick();	// MajorMinDuration
+
+	rm.beginTest();
+	timer.tick(); // MajorDrive
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
+
+void CrossRoadTest::testMajorMinDuration_flash_deferred(){
+	rm.beginInit();
+	initOperation_flash_deferred();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	sut.flash(); // defered
+
+	rm.beginTest();
+	timer.tick();	// MajorDrive stopTimer
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
+void CrossRoadTest::testMajorYellow_flash_deferred(){
+	rm.beginInit();
+	initOperation_flash_deferred();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+	timer.tick();	// MajorDrive
+	timer.tick();	// MajorYellow
+
+	sut.flash();	// -> defered
+
+	timer.tick();	// MinorRedYellow
+	timer.tick();	// MinorDrive
+	timer.tick();	// MinorYellow
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	rm.beginTest();
+	timer.tick();	// MajorDrive
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
+void CrossRoadTest::testMinorRedYellow_flash_deferred(){
+	rm.beginInit();
+	initOperation_flash_deferred();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+	timer.tick();	// MajorDrive
+	timer.tick();	// MajorYellow
+	timer.tick();	// MinorRedYellow
+
+	sut.flash();	// -> defered
+
+	timer.tick();	// MinorDrive
+	timer.tick();	// MinorYellow
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	rm.beginTest();
+	timer.tick();	// MinorDrive
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
+void CrossRoadTest::testMinorDrive_flash_deferred(){
+	rm.beginInit();
+	initOperation_flash_deferred();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+	timer.tick();	// MajorDrive
+	timer.tick();	// MajorYellow
+	timer.tick();	// MinorRedYellow
+	timer.tick();	// MinorDrive
+
+	sut.flash();	// -> deferred
+
+	timer.tick();	// MinorYellow
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	rm.beginTest();
+	timer.tick();	// MinorDrive
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
+void CrossRoadTest::testMinorYellow_regulateTraffic_deferred(){
+	rm.beginInit();
+	iniOperation_regulateTraffic_deferred();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+
+	sut.regulateTraffic();	// ->deferred
+
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	rm.beginTest();
+	timer.tick();	// MajorDrive stopTimer
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+inline
+void CrossRoadTest::iniOperation_regulateTraffic_deferred(){
+	a1.switchOver(); a2.switchOver(); // Yellow
+	timer.setIntervalDuration(IntervalDuration(SUT::MajorYellow));
+	timer.startTimer();
+}
 
 #endif /* INCLUDE_CROSSROADTEST_HPP_ */
