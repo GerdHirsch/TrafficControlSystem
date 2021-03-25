@@ -54,7 +54,9 @@ public:
 	virtual void initFlashing_on();
 	void testFlashingMinDuration_on_deferred();
 	virtual void initFlashingMinDuration_on_deferred();
-
+	// =======================================================
+	// test trigger
+	// =======================================================
 	void testMinorFlashing_trigger();
 	virtual void initMinorFlashing_trigger();
 	void testMinorYellow_trigger();
@@ -78,8 +80,9 @@ public:
 
 	void testMajorDrive_flash();
 	virtual void initMajorDrive_flash();
-
+	// =======================================================
 	// deferred flash from all Operation states but MajorDrive
+	// =======================================================
 	virtual void initOperation_flash_deferred();
 
 	void testMinorYellow_flash_defered();
@@ -88,21 +91,29 @@ public:
 	void testMajorYellow_flash_deferred();
 	void testMinorRedYellow_flash_deferred();
 	void testMinorDrive_flash_deferred();
+	// =======================================================
 	// deferred regultateTraffic from MinorYellow, MajorRedYellow, MajorMinDuration
+	// =======================================================
 	virtual void initOperation_regulateTraffic_deferred();
 
 	void testMinorYellow_regulateTraffic_deferred();
 	void testMajorRedYellow_regulateTraffic_deferred();
 	void testMajorMinDuration_regulateTraffic_deferred();
+	// =======================================================
+	// tests priority: regulateTraffic=0, off=1, flash=2
+	// =======================================================
+//	void testOperation_flashAndoff_deferred();
+	void testOperation_regulateTrafficAndflash_deferred();
 
-//
-//	// tests priority: regulateTraffic=0, flash=1
-//	void testOperation_regulateTrafficAndflash_deferred();
-//	virtual void initOperation_regulateTrafficAndflash_deferred();
-//
-//	// deferred from 3 States: MinorYellow, MajorRedYellow, MajorMinDuration
-//	void testMajorMinDuration_regulateTraffic_deferred();
-//	virtual void initMajorMinDuration_regulateTraffic_deferred();
+	void testOperation_flash_off_And_regulateTraffic_deferred();
+	virtual void initOperation_flash_off_And_regulateTraffic_deferred();
+
+	void testOperation_off_And_regulateTraffic_deferred();
+	void testOperation_flash_After_off_And_regulateTraffic_deferred();
+	void testOperation_regulateTraffic_off_deferred_();
+
+//	void testOperation_regulateTrafficAndoff_deferred();
+
 //
 //	void testOperation_defect();
 //	virtual void initOperation_defect();
@@ -144,6 +155,11 @@ public:
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMinorYellow_regulateTraffic_deferred));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorRedYellow_regulateTraffic_deferred));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorMinDuration_regulateTraffic_deferred));
+		// regulateTraffic and flash deferred
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_flash_off_And_regulateTraffic_deferred));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_off_And_regulateTraffic_deferred));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_flash_After_off_And_regulateTraffic_deferred));
+//		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_flashAndoff_deferred));
 
 
 		return s;
@@ -333,6 +349,8 @@ void CrossRoadTest::initFlashingMinDuration_on_deferred(){
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorFlashing));
 	timer.startTimer();
 }
+//--------------------------------
+// trigger
 //--------------------------------
 void CrossRoadTest::testMinorFlashing_trigger(){
 	rm.beginInit();
@@ -567,7 +585,6 @@ void CrossRoadTest::initMajorDrive_flash(){
 	timer.setIntervalDuration(IntervalDuration(SUT::FlashingMinDuration));
 	timer.startTimer();
 }
-
 //--------------------------------
 // Operation flash deferred
 //--------------------------------
@@ -738,6 +755,132 @@ void CrossRoadTest::testMinorDrive_flash_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 //--------------------------------
+// test priority regulateTraffic and flash deferred
+//--------------------------------
+void CrossRoadTest::testOperation_regulateTrafficAndflash_deferred(){
+
+	rm.beginInit();
+	initOperation_flash_deferred();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+
+	sut.regulateTraffic();	// -> deferred prio=0
+	sut.flash();	// -> deferred prio=2
+
+
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	rm.beginTest();
+	timer.tick();	// MajorDrive
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
+// test priority flash, off and regulateTraffic deferred
+//--------------------------------
+void CrossRoadTest::testOperation_flash_off_And_regulateTraffic_deferred(){
+	rm.beginInit();
+	initOperation_flash_off_And_regulateTraffic_deferred();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+
+	sut.regulateTraffic(); // -> deferred prio=0
+	sut.off();		// -> deferred prio=1
+	sut.flash();	// -> deferred prio=2
+
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	rm.beginTest();
+	timer.tick();	// MajorDrive
+	timer.tick();	// Flashing
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+void CrossRoadTest::initOperation_flash_off_And_regulateTraffic_deferred(){
+	initOperation_flash_deferred();
+	initFlashingMinDuration_off_deferred();
+}
+//--------------------------------
+void CrossRoadTest::testOperation_off_And_regulateTraffic_deferred(){
+	rm.beginInit();
+	initMajorMinDuration_trigger();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+
+	sut.regulateTraffic(); // -> deferred prio=0
+	sut.off();		// -> deferred prio=1
+
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	timer.tick();	// MajorDrive process regulateTraffic, clear offDefered
+	timer.tick();	// MinorRedYellow
+	timer.tick();	// MinorDrive
+	timer.tick();	// MinorYellow
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	rm.beginTest();
+	timer.tick();	// MajorDrive stopTimer
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
+void CrossRoadTest::testOperation_flash_After_off_And_regulateTraffic_deferred(){
+	rm.beginInit();
+	initMajorMinDuration_trigger();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+
+	sut.regulateTraffic(); // -> deferred prio=0
+	sut.off();		// -> deferred prio=1
+
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	timer.tick();	// MajorDrive process regulateTraffic, clear offDefered
+	timer.tick();	// MinorRedYellow
+
+	sut.flash();	// off must not be processed
+
+	timer.tick();	// MinorDrive
+	timer.tick();	// MinorYellow
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	rm.beginTest();
+	timer.tick();	// MajorDrive stopTimer
+	timer.tick();	// Flashing
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
 // regulate Traffic deferred
 //--------------------------------
 inline
@@ -747,6 +890,32 @@ void CrossRoadTest::initOperation_regulateTraffic_deferred(){
 	timer.setIntervalDuration(IntervalDuration(SUT::MajorYellow));
 	timer.startTimer();
 }
+//--------------------------------
+void CrossRoadTest::testOperation_regulateTraffic_off_deferred_(){
+	rm.beginInit();
+	initOperation_regulateTraffic_deferred();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.on();		// MinorFlashing
+	timer.tick();	// MinorYellow
+
+	sut.regulateTraffic(); // -> deferred prio=0
+	sut.off();		// -> deferred prio=1
+
+	timer.tick();	// MajorRedYellow
+	timer.tick();	// MajorMinDuration
+
+	rm.beginTest();
+	timer.tick();	// MajorDrive
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
+
 //--------------------------------
 void CrossRoadTest::testMinorYellow_regulateTraffic_deferred(){
 	rm.beginInit();

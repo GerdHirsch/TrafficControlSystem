@@ -21,7 +21,8 @@ CrossRoad::CrossRoad(
 	currentState(States::Off) // initialState
 	, a1(&a1), a2(&a2), a3(&a3)
 	, timer(&timer)
-	, regulateTrafficDeferred(false), flashDeferred(false), offDeferred(false), onDeferred(false)
+	, regulateTrafficDeferred{false}
+	, flashDeferred {false}, offDeferred{false}, onDeferred{false}
 {
 	entryOffMinDuration(); // ax.off() all trafficLights
 	// configure Timer
@@ -119,7 +120,8 @@ void CrossRoad::off(){
 		offDeferred = false;
 		wait(Times::OffMinDuration);
 		timer->startTimer();
-	}else if(currentState == States::FlashingMinDuration || currentState == States::OffMinDuration){
+//	}else if(currentState == States::FlashingMinDuration || currentState == States::OffMinDuration){
+	}else if(currentState != States::OffMinDuration || currentState != States::Off){
 		offDeferred = true;
 	}
 	// else ignore event off
