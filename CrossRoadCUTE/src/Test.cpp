@@ -20,9 +20,6 @@ void runAllTests(int argc, char const *argv[]) {
 	cute::makeRunner(listener,argc,argv)(FlashDeferredTest::make_suite(), "FlashDeferredTest");
 	cute::makeRunner(listener,argc,argv)(RegulateTrafficDeferredTest::make_suite(), "RegultatTrafficDeferredTest");
 	cute::makeRunner(listener,argc,argv)(PriorityTest::make_suite(), "PriorityTest");
-
-	//	cute::makeRunner(listener,argc,argv)(CrossRoadTest::make_suite(), "CrossRoadTest");
-
 }
 
 int main(int argc, char const *argv[]) {

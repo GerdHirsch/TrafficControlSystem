@@ -18,11 +18,14 @@ public:
 	// Tests
 	//==============================
 	void initIgnoreEvent(); // used by different tests
+	void initStopTimer(); // used by different tests
 
 	void testConstuctor();
 	virtual void initConstructor();
 
-	void testOFF_off(); // ignore event
+	void testOFF_off_AfterCtor(); // ignore event
+	void testOFF_off_AfterFlashing(); // ignore event
+	void testOFFMinDuration_off(); // ignore event
 
 	void testOFF_flash();
 	virtual void initOFF_flash();
@@ -31,6 +34,7 @@ public:
 	virtual void initOFFMinDuration_flash_deferred();
 
 	void testFlashing_flash(); // ignore event
+	void testFlashingMinDuration_flash(); // ignore event
 
 	void testFlashing_off();
 	virtual void initFlashing_off();
@@ -48,11 +52,14 @@ public:
 		cute::suite s { };
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testConstuctor));
 
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFF_off));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFF_off_AfterCtor));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFF_off_AfterFlashing));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFFMinDuration_off));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFF_flash));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFFMinDuration_flash_deferred));
 
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_flash));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashingMinDuration_flash));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_off));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashingMinDuration_off_deferred));
 
@@ -68,6 +75,10 @@ public:
 inline
 void StartTest::initIgnoreEvent(){
 	// ignore event
+}
+inline
+void StartTest::initStopTimer(){
+	timer.stopTimer();
 }
 //--------------------------------
 inline
@@ -88,7 +99,7 @@ void StartTest::initConstructor(){
 }
 //--------------------------------
 inline
-void StartTest::testOFF_off(){
+void StartTest::testOFF_off_AfterCtor(){
 	rm.beginInit();
 	initIgnoreEvent();
 	rm.endInit();
@@ -97,6 +108,45 @@ void StartTest::testOFF_off(){
 
 	rm.beginTest();
 	sut.off();
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
+inline
+void StartTest::testOFF_off_AfterFlashing(){
+	rm.beginInit();
+	initIgnoreEvent();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	sut.off();		// off -> deferred
+	timer.tick();	// Flashing -> OffMinDuration
+	timer.tick();	// Off
+
+
+	rm.beginTest();
+	sut.off();
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
+inline
+void StartTest::testOFFMinDuration_off(){
+	rm.beginInit();
+	initStopTimer();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+	sut.off();		// OffMinDuration
+	sut.off();		// ignore event
+
+	rm.beginTest();
+	timer.tick();	// Off
 	rm.endTest();
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
@@ -134,11 +184,29 @@ void StartTest::testFlashing_flash(){
 	timer.tick();	// Flashing
 
 	rm.beginTest();
-	sut.flash();
+	sut.flash();	// ignore event
 	rm.endTest();
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
-}//--------------------------------
+}
+//--------------------------------
+inline
+void StartTest::testFlashingMinDuration_flash(){
+	rm.beginInit();
+	initStopTimer();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	sut.flash();	// ignore event
+
+	rm.beginTest();
+	timer.tick();	// Flashing
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------------
 inline
 void StartTest::testFlashing_off(){
 	rm.beginInit();
