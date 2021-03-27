@@ -5,14 +5,14 @@
  *      Author: Gerd
  */
 
-#ifndef INCLUDE_CROSSROADTRIGGERTEST_HPP_
-#define INCLUDE_CROSSROADTRIGGERTEST_HPP_
+#ifndef INCLUDE_TRIGGERTEST_HPP_
+#define INCLUDE_TRIGGERTEST_HPP_
 
-#include "CrossRoadStartTest.hpp"
+#include "StartTest.hpp"
 
-class CrossRoadTriggerTest : public CrossRoadStartTest{
+class TriggerTest : public StartTest{
 public:
-	using this_type = CrossRoadTriggerTest;
+	using this_type = TriggerTest;
 
 	// =======================================================
 	// test trigger
@@ -63,7 +63,7 @@ public:
 //--------------------------------
 // trigger
 //--------------------------------
-void CrossRoadTriggerTest::testMinorFlashing_trigger(){
+void TriggerTest::testMinorFlashing_trigger(){
 	rm.beginInit();
 	initMinorFlashing_trigger();
 	rm.endInit();
@@ -80,12 +80,12 @@ void CrossRoadTriggerTest::testMinorFlashing_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTriggerTest::initMinorFlashing_trigger(){
+void TriggerTest::initMinorFlashing_trigger(){
 	a3.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorYellow));
 }
 //--------------------------------
-void CrossRoadTriggerTest::testMinorYellow_trigger(){
+void TriggerTest::testMinorYellow_trigger(){
 	rm.beginInit();
 	initMinorYellow_trigger();
 	rm.endInit();
@@ -103,13 +103,13 @@ void CrossRoadTriggerTest::testMinorYellow_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTriggerTest::initMinorYellow_trigger(){
+void TriggerTest::initMinorYellow_trigger(){
 	a1.switchOver(); a2.switchOver(); // Yellow
 	a3.switchOver(); // Red
 	timer.setIntervalDuration(IntervalDuration(SUT::MajorRedYellow));
 }
 //--------------------------------------
-void CrossRoadTriggerTest::testMajorRedYellow_trigger(){
+void TriggerTest::testMajorRedYellow_trigger(){
 	rm.beginInit();
 	initMajorRedYellow_trigger();
 	rm.endInit();
@@ -128,12 +128,12 @@ void CrossRoadTriggerTest::testMajorRedYellow_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTriggerTest::initMajorRedYellow_trigger(){
+void TriggerTest::initMajorRedYellow_trigger(){
 	a1.switchOver(); a2.switchOver(); // Green
 	timer.setIntervalDuration(IntervalDuration(SUT::MajorMinDuration));
 }
 //--------------------------------
-void CrossRoadTriggerTest::testMajorMinDuration_trigger(){
+void TriggerTest::testMajorMinDuration_trigger(){
 	rm.beginInit();
 	initMajorMinDuration_trigger();
 	rm.endInit();
@@ -153,11 +153,11 @@ void CrossRoadTriggerTest::testMajorMinDuration_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTriggerTest::initMajorMinDuration_trigger(){
+void TriggerTest::initMajorMinDuration_trigger(){
 	timer.stopTimer();
 }
 //--------------------------------
-void CrossRoadTriggerTest::testMajorDrive_regulateTraffic(){
+void TriggerTest::testMajorDrive_regulateTraffic(){
 	rm.beginInit();
 	initMajorDrive_regulateTraffic();
 	rm.endInit();
@@ -178,13 +178,13 @@ void CrossRoadTriggerTest::testMajorDrive_regulateTraffic(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTriggerTest::initMajorDrive_regulateTraffic(){
+void TriggerTest::initMajorDrive_regulateTraffic(){
 	a1.switchOver(); a2.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MajorYellow));
 	timer.startTimer();
 }
 //--------------------------------
-void CrossRoadTriggerTest::testMajorYellow_trigger(){
+void TriggerTest::testMajorYellow_trigger(){
 	rm.beginInit();
 	initMajorYellow_trigger();
 	rm.endInit();
@@ -206,13 +206,13 @@ void CrossRoadTriggerTest::testMajorYellow_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTriggerTest::initMajorYellow_trigger(){
+void TriggerTest::initMajorYellow_trigger(){
 	a1.switchOver(); a2.switchOver(); // Red
 	a3.switchOver(); // RedYellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorRedYellow));
 }
 //--------------------------------
-void CrossRoadTriggerTest::testMinorRedYellow_trigger(){
+void TriggerTest::testMinorRedYellow_trigger(){
 	rm.beginInit();
 	initMinorRedYellow_trigger();
 	rm.endInit();
@@ -235,12 +235,12 @@ void CrossRoadTriggerTest::testMinorRedYellow_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTriggerTest::initMinorRedYellow_trigger(){
+void TriggerTest::initMinorRedYellow_trigger(){
 	a3.switchOver(); // Green
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorDrive));
 }
 //--------------------------------
-void CrossRoadTriggerTest::testMinorDrive_trigger(){
+void TriggerTest::testMinorDrive_trigger(){
 	rm.beginInit();
 	initMinorDrive_trigger();
 	rm.endInit();
@@ -264,12 +264,12 @@ void CrossRoadTriggerTest::testMinorDrive_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTriggerTest::initMinorDrive_trigger(){
+void TriggerTest::initMinorDrive_trigger(){
 	a3.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorYellow));
 }
 inline
-void CrossRoadTriggerTest::testMajorDrive_flash(){
+void TriggerTest::testMajorDrive_flash(){
 	rm.beginInit();
 	initMajorDrive_flash();
 	rm.endInit();
@@ -290,9 +290,9 @@ void CrossRoadTriggerTest::testMajorDrive_flash(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTriggerTest::initMajorDrive_flash(){
+void TriggerTest::initMajorDrive_flash(){
 	a1.flash(); a2.flash(); a3.flash();
 	timer.setIntervalDuration(IntervalDuration(SUT::FlashingMinDuration));
 	timer.startTimer();
 }
-#endif /* INCLUDE_CROSSROADTRIGGERTEST_HPP_ */
+#endif /* INCLUDE_TRIGGERTEST_HPP_ */

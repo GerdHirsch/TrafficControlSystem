@@ -5,14 +5,14 @@
  *      Author: Gerd
  */
 
-#ifndef INCLUDE_CROSSROADSTARTTEST_HPP_
-#define INCLUDE_CROSSROADSTARTTEST_HPP_
+#ifndef INCLUDE_STARTTEST_HPP_
+#define INCLUDE_STARTTEST_HPP_
 
 #include "CrossRoadBaseTest.hpp"
 
-class CrossRoadStartTest : public CrossRoadBaseTest{
+class StartTest : public CrossRoadBaseTest{
 public:
-	using this_type = CrossRoadStartTest;
+	using this_type = StartTest;
 
 	//==============================
 	// Tests
@@ -66,12 +66,12 @@ public:
 // start Tests
 //=====================================
 inline
-void CrossRoadStartTest::initIgnoreEvent(){
+void StartTest::initIgnoreEvent(){
 	// ignore event
 }
 //--------------------------------
 inline
-void CrossRoadStartTest::testConstuctor(){
+void StartTest::testConstuctor(){
 	rm.beginInit();
 	initConstructor();
 	rm.endInit();
@@ -83,12 +83,12 @@ void CrossRoadStartTest::testConstuctor(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadStartTest::initConstructor(){
+void StartTest::initConstructor(){
 	a1.off(); a2.off(); a3.off();
 }
 //--------------------------------
 inline
-void CrossRoadStartTest::testOFF_off(){
+void StartTest::testOFF_off(){
 	rm.beginInit();
 	initIgnoreEvent();
 	rm.endInit();
@@ -103,7 +103,7 @@ void CrossRoadStartTest::testOFF_off(){
 }
 //--------------------------------
 inline
-void CrossRoadStartTest::testOFF_flash(){
+void StartTest::testOFF_flash(){
 	rm.beginInit();
 	initOFF_flash();
 	rm.endInit();
@@ -116,7 +116,7 @@ void CrossRoadStartTest::testOFF_flash(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadStartTest::initOFF_flash(){
+void StartTest::initOFF_flash(){
 	a1.flash(); a2.flash(); a3.flash();
 	timer.setIntervalDuration(IntervalDuration(SUT::FlashingMinDuration));
 	timer.startTimer();
@@ -124,7 +124,7 @@ void CrossRoadStartTest::initOFF_flash(){
 }
 //--------------------------------
 inline
-void CrossRoadStartTest::testFlashing_flash(){
+void StartTest::testFlashing_flash(){
 	rm.beginInit();
 	initIgnoreEvent();
 	rm.endInit();
@@ -140,7 +140,7 @@ void CrossRoadStartTest::testFlashing_flash(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }//--------------------------------
 inline
-void CrossRoadStartTest::testFlashing_off(){
+void StartTest::testFlashing_off(){
 	rm.beginInit();
 	initFlashing_off();
 	rm.endInit();
@@ -156,7 +156,7 @@ void CrossRoadStartTest::testFlashing_off(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadStartTest::initFlashing_off(){
+void StartTest::initFlashing_off(){
 	a1.off(); a2.off(); a3.off();
 	timer.setIntervalDuration(IntervalDuration(SUT::OffMinDuration));
 	timer.startTimer();
@@ -164,7 +164,7 @@ void CrossRoadStartTest::initFlashing_off(){
 }
 //--------------------------------
 inline
-void CrossRoadStartTest::testFlashingMinDuration_off_deferred(){
+void StartTest::testFlashingMinDuration_off_deferred(){
 	rm.beginInit();
 	initFlashingMinDuration_off_deferred();
 	rm.endInit();
@@ -181,7 +181,7 @@ void CrossRoadStartTest::testFlashingMinDuration_off_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadStartTest::initFlashingMinDuration_off_deferred(){
+void StartTest::initFlashingMinDuration_off_deferred(){
 	timer.stopTimer();
 	a1.off(); a2.off(); a3.off();
 	timer.setIntervalDuration(IntervalDuration(SUT::OffMinDuration));
@@ -189,7 +189,7 @@ void CrossRoadStartTest::initFlashingMinDuration_off_deferred(){
 }
 //--------------------------------
 inline
-void CrossRoadStartTest::testOFFMinDuration_flash_deferred(){
+void StartTest::testOFFMinDuration_flash_deferred(){
 	rm.beginInit();
 	initOFFMinDuration_flash_deferred();
 	rm.endInit();
@@ -208,14 +208,14 @@ void CrossRoadStartTest::testOFFMinDuration_flash_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadStartTest::initOFFMinDuration_flash_deferred(){
+void StartTest::initOFFMinDuration_flash_deferred(){
 	timer.stopTimer();
 	a1.flash(); a2.flash(); a3.flash();
 	timer.setIntervalDuration(IntervalDuration(SUT::FlashingMinDuration));
 	timer.startTimer();
 }
 //--------------------------------
-void CrossRoadStartTest::testFlashing_on(){
+void StartTest::testFlashing_on(){
 	rm.beginInit();
 	initFlashing_on();
 	rm.endInit();
@@ -231,14 +231,14 @@ void CrossRoadStartTest::testFlashing_on(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadStartTest::initFlashing_on(){
+void StartTest::initFlashing_on(){
 	a1.switchOver(); a2.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorFlashing));
 	timer.startTimer();
 }
 //--------------------------------
 inline
-void CrossRoadStartTest::testFlashingMinDuration_on_deferred(){
+void StartTest::testFlashingMinDuration_on_deferred(){
 	rm.beginInit();
 	initFlashingMinDuration_on_deferred();
 	rm.endInit();
@@ -254,11 +254,11 @@ void CrossRoadStartTest::testFlashingMinDuration_on_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadStartTest::initFlashingMinDuration_on_deferred(){
+void StartTest::initFlashingMinDuration_on_deferred(){
 	timer.stopTimer();
 		a1.switchOver(); a2.switchOver(); // Yellow
 		timer.setIntervalDuration(IntervalDuration(SUT::MinorFlashing));
 		timer.startTimer();
 }
 
-#endif /* INCLUDE_CROSSROADSTARTTEST_HPP_ */
+#endif /* INCLUDE_STARTTEST_HPP_ */

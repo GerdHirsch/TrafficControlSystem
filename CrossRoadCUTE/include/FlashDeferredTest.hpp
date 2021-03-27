@@ -8,9 +8,9 @@
 #ifndef INCLUDE_FLASHDEFERREDTEST_HPP_
 #define INCLUDE_FLASHDEFERREDTEST_HPP_
 
-#include "CrossRoadTriggerTest.hpp"
+#include "TriggerTest.hpp"
 
-class FlashDeferredTest : public CrossRoadTriggerTest{
+class FlashDeferredTest : public TriggerTest{
 public:
 	using this_type = FlashDeferredTest;
 
