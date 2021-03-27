@@ -8,9 +8,9 @@
 #ifndef INCLUDE_CROSSROADSTARTTEST_HPP_
 #define INCLUDE_CROSSROADSTARTTEST_HPP_
 
-#include "CrossRoadTest.hpp"
+#include "CrossRoadBaseTest.hpp"
 
-class CrossRoadStartTest : public CrossRoadTest{
+class CrossRoadStartTest : public CrossRoadBaseTest{
 public:
 	using this_type = CrossRoadStartTest;
 

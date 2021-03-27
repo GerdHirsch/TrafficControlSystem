@@ -21,10 +21,10 @@
 
 namespace CR = CrossRoadLib;
 
-class CrossRoadTest{
+class CrossRoadBaseTest{
 public:
-	using this_type = CrossRoadTest;
-	CrossRoadTest()
+	using this_type = CrossRoadBaseTest;
+	CrossRoadBaseTest()
 	:
 		rm(),
 		a1("a1", rm), a2("a2", rm), a3("a3", rm),
@@ -192,7 +192,7 @@ protected:
 };
 //===========================================
 inline
-void CrossRoadTest::testConstuctor(){
+void CrossRoadBaseTest::testConstuctor(){
 	rm.beginInit();
 	initConstructor();
 	rm.endInit();
@@ -204,12 +204,12 @@ void CrossRoadTest::testConstuctor(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initConstructor(){
+void CrossRoadBaseTest::initConstructor(){
 	a1.off(); a2.off(); a3.off();
 }
 //--------------------------------
 inline
-void CrossRoadTest::testOFF_flash(){
+void CrossRoadBaseTest::testOFF_flash(){
 	rm.beginInit();
 	initOFF_flash();
 	rm.endInit();
@@ -222,7 +222,7 @@ void CrossRoadTest::testOFF_flash(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initOFF_flash(){
+void CrossRoadBaseTest::initOFF_flash(){
 	a1.flash(); a2.flash(); a3.flash();
 	timer.setIntervalDuration(IntervalDuration(SUT::FlashingMinDuration));
 	timer.startTimer();
@@ -230,7 +230,7 @@ void CrossRoadTest::initOFF_flash(){
 }
 //--------------------------------
 inline
-void CrossRoadTest::testFlashing_off(){
+void CrossRoadBaseTest::testFlashing_off(){
 	rm.beginInit();
 	initFlashing_off();
 	rm.endInit();
@@ -246,7 +246,7 @@ void CrossRoadTest::testFlashing_off(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initFlashing_off(){
+void CrossRoadBaseTest::initFlashing_off(){
 	a1.off(); a2.off(); a3.off();
 	timer.setIntervalDuration(IntervalDuration(SUT::OffMinDuration));
 	timer.startTimer();
@@ -254,7 +254,7 @@ void CrossRoadTest::initFlashing_off(){
 }
 //--------------------------------
 inline
-void CrossRoadTest::testFlashingMinDuration_off_deferred(){
+void CrossRoadBaseTest::testFlashingMinDuration_off_deferred(){
 	rm.beginInit();
 	initFlashingMinDuration_off_deferred();
 	rm.endInit();
@@ -271,7 +271,7 @@ void CrossRoadTest::testFlashingMinDuration_off_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initFlashingMinDuration_off_deferred(){
+void CrossRoadBaseTest::initFlashingMinDuration_off_deferred(){
 	timer.stopTimer();
 	a1.off(); a2.off(); a3.off();
 	timer.setIntervalDuration(IntervalDuration(SUT::OffMinDuration));
@@ -279,7 +279,7 @@ void CrossRoadTest::initFlashingMinDuration_off_deferred(){
 }
 //--------------------------------
 inline
-void CrossRoadTest::testOFFMinDuration_flash_deferred(){
+void CrossRoadBaseTest::testOFFMinDuration_flash_deferred(){
 	rm.beginInit();
 	initOFFMinDuration_flash_deferred();
 	rm.endInit();
@@ -298,14 +298,14 @@ void CrossRoadTest::testOFFMinDuration_flash_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initOFFMinDuration_flash_deferred(){
+void CrossRoadBaseTest::initOFFMinDuration_flash_deferred(){
 	timer.stopTimer();
 	a1.flash(); a2.flash(); a3.flash();
 	timer.setIntervalDuration(IntervalDuration(SUT::FlashingMinDuration));
 	timer.startTimer();
 }
 //--------------------------------
-void CrossRoadTest::testFlashing_on(){
+void CrossRoadBaseTest::testFlashing_on(){
 	rm.beginInit();
 	initFlashing_on();
 	rm.endInit();
@@ -321,13 +321,13 @@ void CrossRoadTest::testFlashing_on(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initFlashing_on(){
+void CrossRoadBaseTest::initFlashing_on(){
 	a1.switchOver(); a2.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorFlashing));
 	timer.startTimer();
 }
 //--------------------------------
-void CrossRoadTest::testFlashingMinDuration_on_deferred(){
+void CrossRoadBaseTest::testFlashingMinDuration_on_deferred(){
 	rm.beginInit();
 	initFlashingMinDuration_on_deferred();
 	rm.endInit();
@@ -343,7 +343,7 @@ void CrossRoadTest::testFlashingMinDuration_on_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initFlashingMinDuration_on_deferred(){
+void CrossRoadBaseTest::initFlashingMinDuration_on_deferred(){
 	timer.stopTimer();
 	a1.switchOver(); a2.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorFlashing));
@@ -352,7 +352,7 @@ void CrossRoadTest::initFlashingMinDuration_on_deferred(){
 //--------------------------------
 // trigger
 //--------------------------------
-void CrossRoadTest::testMinorFlashing_trigger(){
+void CrossRoadBaseTest::testMinorFlashing_trigger(){
 	rm.beginInit();
 	initMinorFlashing_trigger();
 	rm.endInit();
@@ -369,12 +369,12 @@ void CrossRoadTest::testMinorFlashing_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initMinorFlashing_trigger(){
+void CrossRoadBaseTest::initMinorFlashing_trigger(){
 	a3.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorYellow));
 }
 //--------------------------------
-void CrossRoadTest::testMinorYellow_trigger(){
+void CrossRoadBaseTest::testMinorYellow_trigger(){
 	rm.beginInit();
 	initMinorYellow_trigger();
 	rm.endInit();
@@ -392,13 +392,13 @@ void CrossRoadTest::testMinorYellow_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initMinorYellow_trigger(){
+void CrossRoadBaseTest::initMinorYellow_trigger(){
 	a1.switchOver(); a2.switchOver(); // Yellow
 	a3.switchOver(); // Red
 	timer.setIntervalDuration(IntervalDuration(SUT::MajorRedYellow));
 }
 //--------------------------------
-void CrossRoadTest::testMajorRedYellow_trigger(){
+void CrossRoadBaseTest::testMajorRedYellow_trigger(){
 	rm.beginInit();
 	initMajorRedYellow_trigger();
 	rm.endInit();
@@ -417,12 +417,12 @@ void CrossRoadTest::testMajorRedYellow_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initMajorRedYellow_trigger(){
+void CrossRoadBaseTest::initMajorRedYellow_trigger(){
 	a1.switchOver(); a2.switchOver(); // Green
 	timer.setIntervalDuration(IntervalDuration(SUT::MajorMinDuration));
 }
 //--------------------------------
-void CrossRoadTest::testMajorMinDuration_trigger(){
+void CrossRoadBaseTest::testMajorMinDuration_trigger(){
 	rm.beginInit();
 	initMajorMinDuration_trigger();
 	rm.endInit();
@@ -442,11 +442,11 @@ void CrossRoadTest::testMajorMinDuration_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initMajorMinDuration_trigger(){
+void CrossRoadBaseTest::initMajorMinDuration_trigger(){
 	timer.stopTimer();
 }
 //--------------------------------
-void CrossRoadTest::testMajorDrive_regulateTraffic(){
+void CrossRoadBaseTest::testMajorDrive_regulateTraffic(){
 	rm.beginInit();
 	initMajorDrive_regulateTraffic();
 	rm.endInit();
@@ -467,13 +467,13 @@ void CrossRoadTest::testMajorDrive_regulateTraffic(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initMajorDrive_regulateTraffic(){
+void CrossRoadBaseTest::initMajorDrive_regulateTraffic(){
 	a1.switchOver(); a2.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MajorYellow));
 	timer.startTimer();
 }
 //--------------------------------
-void CrossRoadTest::testMajorYellow_trigger(){
+void CrossRoadBaseTest::testMajorYellow_trigger(){
 	rm.beginInit();
 	initMajorYellow_trigger();
 	rm.endInit();
@@ -495,13 +495,13 @@ void CrossRoadTest::testMajorYellow_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initMajorYellow_trigger(){
+void CrossRoadBaseTest::initMajorYellow_trigger(){
 	a1.switchOver(); a2.switchOver(); // Red
 	a3.switchOver(); // RedYellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorRedYellow));
 }
 //--------------------------------
-void CrossRoadTest::testMinorRedYellow_trigger(){
+void CrossRoadBaseTest::testMinorRedYellow_trigger(){
 	rm.beginInit();
 	initMinorRedYellow_trigger();
 	rm.endInit();
@@ -524,12 +524,12 @@ void CrossRoadTest::testMinorRedYellow_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initMinorRedYellow_trigger(){
+void CrossRoadBaseTest::initMinorRedYellow_trigger(){
 	a3.switchOver(); // Green
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorDrive));
 }
 //--------------------------------
-void CrossRoadTest::testMinorDrive_trigger(){
+void CrossRoadBaseTest::testMinorDrive_trigger(){
 	rm.beginInit();
 	initMinorDrive_trigger();
 	rm.endInit();
@@ -553,13 +553,13 @@ void CrossRoadTest::testMinorDrive_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initMinorDrive_trigger(){
+void CrossRoadBaseTest::initMinorDrive_trigger(){
 	a3.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorYellow));
 }
 //--------------------------------
 inline
-void CrossRoadTest::testMajorDrive_flash(){
+void CrossRoadBaseTest::testMajorDrive_flash(){
 	rm.beginInit();
 	initMajorDrive_flash();
 	rm.endInit();
@@ -580,7 +580,7 @@ void CrossRoadTest::testMajorDrive_flash(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void CrossRoadTest::initMajorDrive_flash(){
+void CrossRoadBaseTest::initMajorDrive_flash(){
 	a1.flash(); a2.flash(); a3.flash();
 	timer.setIntervalDuration(IntervalDuration(SUT::FlashingMinDuration));
 	timer.startTimer();
@@ -589,14 +589,14 @@ void CrossRoadTest::initMajorDrive_flash(){
 // Operation flash deferred
 //--------------------------------
 inline
-void CrossRoadTest::initOperation_flash_deferred(){
+void CrossRoadBaseTest::initOperation_flash_deferred(){
 	timer.stopTimer();
 	a1.flash(); a2.flash(); a3.flash();
 	timer.setIntervalDuration(IntervalDuration(SUT::FlashingMinDuration));
 	timer.startTimer();
 }
 //--------------------------------
-void CrossRoadTest::testMinorYellow_flash_defered(){
+void CrossRoadBaseTest::testMinorYellow_flash_defered(){
 	rm.beginInit();
 	initOperation_flash_deferred();
 	rm.endInit();
@@ -619,7 +619,7 @@ void CrossRoadTest::testMinorYellow_flash_defered(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 //--------------------------------
-void CrossRoadTest::testMajorRedYellow_flash_defered(){
+void CrossRoadBaseTest::testMajorRedYellow_flash_defered(){
 	rm.beginInit();
 	initOperation_flash_deferred();
 	rm.endInit();
@@ -643,7 +643,7 @@ void CrossRoadTest::testMajorRedYellow_flash_defered(){
 }
 //--------------------------------
 
-void CrossRoadTest::testMajorMinDuration_flash_deferred(){
+void CrossRoadBaseTest::testMajorMinDuration_flash_deferred(){
 	rm.beginInit();
 	initOperation_flash_deferred();
 	rm.endInit();
@@ -665,7 +665,7 @@ void CrossRoadTest::testMajorMinDuration_flash_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 //--------------------------------
-void CrossRoadTest::testMajorYellow_flash_deferred(){
+void CrossRoadBaseTest::testMajorYellow_flash_deferred(){
 	rm.beginInit();
 	initOperation_flash_deferred();
 	rm.endInit();
@@ -695,7 +695,7 @@ void CrossRoadTest::testMajorYellow_flash_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 //--------------------------------
-void CrossRoadTest::testMinorRedYellow_flash_deferred(){
+void CrossRoadBaseTest::testMinorRedYellow_flash_deferred(){
 	rm.beginInit();
 	initOperation_flash_deferred();
 	rm.endInit();
@@ -725,7 +725,7 @@ void CrossRoadTest::testMinorRedYellow_flash_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 //--------------------------------
-void CrossRoadTest::testMinorDrive_flash_deferred(){
+void CrossRoadBaseTest::testMinorDrive_flash_deferred(){
 	rm.beginInit();
 	initOperation_flash_deferred();
 	rm.endInit();
@@ -757,7 +757,7 @@ void CrossRoadTest::testMinorDrive_flash_deferred(){
 //--------------------------------
 // test priority regulateTraffic and flash deferred
 //--------------------------------
-void CrossRoadTest::testOperation_regulateTrafficAndflash_deferred(){
+void CrossRoadBaseTest::testOperation_regulateTrafficAndflash_deferred(){
 
 	rm.beginInit();
 	initOperation_flash_deferred();
@@ -785,7 +785,7 @@ void CrossRoadTest::testOperation_regulateTrafficAndflash_deferred(){
 //--------------------------------
 // test priority flash, off and regulateTraffic deferred
 //--------------------------------
-void CrossRoadTest::testOperation_flash_off_And_regulateTraffic_deferred(){
+void CrossRoadBaseTest::testOperation_flash_off_And_regulateTraffic_deferred(){
 	rm.beginInit();
 	initOperation_flash_off_And_regulateTraffic_deferred();
 	rm.endInit();
@@ -810,12 +810,12 @@ void CrossRoadTest::testOperation_flash_off_And_regulateTraffic_deferred(){
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
-void CrossRoadTest::initOperation_flash_off_And_regulateTraffic_deferred(){
+void CrossRoadBaseTest::initOperation_flash_off_And_regulateTraffic_deferred(){
 	initOperation_flash_deferred();
 	initFlashingMinDuration_off_deferred();
 }
 //--------------------------------
-void CrossRoadTest::testOperation_off_And_regulateTraffic_deferred(){
+void CrossRoadBaseTest::testOperation_off_And_regulateTraffic_deferred(){
 	rm.beginInit();
 	initMajorMinDuration_trigger();
 	rm.endInit();
@@ -846,7 +846,7 @@ void CrossRoadTest::testOperation_off_And_regulateTraffic_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 //--------------------------------
-void CrossRoadTest::testOperation_flash_After_off_And_regulateTraffic_deferred(){
+void CrossRoadBaseTest::testOperation_flash_After_off_And_regulateTraffic_deferred(){
 	rm.beginInit();
 	initMajorMinDuration_trigger();
 	rm.endInit();
@@ -884,14 +884,14 @@ void CrossRoadTest::testOperation_flash_After_off_And_regulateTraffic_deferred()
 // regulate Traffic deferred
 //--------------------------------
 inline
-void CrossRoadTest::initOperation_regulateTraffic_deferred(){
+void CrossRoadBaseTest::initOperation_regulateTraffic_deferred(){
 	timer.stopTimer();
 	a1.switchOver(); a2.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MajorYellow));
 	timer.startTimer();
 }
 //--------------------------------
-void CrossRoadTest::testOperation_regulateTraffic_off_deferred_(){
+void CrossRoadBaseTest::testOperation_regulateTraffic_off_deferred_(){
 	rm.beginInit();
 	initOperation_regulateTraffic_deferred();
 	rm.endInit();
@@ -917,7 +917,7 @@ void CrossRoadTest::testOperation_regulateTraffic_off_deferred_(){
 //--------------------------------
 
 //--------------------------------
-void CrossRoadTest::testMinorYellow_regulateTraffic_deferred(){
+void CrossRoadBaseTest::testMinorYellow_regulateTraffic_deferred(){
 	rm.beginInit();
 	initOperation_regulateTraffic_deferred();
 	rm.endInit();
@@ -940,7 +940,7 @@ void CrossRoadTest::testMinorYellow_regulateTraffic_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 //--------------------------------
-void CrossRoadTest::testMajorRedYellow_regulateTraffic_deferred(){
+void CrossRoadBaseTest::testMajorRedYellow_regulateTraffic_deferred(){
 	rm.beginInit();
 	initOperation_regulateTraffic_deferred();
 	rm.endInit();
@@ -963,7 +963,7 @@ void CrossRoadTest::testMajorRedYellow_regulateTraffic_deferred(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 //--------------------------------
-void CrossRoadTest::testMajorMinDuration_regulateTraffic_deferred(){
+void CrossRoadBaseTest::testMajorMinDuration_regulateTraffic_deferred(){
 	rm.beginInit();
 	initOperation_regulateTraffic_deferred();
 	rm.endInit();

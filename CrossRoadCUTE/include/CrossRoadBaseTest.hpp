@@ -5,8 +5,8 @@
  *      Author: Gerd
  */
 
-#ifndef INCLUDE_CROSSROADTEST_HPP_
-#define INCLUDE_CROSSROADTEST_HPP_
+#ifndef INCLUDE_CROSSROADBASETEST_HPP_
+#define INCLUDE_CROSSROADBASETEST_HPP_
 
 #include "../Mocks/MockTrafficLight.hpp"
 #include "../Mocks/MockTimer.hpp"
@@ -21,10 +21,10 @@
 
 namespace CR = CrossRoadLib;
 
-class CrossRoadTest{
+class CrossRoadBaseTest{
 public:
-	using this_type = CrossRoadTest;
-	CrossRoadTest()
+	using this_type = CrossRoadBaseTest;
+	CrossRoadBaseTest()
 	:
 		rm(),
 		a1("a1", rm), a2("a2", rm), a3("a3", rm),
@@ -60,4 +60,4 @@ protected:
 
 
 
-#endif /* INCLUDE_CROSSROADTEST_HPP_ */
+#endif /* INCLUDE_CROSSROADBASETEST_HPP_ */
