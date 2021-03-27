@@ -31,6 +31,7 @@ public:
 		cute::suite s { };
 
 		// regulateTraffic and flash deferred
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorDrive_flash));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_flash_off_And_regulateTraffic_deferred));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_off_And_regulateTraffic_deferred));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_flash_After_off_And_regulateTraffic_deferred));

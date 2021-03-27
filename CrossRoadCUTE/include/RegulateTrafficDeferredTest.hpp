@@ -8,9 +8,9 @@
 #ifndef INCLUDE_REGULATETRAFFICDEFERREDTEST_HPP_
 #define INCLUDE_REGULATETRAFFICDEFERREDTEST_HPP_
 
-#include "FlashDeferredTest.hpp"
+#include "OperationflashTest.hpp"
 
-class RegulateTrafficDeferredTest : public FlashDeferredTest{
+class RegulateTrafficDeferredTest : public Operation_flash_Test{
 	using this_type = RegulateTrafficDeferredTest;
 
 	//==============================
