@@ -56,9 +56,9 @@ private:
 	void trigger();
 	std::string stateToString()const;
 	void wait(unsigned long long msDuration);
-	Guard tryLock();
 	//================================================
 	// entry behaviors
+	void entryDefect();
 	void entryOff();
 	void entryOffMinDuration();
 	void entryFlashing();

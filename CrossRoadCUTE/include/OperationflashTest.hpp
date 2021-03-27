@@ -8,9 +8,9 @@
 #ifndef INCLUDE_OPERATIONFLASHTEST_HPP_
 #define INCLUDE_OPERATIONFLASHTEST_HPP_
 
-#include "TriggerTest.hpp"
+#include "OperationtriggerTest.hpp"
 
-class Operation_flash_Test : public TriggerTest{
+class Operation_flash_Test : public Operation_trigger_Test{
 public:
 	using this_type = Operation_flash_Test;
 

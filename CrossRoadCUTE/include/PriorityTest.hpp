@@ -24,6 +24,8 @@ class PriorityTest : public RegulateTrafficDeferredTest{
 
 	void testOperation_off_And_regulateTraffic_deferred();
 	void testOperation_flash_After_off_And_regulateTraffic_deferred();
+	void initOperation_flash_After_off_And_regulateTraffic_deferred();
+
 	void testOperation_regulateTraffic_off_deferred_();
 public:
 	template<class DerivedTest = this_type>
@@ -31,7 +33,7 @@ public:
 		cute::suite s { };
 
 		// regulateTraffic and flash deferred
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorDrive_flash));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_regulateTrafficAndflash_deferred));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_flash_off_And_regulateTraffic_deferred));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_off_And_regulateTraffic_deferred));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_flash_After_off_And_regulateTraffic_deferred));
@@ -59,10 +61,11 @@ void PriorityTest::testOperation_regulateTrafficAndflash_deferred(){
 	timer.tick();	// MinorYellow
 
 	sut.regulateTraffic();	// -> deferred prio=0
-	sut.flash();	// -> deferred prio=2
-
 
 	timer.tick();	// MajorRedYellow
+
+	sut.flash();	// -> deferred prio=2
+
 	timer.tick();	// MajorMinDuration
 
 	rm.beginTest();
@@ -137,7 +140,7 @@ void PriorityTest::testOperation_off_And_regulateTraffic_deferred(){
 //--------------------------------
 void PriorityTest::testOperation_flash_After_off_And_regulateTraffic_deferred(){
 	rm.beginInit();
-	initMajorMinDuration_trigger();
+	initOperation_flash_After_off_And_regulateTraffic_deferred();
 	rm.endInit();
 
 	auto &sut = getSUT();
@@ -163,11 +166,15 @@ void PriorityTest::testOperation_flash_After_off_And_regulateTraffic_deferred(){
 	timer.tick();	// MajorMinDuration
 
 	rm.beginTest();
-	timer.tick();	// MajorDrive stopTimer
-	timer.tick();	// Flashing
+	timer.tick();	// MajorDrive -> FlashingMinDuration
+	timer.tick();	// Flashing -> stop Timer
 	rm.endTest();
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+void PriorityTest::initOperation_flash_After_off_And_regulateTraffic_deferred(){
+	initOperation_flash_deferred();
+	initStopTimer();
 }
 
 

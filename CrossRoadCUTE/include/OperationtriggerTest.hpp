@@ -5,14 +5,14 @@
  *      Author: Gerd
  */
 
-#ifndef INCLUDE_TRIGGERTEST_HPP_
-#define INCLUDE_TRIGGERTEST_HPP_
+#ifndef INCLUDE_OPERATIONTRIGGERTEST_HPP_
+#define INCLUDE_OPERATIONTRIGGERTEST_HPP_
 
 #include "StartTest.hpp"
 
-class TriggerTest : public StartTest{
+class Operation_trigger_Test : public StartTest{
 public:
-	using this_type = TriggerTest;
+	using this_type = Operation_trigger_Test;
 
 	// =======================================================
 	// test trigger
@@ -38,8 +38,6 @@ public:
 	void testMinorDrive_trigger();
 	virtual void initMinorDrive_trigger();
 
-	void testMajorDrive_flash();
-	virtual void initMajorDrive_flash();
 public:
 	template<class DerivedTest = this_type>
 	static cute::suite make_suite(){
@@ -55,7 +53,6 @@ public:
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorYellow_trigger));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMinorRedYellow_trigger));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMinorDrive_trigger));
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorDrive_flash));
 
 		return s;
 	}
@@ -63,7 +60,7 @@ public:
 //--------------------------------
 // trigger
 //--------------------------------
-void TriggerTest::testMinorFlashing_trigger(){
+void Operation_trigger_Test::testMinorFlashing_trigger(){
 	rm.beginInit();
 	initMinorFlashing_trigger();
 	rm.endInit();
@@ -80,12 +77,12 @@ void TriggerTest::testMinorFlashing_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void TriggerTest::initMinorFlashing_trigger(){
+void Operation_trigger_Test::initMinorFlashing_trigger(){
 	a3.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorYellow));
 }
 //--------------------------------
-void TriggerTest::testMinorYellow_trigger(){
+void Operation_trigger_Test::testMinorYellow_trigger(){
 	rm.beginInit();
 	initMinorYellow_trigger();
 	rm.endInit();
@@ -103,13 +100,13 @@ void TriggerTest::testMinorYellow_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void TriggerTest::initMinorYellow_trigger(){
+void Operation_trigger_Test::initMinorYellow_trigger(){
 	a1.switchOver(); a2.switchOver(); // Yellow
 	a3.switchOver(); // Red
 	timer.setIntervalDuration(IntervalDuration(SUT::MajorRedYellow));
 }
 //--------------------------------------
-void TriggerTest::testMajorRedYellow_trigger(){
+void Operation_trigger_Test::testMajorRedYellow_trigger(){
 	rm.beginInit();
 	initMajorRedYellow_trigger();
 	rm.endInit();
@@ -128,12 +125,12 @@ void TriggerTest::testMajorRedYellow_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void TriggerTest::initMajorRedYellow_trigger(){
+void Operation_trigger_Test::initMajorRedYellow_trigger(){
 	a1.switchOver(); a2.switchOver(); // Green
 	timer.setIntervalDuration(IntervalDuration(SUT::MajorMinDuration));
 }
 //--------------------------------
-void TriggerTest::testMajorMinDuration_trigger(){
+void Operation_trigger_Test::testMajorMinDuration_trigger(){
 	rm.beginInit();
 	initMajorMinDuration_trigger();
 	rm.endInit();
@@ -153,11 +150,11 @@ void TriggerTest::testMajorMinDuration_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void TriggerTest::initMajorMinDuration_trigger(){
+void Operation_trigger_Test::initMajorMinDuration_trigger(){
 	timer.stopTimer();
 }
 //--------------------------------
-void TriggerTest::testMajorDrive_regulateTraffic(){
+void Operation_trigger_Test::testMajorDrive_regulateTraffic(){
 	rm.beginInit();
 	initMajorDrive_regulateTraffic();
 	rm.endInit();
@@ -178,13 +175,13 @@ void TriggerTest::testMajorDrive_regulateTraffic(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void TriggerTest::initMajorDrive_regulateTraffic(){
+void Operation_trigger_Test::initMajorDrive_regulateTraffic(){
 	a1.switchOver(); a2.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MajorYellow));
 	timer.startTimer();
 }
 //--------------------------------
-void TriggerTest::testMajorYellow_trigger(){
+void Operation_trigger_Test::testMajorYellow_trigger(){
 	rm.beginInit();
 	initMajorYellow_trigger();
 	rm.endInit();
@@ -206,13 +203,13 @@ void TriggerTest::testMajorYellow_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void TriggerTest::initMajorYellow_trigger(){
+void Operation_trigger_Test::initMajorYellow_trigger(){
 	a1.switchOver(); a2.switchOver(); // Red
 	a3.switchOver(); // RedYellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorRedYellow));
 }
 //--------------------------------
-void TriggerTest::testMinorRedYellow_trigger(){
+void Operation_trigger_Test::testMinorRedYellow_trigger(){
 	rm.beginInit();
 	initMinorRedYellow_trigger();
 	rm.endInit();
@@ -235,12 +232,12 @@ void TriggerTest::testMinorRedYellow_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void TriggerTest::initMinorRedYellow_trigger(){
+void Operation_trigger_Test::initMinorRedYellow_trigger(){
 	a3.switchOver(); // Green
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorDrive));
 }
 //--------------------------------
-void TriggerTest::testMinorDrive_trigger(){
+void Operation_trigger_Test::testMinorDrive_trigger(){
 	rm.beginInit();
 	initMinorDrive_trigger();
 	rm.endInit();
@@ -264,35 +261,9 @@ void TriggerTest::testMinorDrive_trigger(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 inline
-void TriggerTest::initMinorDrive_trigger(){
+void Operation_trigger_Test::initMinorDrive_trigger(){
 	a3.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorYellow));
 }
-inline
-void TriggerTest::testMajorDrive_flash(){
-	rm.beginInit();
-	initMajorDrive_flash();
-	rm.endInit();
 
-	auto &sut = getSUT();
-	sut.flash();	// FlashingMinDuration
-	timer.tick();	// Flashing
-	sut.on();		// MinorFlashing
-	timer.tick();	// MinorYellow
-	timer.tick();	// MajorRedYellow
-	timer.tick();	// MajorMinDuration
-	timer.tick();	// MajorDrive stopTimer
-
-	rm.beginTest();
-	sut.flash();
-	rm.endTest();
-
-	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
-}
-inline
-void TriggerTest::initMajorDrive_flash(){
-	a1.flash(); a2.flash(); a3.flash();
-	timer.setIntervalDuration(IntervalDuration(SUT::FlashingMinDuration));
-	timer.startTimer();
-}
-#endif /* INCLUDE_TRIGGERTEST_HPP_ */
+#endif /* INCLUDE_OPERATIONTRIGGERTEST_HPP_ */

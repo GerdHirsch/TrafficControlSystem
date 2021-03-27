@@ -55,8 +55,9 @@ CrossRoad::CrossRoad(
 
 void CrossRoad::flash()
 {
-	Guard guard = tryLock();
+	Guard guard(myMutex);
 
+	// no timer active
 	if(currentState == States::MajorDrive || currentState == States::Off)
 	{
 		this->setState(States::FlashingMinDuration);
@@ -77,8 +78,8 @@ void CrossRoad::flash()
 }
 //------------------------------------------
 void CrossRoad::on(){
-	Guard guard = tryLock();
-
+	Guard guard(myMutex);
+	// no timer active
 	if(currentState == States::Flashing){
 		setState(States::MinorFlashing);
 		entryMinorFlashing();
@@ -93,8 +94,8 @@ void CrossRoad::on(){
 }
 //------------------------------------------
 void CrossRoad::regulateTraffic(){
-	Guard guard = tryLock();
-
+	Guard guard(myMutex);
+	// no timer active
 	if(currentState == States::MajorDrive){
 		setState(States::MajorYellow);
 		entryMajorYellow();
@@ -112,15 +113,14 @@ void CrossRoad::regulateTraffic(){
 }
 //------------------------------------------
 void CrossRoad::off(){
-	Guard guard = tryLock();
-
+	Guard guard(myMutex);
+	// no timer active
 	if(currentState == States::Flashing){
 		setState(States::OffMinDuration);
 		entryOffMinDuration();
 		offDeferred = false;
 		wait(Times::OffMinDuration);
 		timer->startTimer();
-//	}else if(currentState == States::FlashingMinDuration || currentState == States::OffMinDuration){
 	}else if(currentState != States::OffMinDuration || currentState != States::Off){
 		offDeferred = true;
 	}
@@ -128,35 +128,20 @@ void CrossRoad::off(){
 }
 //------------------------------------------
 void CrossRoad::defect(){
-	Guard guard = tryLock();
+	Guard guard(myMutex);
 
-	if(currentState == States::Flashing){
-		setState(States::Defect);
-		a1->off();
-		a2->off();
-		a3->off();
-		cout << "CrossRoad::defect removeReceiver(*this)" << endl;
-		timer->stopTimer();
-//		timer->removeReceiver(*this);
-	// all other states
-	}else if(currentState != States::Off
-			&& currentState != States::Defect){
-		setState(States::Defect);
-		a1->flash();
-		a2->flash();
-		a3->flash();
-		wait(Times::FlashingMinDuration);
-		timer->startTimer();
-//		timer->addReceiver(*this);
+	if(currentState != States::Off && currentState != States::OffMinDuration){
+		setState(States::Off);
+		entryDefect();
+		guard.unlock();
 	}
-	//else ignore
 }
 //==========================================
 //Internal Operations
 //==========================================
 // Timer loop trigger
 void CrossRoad::trigger(){
-	Guard guard = tryLock();
+	Guard guard(myMutex);
 
 	switch(currentState){
 	case States::MinorFlashing:
@@ -181,11 +166,18 @@ void CrossRoad::trigger(){
 //		timer->removeReceiver(*this);
 
 		//handle deferred events
-		if(flashDeferred){ // Priority = 1
+		if(flashDeferred){ // Priority = 2
 			guard.unlock();
 			flash();
+			break;
 		}
-		else if(regulateTrafficDeferred){ // Priority = 0
+		// internal Transition with no effect for event off
+		if(offDeferred) // Priority = 1
+			offDeferred = false;
+
+		if(regulateTrafficDeferred){ // Priority = 0
+			offDeferred = false; // Priority = 1
+
 			guard.unlock();
 			regulateTraffic();
 		}
@@ -251,16 +243,17 @@ void CrossRoad::wait(unsigned long long msDuration){
 	timer->setIntervalDuration(IntervalDuration(msDuration));
 //	timer->setIntervalDuration(msDuration);
 }
-//------------------------------------------
-CrossRoad::Guard CrossRoad::tryLock(){
-	static constexpr IntervalDuration tryLockDuration{10};
-	Guard guard(myMutex, std::defer_lock);
-	while(!guard.try_lock_for(tryLockDuration))
-		;
-	return guard;
-}
 //================================================
 // entry behaviors
+void CrossRoad::entryDefect(){
+	a1->flash();
+	a2->flash();
+	a3->flash();
+
+	a1->off();
+	a2->off();
+	a3->off();
+}
 void CrossRoad::entryOff(){ // called from Ctor
 	// nothing to do
 }
