@@ -8,28 +8,12 @@
 #ifndef INCLUDE_CROSSROADTRIGGERTEST_HPP_
 #define INCLUDE_CROSSROADTRIGGERTEST_HPP_
 
-#include "../Mocks/MockTrafficLight.hpp"
-#include "../Mocks/MockTimer.hpp"
-#include "../Mocks/DurationStreamOperator.hpp"
-#include "../Mocks/EnumStreamOperator.hpp"
+#include "CrossRoadStartTest.hpp"
 
-#include <CrossRoad/CrossRoad.hpp>
-
-#include "cute.h"
-
-#include <memory>
-
-namespace CR = CrossRoadLib;
-
-class CrossRoadTriggerTest{
+class CrossRoadTriggerTest : public CrossRoadStartTest{
 public:
 	using this_type = CrossRoadTriggerTest;
-	CrossRoadTriggerTest()
-	:
-		rm(),
-		a1("a1", rm), a2("a2", rm), a3("a3", rm),
-		timer(rm)
-	{}
+
 	// =======================================================
 	// test trigger
 	// =======================================================
@@ -71,31 +55,10 @@ public:
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorYellow_trigger));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMinorRedYellow_trigger));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testMinorDrive_trigger));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testMajorDrive_flash));
 
 		return s;
 	}
-	//==============================
-	// Types
-	//==============================
-	using SUT = CR::CrossRoad;
-	using IntervalDuration = Mock::MockTimer::IntervalDuration;
-protected:
-	virtual std::unique_ptr<SUT> createSUT() {
-			return std::unique_ptr<SUT>(
-					new SUT(a1, a2, a3, timer)
-			);
-		}
-	SUT& getSUT(){
-			if(!pSUT)
-				pSUT = createSUT();
-			return *pSUT;
-		}
-
-	// Member
-	Mock::ResultManager rm;
-	Mock::MockTrafficLight a1, a2, a3;
-	Mock::MockTimer timer;
-	std::unique_ptr<SUT> pSUT;
 };
 //--------------------------------
 // trigger

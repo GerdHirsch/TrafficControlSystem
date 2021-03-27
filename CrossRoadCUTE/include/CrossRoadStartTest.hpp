@@ -8,37 +8,25 @@
 #ifndef INCLUDE_CROSSROADSTARTTEST_HPP_
 #define INCLUDE_CROSSROADSTARTTEST_HPP_
 
-#include "../Mocks/MockTrafficLight.hpp"
-#include "../Mocks/MockTimer.hpp"
-#include "../Mocks/DurationStreamOperator.hpp"
-#include "../Mocks/EnumStreamOperator.hpp"
+#include "CrossRoadTest.hpp"
 
-#include <CrossRoad/CrossRoad.hpp>
-
-#include "cute.h"
-
-#include <memory>
-
-namespace CR = CrossRoadLib;
-
-class CrossRoadStartTest{
+class CrossRoadStartTest : public CrossRoadTest{
 public:
 	using this_type = CrossRoadStartTest;
-	CrossRoadStartTest()
-	:
-		rm(),
-		a1("a1", rm), a2("a2", rm), a3("a3", rm),
-		timer(rm)
-	{}
+
 	//==============================
 	// Tests
 	//==============================
+	void initIgnoreEvent(); // used by different tests
+
 	void testConstuctor();
 	virtual void initConstructor();
 
 	void testOFF_off(); // ignore event
+
 	void testOFF_flash();
 	virtual void initOFF_flash();
+
 	void testOFFMinDuration_flash_deferred();
 	virtual void initOFFMinDuration_flash_deferred();
 
@@ -60,9 +48,11 @@ public:
 		cute::suite s { };
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testConstuctor));
 
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFF_off));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFF_flash));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFFMinDuration_flash_deferred));
 
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_flash));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_off));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashingMinDuration_off_deferred));
 
@@ -71,32 +61,15 @@ public:
 
 		return s;
 	}
-	//==============================
-	// Types
-	//==============================
-	using SUT = CR::CrossRoad;
-	using IntervalDuration = Mock::MockTimer::IntervalDuration;
-protected:
-	virtual std::unique_ptr<SUT> createSUT() {
-			return std::unique_ptr<SUT>(
-					new SUT(a1, a2, a3, timer)
-			);
-		}
-	SUT& getSUT(){
-			if(!pSUT)
-				pSUT = createSUT();
-			return *pSUT;
-		}
-
-	// Member
-	Mock::ResultManager rm;
-	Mock::MockTrafficLight a1, a2, a3;
-	Mock::MockTimer timer;
-	std::unique_ptr<SUT> pSUT;
 };
 //=====================================
 // start Tests
 //=====================================
+inline
+void CrossRoadStartTest::initIgnoreEvent(){
+	// ignore event
+}
+//--------------------------------
 inline
 void CrossRoadStartTest::testConstuctor(){
 	rm.beginInit();
@@ -112,6 +85,21 @@ void CrossRoadStartTest::testConstuctor(){
 inline
 void CrossRoadStartTest::initConstructor(){
 	a1.off(); a2.off(); a3.off();
+}
+//--------------------------------
+inline
+void CrossRoadStartTest::testOFF_off(){
+	rm.beginInit();
+	initIgnoreEvent();
+	rm.endInit();
+
+	auto &sut = getSUT();
+
+	rm.beginTest();
+	sut.off();
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
 //--------------------------------
 inline
@@ -135,6 +123,22 @@ void CrossRoadStartTest::initOFF_flash(){
 
 }
 //--------------------------------
+inline
+void CrossRoadStartTest::testFlashing_flash(){
+	rm.beginInit();
+	initIgnoreEvent();
+	rm.endInit();
+
+	auto &sut = getSUT();
+	sut.flash();	// FlashingMinDuration
+	timer.tick();	// Flashing
+
+	rm.beginTest();
+	sut.flash();
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}//--------------------------------
 inline
 void CrossRoadStartTest::testFlashing_off(){
 	rm.beginInit();
