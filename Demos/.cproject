@@ -30,7 +30,7 @@
 								<option id="gnu.cpp.compiler.option.other.other.485705193" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -Wno-attributes" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.include.paths.111098604" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CrossRoadLib/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SimplePeriodicTimer/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PeriodicTimer/include}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.156503120" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin"/>
 							</tool>
