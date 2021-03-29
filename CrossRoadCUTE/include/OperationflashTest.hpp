@@ -24,6 +24,7 @@ public:
 	void testMajorRedYellow_flash_defered();
 	void testMajorMinDuration_flash_deferred();
 	void testMajorDrive_flash();
+	void testMajorDrive_off_ignored();
 	void testMajorYellow_flash_deferred();
 	void testMinorRedYellow_flash_deferred();
 	void testMinorDrive_flash_deferred();

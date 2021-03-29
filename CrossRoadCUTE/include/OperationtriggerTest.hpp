@@ -105,7 +105,7 @@ inline
 void Operation_trigger_Test::initMinorYellow_trigger(){
 	a1.switchOver(); a2.switchOver(); // Yellow
 	a3.switchOver(); // Red
-	timer.setIntervalDuration(IntervalDuration(SUT::MajorRedYellow));
+	timer.setIntervalDuration(IntervalDuration(SUT::RedYellow));
 }
 //--------------------------------------
 void Operation_trigger_Test::testMajorRedYellow_trigger(){

@@ -23,18 +23,13 @@ public:
 	void testConstuctor();
 	virtual void initConstructor();
 
-	void testOFF_off_AfterCtor(); // ignore event
-	void testOFF_off_AfterFlashing(); // ignore event
-	void testOFFMinDuration_off(); // ignore event
 
-	void testOFF_flash();
+	// process events
+	void testOff_flash();
 	virtual void initOFF_flash();
 
-	void testOFFMinDuration_flash_deferred();
+	void testOffMinDuration_flash_deferred();
 	virtual void initOFFMinDuration_flash_deferred();
-
-	void testFlashing_flash(); // ignore event
-	void testFlashingMinDuration_flash(); // ignore event
 
 	void testFlashing_off();
 	virtual void initFlashing_off();
@@ -52,14 +47,10 @@ public:
 		cute::suite s { };
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testConstuctor));
 
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFF_off_AfterCtor));
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFF_off_AfterFlashing));
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFFMinDuration_off));
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFF_flash));
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testOFFMinDuration_flash_deferred));
+		// process events
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOff_flash));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOffMinDuration_flash_deferred));
 
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_flash));
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashingMinDuration_flash));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_off));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashingMinDuration_off_deferred));
 
@@ -97,63 +88,12 @@ inline
 void StartTest::initConstructor(){
 	a1.off(); a2.off(); a3.off();
 }
+
+//--------------------------------
+// process events
 //--------------------------------
 inline
-void StartTest::testOFF_off_AfterCtor(){
-	rm.beginInit();
-	initIgnoreEvent();
-	rm.endInit();
-
-	auto &sut = getSUT();
-
-	rm.beginTest();
-	sut.off();
-	rm.endTest();
-
-	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
-}
-//--------------------------------
-inline
-void StartTest::testOFF_off_AfterFlashing(){
-	rm.beginInit();
-	initIgnoreEvent();
-	rm.endInit();
-
-	auto &sut = getSUT();
-	sut.flash();	// FlashingMinDuration
-	sut.off();		// off -> deferred
-	timer.tick();	// Flashing -> OffMinDuration
-	timer.tick();	// Off
-
-
-	rm.beginTest();
-	sut.off();
-	rm.endTest();
-
-	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
-}
-//--------------------------------
-inline
-void StartTest::testOFFMinDuration_off(){
-	rm.beginInit();
-	initStopTimer();
-	rm.endInit();
-
-	auto &sut = getSUT();
-	sut.flash();	// FlashingMinDuration
-	timer.tick();	// Flashing
-	sut.off();		// OffMinDuration
-	sut.off();		// ignore event
-
-	rm.beginTest();
-	timer.tick();	// Off
-	rm.endTest();
-
-	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
-}
-//--------------------------------
-inline
-void StartTest::testOFF_flash(){
+void StartTest::testOff_flash(){
 	rm.beginInit();
 	initOFF_flash();
 	rm.endInit();
@@ -172,40 +112,7 @@ void StartTest::initOFF_flash(){
 	timer.startTimer();
 
 }
-//--------------------------------
-inline
-void StartTest::testFlashing_flash(){
-	rm.beginInit();
-	initIgnoreEvent();
-	rm.endInit();
 
-	auto &sut = getSUT();
-	sut.flash();	// FlashingMinDuration
-	timer.tick();	// Flashing
-
-	rm.beginTest();
-	sut.flash();	// ignore event
-	rm.endTest();
-
-	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
-}
-//--------------------------------
-inline
-void StartTest::testFlashingMinDuration_flash(){
-	rm.beginInit();
-	initStopTimer();
-	rm.endInit();
-
-	auto &sut = getSUT();
-	sut.flash();	// FlashingMinDuration
-	sut.flash();	// ignore event
-
-	rm.beginTest();
-	timer.tick();	// Flashing
-	rm.endTest();
-
-	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
-}
 //--------------------------------
 inline
 void StartTest::testFlashing_off(){
@@ -257,7 +164,7 @@ void StartTest::initFlashingMinDuration_off_deferred(){
 }
 //--------------------------------
 inline
-void StartTest::testOFFMinDuration_flash_deferred(){
+void StartTest::testOffMinDuration_flash_deferred(){
 	rm.beginInit();
 	initOFFMinDuration_flash_deferred();
 	rm.endInit();

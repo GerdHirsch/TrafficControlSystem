@@ -395,7 +395,7 @@ inline
 void CrossRoadBaseTest::initMinorYellow_trigger(){
 	a1.switchOver(); a2.switchOver(); // Yellow
 	a3.switchOver(); // Red
-	timer.setIntervalDuration(IntervalDuration(SUT::MajorRedYellow));
+	timer.setIntervalDuration(IntervalDuration(SUT::RedYellow));
 }
 //--------------------------------
 void CrossRoadBaseTest::testMajorRedYellow_trigger(){

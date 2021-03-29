@@ -1,4 +1,6 @@
 
+
+#include "../include/CrossRoadBuilder.hpp"
 #include "../include/TrafficLight.hpp"
 #include "../include/TimerAdapter.hpp"
 
@@ -6,11 +8,63 @@
 #include <PeriodicTimer/PeriodicTimerImpl.hpp>
 
 #include <iostream>
+#include <string>
 #include <chrono>
 
 using namespace std;
 namespace CR = CrossRoadLib;
 namespace SPT = SimplePeriodicTimer;
+
+template<class Selectors>
+void printSelectors(Selectors &selectors){
+	cout << "=======================" << endl;
+	for(auto selector : selectors)
+		cout << selector << endl;
+	cout << "=======================" << endl;
+}
+
+void demoCrossRoadInteractive(){
+	cout << __PRETTY_FUNCTION__ << endl;
+
+	Demo::CrossRoadBuilder builder;
+	CR::CrossRoad &crossRoad = builder.getCrossRoad();
+	CR::CrossRoad::printout = true;
+
+	string selector;
+	const string selectors[] = {
+			"quit", "off", "on", "flash", "regulate", "defect"
+	};
+	enum {quit, off, on, flash, regulate, defect};
+
+
+	do{
+		printSelectors(selectors);
+		cout << "Select: ";
+		cin >> selector;
+		cout << "selector: " << selector << endl;
+		if(selector == selectors[off]){
+			crossRoad.off();
+		} else if(selector == selectors[on]){
+			crossRoad.on();
+		} else if(selector == selectors[flash]){
+			crossRoad.flash();
+		} else if(selector == selectors[regulate]){
+			crossRoad.regulateTraffic();
+		} else if(selector == selectors[defect]){
+			crossRoad.defect();
+		} else if(selector == selectors[quit]){
+			// nothing to do
+		}else{
+			cout << "choose one provided:" << endl;
+		}
+
+	}while(selector != selectors[quit]);
+
+	cout << "thanks for trying this demo" << endl;
+
+
+
+}
 
 void demoCrossRoad(){
 	std::cout << __PRETTY_FUNCTION__ << std::endl;

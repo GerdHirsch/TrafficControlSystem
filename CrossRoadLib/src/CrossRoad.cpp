@@ -11,6 +11,8 @@ namespace CrossRoadLib {
 // public Interface
 //==========================================
 // Ctor/Dtor
+bool CrossRoad::printout = false;
+
 CrossRoad::CrossRoad(
 		TrafficLight& a1,
 		TrafficLight& a2,
@@ -68,12 +70,12 @@ void CrossRoad::flash()
 	}
 	else if(currentState != States::Flashing && currentState != States::FlashingMinDuration )
 	{
-		std::cout << "CrossRoad::flash() deferred state: " << stateToString() << std::endl;
+		if(printout) std::cout << "CrossRoad::flash() deferred state: " << stateToString() << std::endl;
 		flashDeferred = true;
 	}
 	else
 	{
-		//std::cout << "CrossRoad.flash() in state " << stateToString() << " ignore" << std::endl;
+		if(printout) std::cout << "CrossRoad::flash() ignored state: " << stateToString() << std::endl;
 	}
 }
 //------------------------------------------
@@ -88,11 +90,12 @@ void CrossRoad::on(){
 		timer->startTimer();
 //		timer->addReceiver(*this);
 	}else if(currentState == States::FlashingMinDuration){
-		std::cout << "CrossRoad::on() deferred state: " << stateToString() << std::endl;
+		if(printout) std::cout << "CrossRoad::on() deferred state: " << stateToString() << std::endl;
 
 		onDeferred = true;
+	} else{
+		if(printout) std::cout << "CrossRoad::on() ignored state: " << stateToString() << std::endl;
 	}
-	// else ignore event on()
 }
 void CrossRoad::regulateTraffic(){
 	Guard guard(myMutex);
@@ -107,10 +110,11 @@ void CrossRoad::regulateTraffic(){
 	}else if(	currentState == States::MinorYellow
 			||	currentState == States::MajorRedYellow
 			||	currentState == States::MajorMinDuration){
-		std::cout << "CrossRoad::regulateTraffic() deferred state: " << stateToString() << std::endl;
+		if(printout) std::cout << "CrossRoad::regulateTraffic() deferred state: " << stateToString() << std::endl;
 		regulateTrafficDeferred = true;
+	}else {
+		if(printout) std::cout << "CrossRoad::regulateTraffic() ignored state: " << stateToString() << std::endl;
 	}
-	// else ignore event regulateTraffic
 }
 //------------------------------------------
 void CrossRoad::off(){
@@ -122,20 +126,23 @@ void CrossRoad::off(){
 		offDeferred = false;
 		wait(Times::OffMinDuration);
 		timer->startTimer();
-	}else if(currentState != States::OffMinDuration || currentState != States::Off){
-		std::cout << "CrossRoad::off() deferred state: " << stateToString() << std::endl;
+	}else if(currentState != States::OffMinDuration && currentState != States::Off && currentState != States::MajorDrive){
+		if(printout) std::cout << "CrossRoad::off() deferred state: " << stateToString() << std::endl;
 		offDeferred = true;
+	}else{
+		if(printout) std::cout << "CrossRoad::off() ignored state: " << stateToString() << std::endl;
 	}
-	// else ignore event off
 }
 //------------------------------------------
 void CrossRoad::defect(){
 	Guard guard(myMutex);
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
 	if(currentState != States::Off && currentState != States::OffMinDuration){
 		setState(States::Off);
 		entryDefect();
 		guard.unlock();
+	}else{
+		if(printout) std::cout << "CrossRoad::defect() ignored state: " << stateToString() << std::endl;
 	}
 }
 //==========================================
@@ -155,7 +162,7 @@ void CrossRoad::trigger(){
 	case States::MinorYellow:
 		setState(States::MajorRedYellow);
 		entryMajorRedYellow();
-		wait(Times::MajorRedYellow);
+		wait(Times::RedYellow);
 		break;
 	case States::MajorRedYellow:
 		setState(States::MajorMinDuration);
@@ -216,7 +223,7 @@ void CrossRoad::trigger(){
 	case States::MajorYellow:
 		setState(States::MinorRedYellow);
 		entryMinorRedYellow();
-		wait(Times::MinorRedYellow);
+		wait(Times::RedYellow);
 		break;
 	case States::MinorRedYellow:
 		setState(States::MinorDrive);
@@ -249,7 +256,7 @@ void CrossRoad::wait(unsigned long long msDuration){
 //================================================
 // entry behaviors
 void CrossRoad::entryDefect(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 
 	a1->flash();
 	a2->flash();
@@ -260,67 +267,67 @@ void CrossRoad::entryDefect(){
 	a3->off();
 }
 void CrossRoad::entryOff(){ // called from Ctor
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	// nothing to do
 }
 void CrossRoad::entryOffMinDuration(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	a1->off();
 	a2->off();
 	a3->off();
 }
 void CrossRoad::entryFlashing(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	// do nothing
 }
 void CrossRoad::entryFlashingMinDuration(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	a1->flash();
 	a2->flash();
 	a3->flash();
 }
 void CrossRoad::entryMinorFlashing(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	a1->switchOver(); // Yellow
 	a2->switchOver();
 }
 void CrossRoad::exitMinorFlashing(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	a1->switchOver(); // Red
 	a2->switchOver();
 }
 void CrossRoad::entryMinorYellow(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	a3->switchOver(); // Yellow
 }
 void CrossRoad::entryMajorRedYellow(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	a1->switchOver(); // RedYellow
 	a2->switchOver();
 	a3->switchOver(); // Red
 }
 void CrossRoad::entryMajorMinDuration(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	a1->switchOver(); // Green
 	a2->switchOver();
 }
 void CrossRoad::entryMajorDrive(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	// do nothing?
 }
 void CrossRoad::entryMajorYellow(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	a1->switchOver(); // Yellow
 	a2->switchOver();
 }
 void CrossRoad::entryMinorRedYellow(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	a1->switchOver(); // Red
 	a2->switchOver();
 	a3->switchOver(); // RedYellow
 }
 void CrossRoad::entryMinorDrive(){
-	std::cout << __PRETTY_FUNCTION__ << stateToString() << std::endl;
+	if(printout) std::cout << __PRETTY_FUNCTION__ << " state: " << stateToString() << std::endl;
 	a3->switchOver(); // Green
 }
 //------------------------------------------

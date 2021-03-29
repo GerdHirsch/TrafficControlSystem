@@ -7,9 +7,12 @@
 #include <iostream>
 using namespace std;
 
-	void demoCrossRoad();
+void demoCrossRoad();
+void demoCrossRoadInteractive();
+
 int main(){
 	cout << "Demos CrossRoad" << endl;
-	demoCrossRoad();
+//	demoCrossRoad();
+	demoCrossRoadInteractive();
 }
 

@@ -25,16 +25,18 @@ public:
 	// Move
 	CrossRoad(CrossRoad&&);
 	CrossRoad& operator=(CrossRoad&&);
+	// on/off output
+	static bool printout;
 
-	enum struct States{ //todo Off/FlashingMinDuration
+	enum struct States{
 		Off, OffMinDuration, Flashing, FlashingMinDuration, MinorFlashing,
 		MinorYellow, MajorRedYellow, MajorDrive, MajorMinDuration,
 		MajorYellow, MinorRedYellow, MinorDrive, Defect
 	};
 	enum  Times {
-		OffMinDuration = 2000, FlashingMinDuration = 2000, MinorFlashing = 2000,
-		MinorYellow = 1500, MajorRedYellow = 500, /*MajorDrive = 0,*/ MajorMinDuration = 5000,
-		MajorYellow = 2000, MinorRedYellow = 500, MinorDrive = 5000
+		OffMinDuration = 2000, FlashingMinDuration = 2000, MinorFlashing = 2000, RedYellow = 500,
+		MinorYellow = 1500, /*MajorDrive = 0,*/ MajorMinDuration = 5000,
+		MajorYellow = 2000, MinorDrive = 5000
 	};
 //	enum  Times { // script timings
 //		Off = 2000, Flashing = 2000, MinorFlashing = 5000,
