@@ -78,6 +78,8 @@ void Operation_trigger_Test::testMinorFlashing_trigger(){
 }
 inline
 void Operation_trigger_Test::initMinorFlashing_trigger(){
+	a1.switchOver(); // Red
+	a2.switchOver();
 	a3.switchOver(); // Yellow
 	timer.setIntervalDuration(IntervalDuration(SUT::MinorYellow));
 }
@@ -250,7 +252,7 @@ void Operation_trigger_Test::testMinorDrive_trigger(){
 	timer.tick();	// MajorRedYellow
 	timer.tick();	// MajorMinDuration
 	timer.tick();	// MajorDrive stopTimer
-	sut.regulateTraffic();
+	sut.regulateTraffic();	//MajorYellow
 	timer.tick();	// MinorRedYellow
 	timer.tick();	// MinorDrive
 

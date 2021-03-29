@@ -92,35 +92,36 @@ private:
 	void doFlashing(){
 		Guard guard (myMutex);
 
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 		if(currentState != Flashing){
-			std::cout << name << " removeReceiver(*this)" << std::endl;
+//			std::cout << name << " removeReceiver(*this)" << std::endl;
 			timer->removeReceiver(*this);
+		}else{
+			std::cout << name << ".doFlashing()" << std::endl;
 		}
 	}
 	// state entry behaviors
 	void entryRed(){
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		std::cout << name << ".entryRed()" << std::endl;
 	}
 	void entryRedYellow(){
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		std::cout << name << ".entryRedYellow()" << std::endl;
 	}
 	void entryGreen(){
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		std::cout << name << ".entryGreen()" << std::endl;
 	}
 	void entryYellow(){
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		std::cout << name << ".entryYellow()" << std::endl;
 	}
 	void entryFlashing(){
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		std::cout << name << ".entryFlashing()" << std::endl;
 		lampsOff();
 	}
 	void entryOff(){
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+		std::cout << name << ".entryOff()" << std::endl;
 		lampsOff();
 	}
 	void lampsOff(){
-		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+//		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 	}
 private:
 	States currentState = Off;

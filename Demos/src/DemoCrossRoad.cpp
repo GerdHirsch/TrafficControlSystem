@@ -36,38 +36,38 @@ void demoCrossRoad(){
 
 		CR::CrossRoad crossRoad(a1, a2, a3, crossRoadTimer);
 
-		std::cout << "demoCrossRoad sleep " << this_thread::get_id() << std::endl;
+		std::cout << "===> demoCrossRoad sleep " << this_thread::get_id() << std::endl;
 		std::this_thread::sleep_for(sleepDuration);
 
-		cout << "crossRoad.flash();" << endl;
+		cout << "===> crossRoad.flash();" << endl;
 		crossRoad.flash();
 
-		std::cout << "demoCrossRoad sleep " << this_thread::get_id() << std::endl;
+		std::cout << "===> demoCrossRoad sleep " << this_thread::get_id() << std::endl;
 		std::this_thread::sleep_for(sleepDuration);
 
-		cout << "crossRoad.on();" << endl;
+		cout << "===> crossRoad.on();" << endl;
 		crossRoad.on();
 
-		std::cout << "demoCrossRoad sleep " << this_thread::get_id() << std::endl;
+		std::cout << "===> demoCrossRoad sleep " << this_thread::get_id() << std::endl;
 		std::this_thread::sleep_for(sleepDuration);
 
-		cout << "crossRoad.regulateTraffic();" << endl;
+		cout << "===> crossRoad.regulateTraffic();" << endl;
 		crossRoad.regulateTraffic();
 
-		std::cout << "demoCrossRoad sleep " << this_thread::get_id() << std::endl;
+		std::cout << "===> demoCrossRoad sleep " << this_thread::get_id() << std::endl;
 		std::this_thread::sleep_for(std::chrono::seconds(10));
 
-		cout << "crossRoad.flash();" << endl;
+		cout << "===> crossRoad.flash();" << endl;
 		crossRoad.flash();
 
-		std::cout << "demoCrossRoad sleep " << this_thread::get_id() << std::endl;
+		std::cout << "===> demoCrossRoad sleep " << this_thread::get_id() << std::endl;
 		std::this_thread::sleep_for(std::chrono::seconds(10));
 
-		cout << "crossRoad.off();" << endl;
+		cout << "===> crossRoad.off();" << endl;
 		crossRoad.off();
 
-		std::cout << "demoCrossRoad sleep " << this_thread::get_id() << std::endl;
-		std::this_thread::sleep_for(sleepDuration);
+		std::cout << "===> demoCrossRoad sleep " << this_thread::get_id() << std::endl;
+		std::this_thread::sleep_for(std::chrono::seconds(10));
 	}
 
 

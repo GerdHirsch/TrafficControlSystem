@@ -64,6 +64,7 @@ private:
 	void entryFlashing();
 	void entryFlashingMinDuration();
 	void entryMinorFlashing();
+	void exitMinorFlashing();
 	void entryMinorYellow();
 	void entryMajorRedYellow();
 	void entryMajorMinDuration();
