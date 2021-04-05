@@ -12,7 +12,7 @@
 
 #include <PeriodicTimer/PeriodicTimer.hpp>
 #include <CrossRoad/TrafficLight.hpp>
-#include <TCS/Lamp.h>
+#include <TCS/Lamp.hpp>
 
 namespace CR = CrossRoadLib;
 namespace SPT = SimplePeriodicTimer;

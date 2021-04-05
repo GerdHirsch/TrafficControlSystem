@@ -8,10 +8,8 @@
 #ifndef MOCKS_MOCKLAMP_HPP_
 #define MOCKS_MOCKLAMP_HPP_
 
-#include <TCS/Lamp.h>
-
-//#include "ResultManager.h"
 #include <Mock/ResultManager.hpp>
+#include <TCS/Lamp.hpp>
 #include <string>
 
 class MockLamp : public Lamp{

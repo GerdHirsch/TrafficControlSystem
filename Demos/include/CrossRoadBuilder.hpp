@@ -16,9 +16,14 @@
 
 namespace Demo{
 
-
 class CrossRoadBuilder{
 public:
+	using CrossRoad = CrossRoadLib::CrossRoad;
+	using TrafficLight = Demo::TrafficLight;
+	using TrafficLightTimerRepo = SimplePeriodicTimer::DefaultTimerRepository<Demo::TrafficLight, 3>;
+	using TrafficLightTimer = SimplePeriodicTimer::PeriodicTimerImpl<TrafficLightTimerRepo>;
+	using CrossRoadTimerRepo = SimplePeriodicTimer::DefaultTimerRepository<CrossRoad, 1, CrossRoad::IntervalDuration>;
+
 	CrossRoadBuilder()
 	:
 		trafficLightTimer(),
@@ -29,19 +34,16 @@ public:
 		crossRoadTimer(periodicTimer),
 		crossRoad(a1, a2, a3, crossRoadTimer)
 	{}
-	CR::CrossRoad& getCrossRoad(){ return crossRoad; }
+	CrossRoad& getCrossRoad(){ return crossRoad; }
 private:
-	using TrafficLightTimerRepo = SPT::DefaultTimerRepository<Demo::TrafficLight, 3>;
-	using CrossRoadTimerRepo = SPT::DefaultTimerRepository<CR::CrossRoad, 1, CR::CrossRoad::IntervalDuration>;
 
-	SPT::PeriodicTimerImpl<TrafficLightTimerRepo> trafficLightTimer;
+	TrafficLightTimer trafficLightTimer;
+	TrafficLight a1, a2, a3;
 
-	Demo::TrafficLight a1, a2, a3;
-
-	SPT::PeriodicTimerImpl<CrossRoadTimerRepo> periodicTimer;
+	SimplePeriodicTimer::PeriodicTimerImpl<CrossRoadTimerRepo> periodicTimer;
 	Demo::TimerAdapter crossRoadTimer;
 
-	CR::CrossRoad crossRoad;
+	CrossRoad crossRoad;
 };
 
 } // namespace Demo

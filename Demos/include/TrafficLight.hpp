@@ -11,14 +11,15 @@
 #include <chrono>
 namespace Demo{
 
-namespace SPT = SimplePeriodicTimer;
-namespace CR = CrossRoadLib;
+//namespace SPT = SimplePeriodicTimer;
 
-class TrafficLight : public CR::TrafficLight {
+class TrafficLight : public CrossRoadLib::TrafficLight {
 public:
 	using Mutex = std::timed_mutex;
 	using Guard = std::unique_lock<Mutex>;
-	TrafficLight(std::string name, SPT::PeriodicTimer<TrafficLight>& timer)
+	using Timer = SimplePeriodicTimer::PeriodicTimer<TrafficLight>;
+
+	TrafficLight(std::string name, Timer& timer)
 	:
 		currentState(Off)
 		, name(std::move(name))
@@ -126,7 +127,7 @@ private:
 private:
 	States currentState = Off;
 	std::string name;
-	SPT::PeriodicTimer<TrafficLight>* timer;
+	Timer* timer;
 	Mutex myMutex;
 };
 

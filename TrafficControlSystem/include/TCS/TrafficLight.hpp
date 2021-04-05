@@ -1,7 +1,5 @@
-#ifndef TRAFFICLIGHT_HPP_
-#define TRAFFICLIGHT_HPP_
-
-#include "Lamp.h"
+#ifndef INCLUDE_TCS_TRAFFICLIGHT_HPP_
+#define INCLUDE_TCS_TRAFFICLIGHT_HPP_
 
 #include <PeriodicTimer/PeriodicTimer.hpp>
 #include <CrossRoad/TrafficLight.hpp>
@@ -11,18 +9,17 @@
 #include <iostream>
 #include <mutex>
 #include <chrono>
+#include "Lamp.hpp"
 
 namespace TCS{
 
-namespace SPT = SimplePeriodicTimer;
-namespace CR = CrossRoadLib;
-
-class TrafficLight : public CR::TrafficLight{
+class TrafficLight : public CrossRoadLib::TrafficLight{
 public:
 	using Mutex = std::timed_mutex;
 	using Guard = std::unique_lock<Mutex>;
+	using Timer = SimplePeriodicTimer::PeriodicTimer<TrafficLight>;
 
-	TrafficLight(Lamp &red, Lamp &yellow, Lamp &green, SPT::PeriodicTimer<TrafficLight>& timer, std::string name="tl")
+	TrafficLight(Lamp &red, Lamp &yellow, Lamp &green, Timer& timer, std::string name="tl")
 	:
 		currentState(Off)
 		, red(&red), yellow(&yellow), green(&green)
@@ -135,11 +132,12 @@ private:
 private:
 	States currentState = Off;
 	Lamp *red, *yellow, *green;
-	SPT::PeriodicTimer<TrafficLight>* timer;
+	Timer* timer;
 	std::string name;
 	Mutex myMutex;
 };
+
 } // namespace TCS
 
 
-#endif /* TRAFFICLIGHT_HPP_ */
+#endif /* INCLUDE_TCS_TRAFFICLIGHT_HPP_ */

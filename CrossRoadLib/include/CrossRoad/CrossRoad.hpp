@@ -4,12 +4,9 @@
 #include "TrafficLight.hpp"
 #include "Timer.hpp"
 
-//#include <PeriodicTimer/PeriodicTimer.hpp>
-
 #include <mutex>
 
 namespace CrossRoadLib{
-//namespace SPT = SimplePeriodicTimer;
 
 class CrossRoad{
 public:
