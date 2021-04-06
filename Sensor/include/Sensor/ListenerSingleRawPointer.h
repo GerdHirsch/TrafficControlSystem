@@ -26,12 +26,13 @@ public:
 			listener = 0;
 	}
 protected:
-	Listener listener;
 	void fireTrigger(unsigned long timestamp){
 		if(listener){
 			listener->trigger(timestamp);
 		}
 	}
+private:
+	Listener listener;
 };
 
 
