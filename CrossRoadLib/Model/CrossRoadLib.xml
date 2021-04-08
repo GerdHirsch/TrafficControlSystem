@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:thecustomprofile="http://www.sparxsystems.com/profiles/thecustomprofile/1.0" xmlns:MyProfileDefinitions="http://www.sparxsystems.com/profiles/MyProfileDefinitions/1.0" xmlns:EAUML="http://www.sparxsystems.com/profiles/EAUML/1.0">
 	<xmi:Documentation exporter="Enterprise Architect" exporterVersion="6.5"/>
 	<uml:Model xmi:type="uml:Model" name="EA_Model" visibility="public">
-		<packagedElement xmi:type="uml:Package" xmi:id="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" name="CrossRoad" visibility="public">
+		<packagedElement xmi:type="uml:Package" xmi:id="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" name="CrossRoadLib" visibility="public">
 			<ownedComment xmi:type="uml:Comment" xmi:id="EAID_89D038A3_AE48_47bd_BE24_0C2D68BD6EA8">
 				<annotatedElement xmi:idref="EAID_00BCF2FA_07DA_4073_8371_03AE417D0C5F"/>
 			</ownedComment>
@@ -65,6 +65,9 @@
 					</ownedParameter>
 					<ownedParameter xmi:id="EAID_RT000000_252B_41e8_B934_589216F0CDBA" name="return" direction="return" type="EAnone_void"/>
 				</ownedOperation>
+				<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst05345B_9F49_44da_92C1_65100831C1AA" name="timer" visibility="private" association="EAID_3505345B_9F49_44da_92C1_65100831C1AA" isStatic="false" isReadOnly="false" isDerived="false" isOrdered="false" isUnique="true" isDerivedUnion="false" aggregation="none">
+					<type xmi:idref="EAID_B30C49E9_3C33_49a6_B70F_C6F1048156CD"/>
+				</ownedAttribute>
 				<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst38C98A_D3E8_4b38_BEA5_10AE9D0E6BC1" name="a3" visibility="private" association="EAID_3538C98A_D3E8_4b38_BEA5_10AE9D0E6BC1" isStatic="false" isReadOnly="false" isDerived="false" isOrdered="false" isUnique="true" isDerivedUnion="false" aggregation="none">
 					<type xmi:idref="EAID_721841C7_54FF_40fd_94E5_126B71A09488"/>
 				</ownedAttribute>
@@ -360,6 +363,13 @@
 					</nestedClassifier>
 				</ownedBehavior>
 			</packagedElement>
+			<packagedElement xmi:type="uml:Association" xmi:id="EAID_3505345B_9F49_44da_92C1_65100831C1AA" visibility="public">
+				<memberEnd xmi:idref="EAID_dst05345B_9F49_44da_92C1_65100831C1AA"/>
+				<memberEnd xmi:idref="EAID_src05345B_9F49_44da_92C1_65100831C1AA"/>
+				<ownedEnd xmi:type="uml:Property" xmi:id="EAID_src05345B_9F49_44da_92C1_65100831C1AA" visibility="public" association="EAID_3505345B_9F49_44da_92C1_65100831C1AA" isStatic="false" isReadOnly="false" isDerived="false" isOrdered="false" isUnique="true" isDerivedUnion="false" aggregation="none">
+					<type xmi:idref="EAID_833FF559_E3B3_408b_B692_148191068ECF"/>
+				</ownedEnd>
+			</packagedElement>
 			<packagedElement xmi:type="uml:Association" xmi:id="EAID_3538C98A_D3E8_4b38_BEA5_10AE9D0E6BC1" visibility="public">
 				<memberEnd xmi:idref="EAID_dst38C98A_D3E8_4b38_BEA5_10AE9D0E6BC1"/>
 				<memberEnd xmi:idref="EAID_src38C98A_D3E8_4b38_BEA5_10AE9D0E6BC1"/>
@@ -399,6 +409,26 @@
 				<ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_9E265F0D_243B_46ab_AB81_76C25C90DA44" name="DGELB" visibility="public"/>
 				<ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_E5ABBA77_3C10_4b8e_87B3_4625A13357C0" name="EROTGELB" visibility="public"/>
 				<ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_68CBF5C5_CDE3_4ce3_A1E4_8582D617169C" name="EINFAHRT" visibility="public"/>
+			</packagedElement>
+			<packagedElement xmi:type="uml:Interface" xmi:id="EAID_B30C49E9_3C33_49a6_B70F_C6F1048156CD" name="Timer" visibility="public" isAbstract="true">
+				<ownedOperation xmi:id="EAID_F2D82C1B_ECEB_4848_B040_3B28106C3415" name="add" visibility="public" concurrency="sequential">
+					<ownedParameter xmi:id="EAID_35E5D56F_7D81_4c74_98FB_2F6445A2BCF3" name="crossRoad" direction="in" isStream="false" isException="false" isOrdered="false" isUnique="true" type="EAJava_CrossRoad_"/>
+					<ownedParameter xmi:id="EAID_RT000000_ECEB_4848_B040_3B28106C3415" name="return" direction="return" type="EAJava_void"/>
+				</ownedOperation>
+				<ownedOperation xmi:id="EAID_76A67970_CD96_4b58_885F_870D90F94F66" name="setCallBack" visibility="public" concurrency="sequential">
+					<ownedParameter xmi:id="EAID_902BDC76_50EA_4fb5_A223_E92958CC871A" name="callBack" direction="in" isStream="false" isException="false" isOrdered="false" isUnique="true" type="EAJava_CallbackType"/>
+					<ownedParameter xmi:id="EAID_RT000000_CD96_4b58_885F_870D90F94F66" name="return" direction="return" type="EAJava_void"/>
+				</ownedOperation>
+				<ownedOperation xmi:id="EAID_1BB7E870_434C_46fb_8238_D9EC8C90A2D1" name="setIntervalDuration" visibility="public" concurrency="sequential">
+					<ownedParameter xmi:id="EAID_1EC4AB29_914C_405a_A749_74888A95BB45" name="nextInterval" direction="in" isStream="false" isException="false" isOrdered="false" isUnique="true" type="EAJava_IntervalDuration"/>
+					<ownedParameter xmi:id="EAID_RT000000_434C_46fb_8238_D9EC8C90A2D1" name="return" direction="return" type="EAJava_void"/>
+				</ownedOperation>
+				<ownedOperation xmi:id="EAID_6888029F_CC97_4cbc_9204_FDDEAB38E5A7" name="stopTimer" visibility="public" concurrency="sequential">
+					<ownedParameter xmi:id="EAID_RT000000_CC97_4cbc_9204_FDDEAB38E5A7" name="return" direction="return" type="EAJava_void"/>
+				</ownedOperation>
+				<ownedOperation xmi:id="EAID_70B56754_3BF8_4d1a_8C8E_24D861FDD3CC" name="startTimer" visibility="public" concurrency="sequential">
+					<ownedParameter xmi:id="EAID_RT000000_3BF8_4d1a_8C8E_24D861FDD3CC" name="return" direction="return" type="EAJava_void"/>
+				</ownedOperation>
 			</packagedElement>
 			<packagedElement xmi:type="uml:Interface" xmi:id="EAID_721841C7_54FF_40fd_94E5_126B71A09488" name="TrafficLight" visibility="public" isAbstract="true">
 				<ownedOperation xmi:id="EAID_C6AA988F_8717_4773_952A_911B2B98CBEC" name="off" visibility="public" concurrency="sequential" isAbstract="true">
@@ -644,10 +674,10 @@
 	</uml:Model>
 	<xmi:Extension extender="Enterprise Architect" extenderID="6.5">
 		<elements>
-			<element xmi:idref="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" xmi:type="uml:Package" name="CrossRoad" scope="public">
+			<element xmi:idref="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" xmi:type="uml:Package" name="CrossRoadLib" scope="public">
 				<model package2="EAID_25BFAF8C_2010_4552_9405_2E7F26AB681C" package="EAPK_9C562032_0708_4507_8EC7_A3D3AB75E87D" tpos="0" ea_localid="84" ea_eleType="package"/>
 				<properties isSpecification="false" sType="Package" nType="0" scope="public"/>
-				<project author="Gerd" version="1.0" phase="1.0" created="2021-04-06 20:35:18" modified="2021-04-08 08:28:14" complexity="1" status="Proposed"/>
+				<project author="Gerd" version="1.0" phase="1.0" created="2021-04-06 20:35:18" modified="2021-04-08 10:04:21" complexity="1" status="Proposed"/>
 				<code gentype="Java"/>
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
@@ -655,7 +685,7 @@
 				<extendedProperties tagged="0" package_name="Verkehrssteuerung"/>
 				<packageproperties version="1.0"/>
 				<paths/>
-				<times created="2021-04-06 00:00:00" modified="2021-04-08 08:28:14"/>
+				<times created="2021-04-06 00:00:00" modified="2021-04-08 10:04:21"/>
 				<flags iscontrolled="FALSE" isprotected="FALSE" usedtd="FALSE" logxml="FALSE" packageFlags="isModel=1;VICON=3;"/>
 			</element>
 			<element xmi:idref="EAID_833FF559_E3B3_408b_B692_148191068ECF" xmi:type="uml:Class" name="CrossRoad" scope="public">
@@ -666,7 +696,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={319E7A9B-D3C4-4d1d-BE9D-5564678A9A1A}$XID;$NAM=DefaultDiagram$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$CLT={833FF559-E3B3-408b-B692-148191068ECF}$CLT;$SUP={7E1988D5-CA54-49a0-A437-F62475F9D2E9}$SUP;$ENDXREF;$XREFPROP=$XID={2DC8D82D-7ED5-4a4e-8AC0-82892BC35BE8}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isActive@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={833FF559-E3B3-408b-B692-148191068ECF}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad" eventflags="OBJ=345e;" concurrency="Active" diagram="EAID_7E1988D5_CA54_49a0_A437_F62475F9D2E9"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib" eventflags="OBJ=345e;" concurrency="Active" diagram="EAID_7E1988D5_CA54_49a0_A437_F62475F9D2E9"/>
 				<attributes>
 					<attribute xmi:idref="EAID_6FA408C6_D6C0_4d2d_96A9_05A4E13D83E0" name="a1" scope="Private">
 						<initial/>
@@ -961,6 +991,7 @@
 					<requirement name="steuert die Ampeln" description="kennt die Dauer der Schaltphasen&#xA;der Kreuzung (Einfahrt/Durchfahrt) und der Ampeln (Gelb/RotGelb)" reqtype="Functional" status="Proposed" difficulty="Medium" priority="Medium" lastupdate="2015-12-10 13:27:12"/>
 				</requirements>
 				<links>
+					<Association xmi:id="EAID_3505345B_9F49_44da_92C1_65100831C1AA" start="EAID_833FF559_E3B3_408b_B692_148191068ECF" end="EAID_B30C49E9_3C33_49a6_B70F_C6F1048156CD"/>
 					<Association xmi:id="EAID_3538C98A_D3E8_4b38_BEA5_10AE9D0E6BC1" start="EAID_833FF559_E3B3_408b_B692_148191068ECF" end="EAID_721841C7_54FF_40fd_94E5_126B71A09488"/>
 					<Association xmi:id="EAID_BE2EEFF2_BEB3_4db2_A996_C88A26B6898C" start="EAID_833FF559_E3B3_408b_B692_148191068ECF" end="EAID_97CB4BF3_178C_4eed_932B_1480598B62E6"/>
 					<Association xmi:id="EAID_F9113F14_9975_4858_8BF8_245B1D541A0F" start="EAID_833FF559_E3B3_408b_B692_148191068ECF" end="EAID_721841C7_54FF_40fd_94E5_126B71A09488"/>
@@ -975,7 +1006,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={46007B38-C589-4f42-AA6C-9A4A471C01FE}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isActive@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={97CB4BF3-178C-4eed-932B-1480598B62E6}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad" eventflags="OBJ=6503;"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib" eventflags="OBJ=6503;"/>
 				<attributes>
 					<attribute xmi:idref="EAID_E96D680F_EC76_48bc_829C_4E63E32E155D" name="AUS" scope="Public">
 						<initial/>
@@ -1140,7 +1171,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_3933D507_8332_495a_B53B_7BFAE497E8F4" xmi:type="uml:State" name="Flashing" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="1" ea_localid="1140" ea_eleType="element"/>
@@ -1150,7 +1181,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad">
+				<extendedProperties tagged="0" package_name="CrossRoadLib">
 					<states type="entry" name="allTrafficLightsFlash" visibility="public" isAsynchronous="false">
 						<model ea_guid="{EF597606-158C-4faa-AA71-AC901125AE43}" ea_localid="777"/>
 						<type type="entry" const="false" static="false" isAbstract="false" synchronised="0" concurrency="Sequential" pure="0" isQuery="false"/>
@@ -1190,7 +1221,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_527E1982_E2D2_4a46_91D8_EF2A77A81234" start="EAID_23B11D5C_AF5D_4035_A62C_A4DC8F895C28" end="EAID_6D257010_EA04_48c3_81C7_8FCAC7B37AA8"/>
 					<StateFlow xmi:id="EAID_625C1C50_0B8C_4ff1_B1A4_F469B5470186" start="EAID_23B11D5C_AF5D_4035_A62C_A4DC8F895C28" end="EAID_23B11D5C_AF5D_4035_A62C_A4DC8F895C28"/>
@@ -1208,7 +1239,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={5221F917-07F9-4528-B095-B35BA1044FBA}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={6D257010-EA04-48c3-81C7-8FCAC7B37AA8}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_527E1982_E2D2_4a46_91D8_EF2A77A81234" start="EAID_23B11D5C_AF5D_4035_A62C_A4DC8F895C28" end="EAID_6D257010_EA04_48c3_81C7_8FCAC7B37AA8"/>
 				</links>
@@ -1221,7 +1252,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_C8B8E434_CB3F_4632_B591_9F47B49EB7CB" start="EAID_2761EB4D_4CC0_43ea_BA9C_CAF1CFB442DC" end="EAID_23B11D5C_AF5D_4035_A62C_A4DC8F895C28"/>
 				</links>
@@ -1234,7 +1265,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad">
+				<extendedProperties tagged="0" package_name="CrossRoadLib">
 					<states type="entry" name="allTrafficLightsOff" visibility="public" isAsynchronous="false">
 						<model ea_guid="{6D8DF872-657F-4b2b-A49F-A3064D75C075}" ea_localid="776"/>
 						<type type="entry" const="false" static="false" isAbstract="false" synchronised="0" concurrency="Sequential" pure="0" isQuery="false"/>
@@ -1272,7 +1303,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_A7C1E8FB_30DF_4463_900D_C63BEA52F8C9" start="EAID_A371D1D1_1517_43ca_800A_6EDDC457612A" end="EAID_A371D1D1_1517_43ca_800A_6EDDC457612A"/>
 					<StateFlow xmi:id="EAID_CCB9A713_ECCD_4ef5_9E04_AA47473ED992" start="EAID_A371D1D1_1517_43ca_800A_6EDDC457612A" end="EAID_2E172581_5871_40d1_B638_C572C273044B"/>
@@ -1288,7 +1319,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={99BC2487-0462-4871-8800-FE88FB3898CE}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={2E172581-5871-40d1-B638-C572C273044B}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_41D3FABA_1952_440b_B054_7BFAF7A06D62" start="EAID_FDCD6487_A4BD_49ce_8866_4D5506BAEA8B" end="EAID_2E172581_5871_40d1_B638_C572C273044B"/>
 					<StateFlow xmi:id="EAID_CCB9A713_ECCD_4ef5_9E04_AA47473ED992" start="EAID_A371D1D1_1517_43ca_800A_6EDDC457612A" end="EAID_2E172581_5871_40d1_B638_C572C273044B"/>
@@ -1304,7 +1335,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_23F1FC8A_974E_4591_8869_082C08272900" start="EAID_A3A1901A_2E19_4b41_8B7E_273573F30408" end="EAID_A371D1D1_1517_43ca_800A_6EDDC457612A"/>
 				</links>
@@ -1317,7 +1348,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={9FE7A75A-DAA0-4f62-84E3-E1581504F09F}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={FDCD6487-A4BD-49ce-8866-4D5506BAEA8B}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_22CBFCB3_FB12_49bb_A44E_C546C0F6AB63" start="EAID_FDCD6487_A4BD_49ce_8866_4D5506BAEA8B" end="EAID_FDCD6487_A4BD_49ce_8866_4D5506BAEA8B"/>
 					<StateFlow xmi:id="EAID_41D3FABA_1952_440b_B054_7BFAF7A06D62" start="EAID_FDCD6487_A4BD_49ce_8866_4D5506BAEA8B" end="EAID_2E172581_5871_40d1_B638_C572C273044B"/>
@@ -1338,7 +1369,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={88C8AAC6-69E9-4779-85DA-D536B12F77EC}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={F379A1C7-5AA9-4320-AC59-BEC7EC00E64B}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_00BCF2FA_07DA_4073_8371_03AE417D0C5F" start="EAID_F379A1C7_5AA9_4320_AC59_BEC7EC00E64B" end="EAID_27E74D5A_EA28_4474_91E3_554E155CCC84"/>
 					<StateFlow xmi:id="EAID_07322165_03D2_4501_93B3_68D1C83ED3F8" start="EAID_F379A1C7_5AA9_4320_AC59_BEC7EC00E64B" end="EAID_0D58C4ED_1328_47b1_8A60_9D94DA8F28DD"/>
@@ -1355,7 +1386,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={D7580B26-39A3-4be8-8F3A-DE49717593D2}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={F6FEC254-51AB-4d89-AE36-8D2BF6A34675}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_2A0FB0A7_3D85_4a9a_81EE_16BE2F33539B" start="EAID_F6FEC254_51AB_4d89_AE36_8D2BF6A34675" end="EAID_F379A1C7_5AA9_4320_AC59_BEC7EC00E64B"/>
 					<StateFlow xmi:id="EAID_C4B2F390_FBF2_451e_9291_D68AB5726ECB" start="EAID_F6FEC254_51AB_4d89_AE36_8D2BF6A34675" end="EAID_F6FEC254_51AB_4d89_AE36_8D2BF6A34675"/>
@@ -1371,7 +1402,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={8551B23B-34A5-401f-B1E1-66120F97B383}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={61032A70-114C-4fb4-B9EE-5226332E8117}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_CB48603B_A75D_435f_80B3_75E3D5186280" start="EAID_61032A70_114C_4fb4_B9EE_5226332E8117" end="EAID_61032A70_114C_4fb4_B9EE_5226332E8117"/>
 					<StateFlow xmi:id="EAID_DD861263_E430_464b_9D47_A6D6ACE18781" start="EAID_61032A70_114C_4fb4_B9EE_5226332E8117" end="EAID_F6FEC254_51AB_4d89_AE36_8D2BF6A34675"/>
@@ -1387,7 +1418,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={06573C90-4C0C-4fba-B4CA-100BFEDBE9AC}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={27E74D5A-EA28-4474-91E3-554E155CCC84}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_FD9BE925_F3B6_44fc_8DA1_460FD117F04E" start="EAID_27E74D5A_EA28_4474_91E3_554E155CCC84" end="EAID_CD398714_031A_4e74_BEFE_198984E6A4FD"/>
 					<StateFlow xmi:id="EAID_00BCF2FA_07DA_4073_8371_03AE417D0C5F" start="EAID_F379A1C7_5AA9_4320_AC59_BEC7EC00E64B" end="EAID_27E74D5A_EA28_4474_91E3_554E155CCC84"/>
@@ -1401,7 +1432,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={4D0F80A7-13E0-4375-B1C4-0512655B0BEB}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={87100068-E625-4095-875B-5E4306855D7A}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_119A9EB5_D4F7_4f26_89AF_6F06B27CCF56" start="EAID_87100068_E625_4095_875B_5E4306855D7A" end="EAID_03B83644_0DAB_44fa_9134_63D41948DB34"/>
 					<StateFlow xmi:id="EAID_AE92EECE_A6FE_46b6_89EA_FA6E0C366E5F" start="EAID_CD398714_031A_4e74_BEFE_198984E6A4FD" end="EAID_87100068_E625_4095_875B_5E4306855D7A"/>
@@ -1415,7 +1446,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={6860AD0E-607C-4f4a-82C9-936C987B8433}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={CD398714-031A-4e74-BEFE-198984E6A4FD}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_AE92EECE_A6FE_46b6_89EA_FA6E0C366E5F" start="EAID_CD398714_031A_4e74_BEFE_198984E6A4FD" end="EAID_87100068_E625_4095_875B_5E4306855D7A"/>
 					<StateFlow xmi:id="EAID_FD9BE925_F3B6_44fc_8DA1_460FD117F04E" start="EAID_27E74D5A_EA28_4474_91E3_554E155CCC84" end="EAID_CD398714_031A_4e74_BEFE_198984E6A4FD"/>
@@ -1429,7 +1460,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={A2540D46-8323-469d-A0D6-7A5CBC7633FD}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={03B83644-0DAB-44fa-9134-63D41948DB34}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_059E2AE6_6DF7_4b20_85FF_8FEB2F97593E" start="EAID_03B83644_0DAB_44fa_9134_63D41948DB34" end="EAID_61032A70_114C_4fb4_B9EE_5226332E8117"/>
 					<StateFlow xmi:id="EAID_8B965D09_24CD_4f0e_904F_96CB206D4589" start="EAID_03B83644_0DAB_44fa_9134_63D41948DB34" end="EAID_03B83644_0DAB_44fa_9134_63D41948DB34"/>
@@ -1446,7 +1477,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={77326BBF-DDEE-4f29-82F7-B238B3F67A73}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={B85430AC-5E88-4651-88D8-FA6CC6830A94}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad">
+				<extendedProperties tagged="0" package_name="CrossRoadLib">
 					<states type="entry" name="a1.switchOver(), a2.switchOver()" visibility="public" isAsynchronous="false">
 						<model ea_guid="{370C2184-67AE-4565-B884-F509D6C1DA61}" ea_localid="771"/>
 						<type type="entry" const="false" static="false" isAbstract="false" synchronised="0" concurrency="Sequential" pure="0" isQuery="false"/>
@@ -1505,7 +1536,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_07322165_03D2_4501_93B3_68D1C83ED3F8" start="EAID_F379A1C7_5AA9_4320_AC59_BEC7EC00E64B" end="EAID_0D58C4ED_1328_47b1_8A60_9D94DA8F28DD"/>
 				</links>
@@ -1518,7 +1549,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={FC868913-2885-498d-8B21-5DDB4A172FDE}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=PseudoStateKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={132BEFAB-02FB-4183-9BC4-8C3B66A06954}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_08AD3580_1386_4fbd_A7AA_E3676EA51157" start="EAID_132BEFAB_02FB_4183_9BC4_8C3B66A06954" end="EAID_B85430AC_5E88_4651_88D8_FA6CC6830A94"/>
 				</links>
@@ -1531,7 +1562,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={E664B202-4C79-4e45-B115-0C3E6D5A6415}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=PseudoStateKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={48702A34-63A5-42c5-96B7-507D05C23913}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_D6797671_12DF_44f6_BDB0_AB7226027782" start="EAID_48702A34_63A5_42c5_96B7_507D05C23913" end="EAID_2E172581_5871_40d1_B638_C572C273044B"/>
 				</links>
@@ -1544,7 +1575,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={BEBCC439-1155-436b-800D-0DD4F02941F0}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=PseudoStateKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={1A7C1CEB-BDB3-491f-9728-9478BF902599}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_47EA4CB2_B5C6_42ea_8159_E0214DFBE1E3" start="EAID_2E34AC5A_7387_4ed4_BDFB_86DF0485735A" end="EAID_1A7C1CEB_BDB3_491f_9728_9478BF902599"/>
 				</links>
@@ -1557,7 +1588,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={BADF8E16-8FBE-401a-B6EE-E83BD230C51E}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={373159C0-DA6E-4602-B4B1-405239913B48}$CLT;$ENDXREF;$XREFPROP=$XID={39CAE933-7CA1-43c3-BD09-8471FFB926AC}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={EA9C8FC4-79F7-442f-8D5D-ABAF4D01A76D};RefName=off;$DES;$CLT={373159C0-DA6E-4602-B4B1-405239913B48}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_6D557723_6755_4cc8_A8A7_44825A1470BD" xmi:type="uml:Trigger" name="flash" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="7" ea_localid="1108" ea_eleType="element"/>
@@ -1567,7 +1598,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={EB3C91EF-7DD9-47a7-B25C-1D0E0C1C6B32}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={A810BEAD-3876-49be-BAE7-F3531FE0AB3D};RefName=blinke();$DES;$CLT={6D557723-6755-4cc8-A8A7-44825A1470BD}$CLT;$ENDXREF;$XREFPROP=$XID={1D33B5AE-BCE3-4419-A6F7-34F7F7553D45}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=Call@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={6D557723-6755-4cc8-A8A7-44825A1470BD}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_B1B96AB7_42A4_4f9a_B1F6_D27C519C5648" xmi:type="uml:Trigger" name="on" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="8" ea_localid="1106" ea_eleType="element"/>
@@ -1577,7 +1608,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={4F543FE4-2A5B-4442-9C81-A9CD3FE02FD4}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={B1B96AB7-42A4-4f9a-B1F6-D27C519C5648}$CLT;$ENDXREF;$XREFPROP=$XID={DB2B2E91-D911-4d60-87E9-48E7AA56725B}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={E38AB2B3-F900-4cf1-87D3-5B18082E8433};RefName=;$DES;$CLT={B1B96AB7-42A4-4f9a-B1F6-D27C519C5648}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_4B00C41C_1BB3_49f9_9FE5_8255FE72D7C9" xmi:type="uml:Trigger" name="regulateTraffic" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="9" ea_localid="1105" ea_eleType="element"/>
@@ -1587,7 +1618,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={F3A39E9B-2B79-4203-BC53-1432B1F70D21}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={18D1D12F-F388-482e-8EDA-C13476A06105};RefName=;$DES;$CLT={4B00C41C-1BB3-49f9-9FE5-8255FE72D7C9}$CLT;$ENDXREF;$XREFPROP=$XID={453732F2-57AB-4965-8B27-4AB31502EFC7}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=Call@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={4B00C41C-1BB3-49f9-9FE5-8255FE72D7C9}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_AA9C1CED_9855_499e_91FD_2F6165CBE9CD" xmi:type="uml:Trigger" name="defect" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="10" ea_localid="1110" ea_eleType="element"/>
@@ -1597,7 +1628,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={A1542659-212F-4018-A122-4EB701028138}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={183A756E-D4D4-4ceb-9340-052C52C0925D};RefName=;$DES;$CLT={AA9C1CED-9855-499e-91FD-2F6165CBE9CD}$CLT;$ENDXREF;$XREFPROP=$XID={8E095729-D469-4926-B74D-14F59ACBF79A}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={AA9C1CED-9855-499e-91FD-2F6165CBE9CD}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_E217A3BE_D814_4474_BA39_A616E1212FD8" xmi:type="uml:Trigger" name="after(Times::OffMinDuration)" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="11" ea_localid="1111" ea_eleType="element"/>
@@ -1607,7 +1638,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={1AF357B6-5A10-43ed-A4C4-37595CD6D0A4}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={E217A3BE-D814-4474-BA39-A616E1212FD8}$CLT;$ENDXREF;$XREFPROP=$XID={4F51C458-2011-4dbe-8974-E3EA3EAF815E}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={0BF81A1C-27EC-4ccb-B6A2-745CB92F96A0};RefName=;$DES;$CLT={E217A3BE-D814-4474-BA39-A616E1212FD8}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_7FA412BF_33EF_41c4_9EF5_9EAE4F520D75" xmi:type="uml:Trigger" name="after(Times::FlashingMinDuration)" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="12" ea_localid="1113" ea_eleType="element"/>
@@ -1617,7 +1648,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={05CAB0B9-A492-4341-8577-2D41E94B0930}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={7FA412BF-33EF-41c4-9EF5-9EAE4F520D75}$CLT;$ENDXREF;$XREFPROP=$XID={3EDE7F55-36B9-4b37-BB06-D7FCAA8F52DB}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={3056F415-561F-4270-93F4-CE36CD26F2E5};RefName=;$DES;$CLT={7FA412BF-33EF-41c4-9EF5-9EAE4F520D75}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_8DC16B20_E653_4f5f_A75B_01009291D5FD" xmi:type="uml:Trigger" name="after(Times::MinorFlashing)" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="13" ea_localid="1112" ea_eleType="element"/>
@@ -1627,7 +1658,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={8E6483FA-DCDA-4293-A426-9486DD9779BF}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={8DC16B20-E653-4f5f-A75B-01009291D5FD}$CLT;$ENDXREF;$XREFPROP=$XID={9CED1696-7025-4edc-B818-1B3A84F8E927}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={A8C9281C-74ED-4ef3-A80F-A60EFA122964};RefName=;$DES;$CLT={8DC16B20-E653-4f5f-A75B-01009291D5FD}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_682ABE11_7981_4d69_B82D_C8EB45172CB0" xmi:type="uml:Trigger" name="after( Times::RedYellow)" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="14" ea_localid="1104" ea_eleType="element"/>
@@ -1637,7 +1668,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={2CE065E9-28C7-4975-8F3F-6F94B655A3AC}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=Time@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={682ABE11-7981-4d69-B82D-C8EB45172CB0}$CLT;$ENDXREF;$XREFPROP=$XID={0EC7B95B-F5EE-4bee-B36E-C4A730A29611}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={F8C26C49-4AA1-4adc-BFD4-ECEF864E951B};RefName=;$DES;$CLT={682ABE11-7981-4d69-B82D-C8EB45172CB0}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_DE161050_81E7_4a52_93DA_85BBEB278A5F" xmi:type="uml:Trigger" name="after( Times::MinorDrive)" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="15" ea_localid="1103" ea_eleType="element"/>
@@ -1647,7 +1678,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={0D2B7424-43E6-4ea8-8E85-42FD4EA14957}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={E96CD12D-2B77-41bf-8408-583941CE35E6};RefName=;$DES;$CLT={DE161050-81E7-4a52-93DA-85BBEB278A5F}$CLT;$ENDXREF;$XREFPROP=$XID={AAA5A717-7F70-4f4a-A382-6844F0759CDF}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=Time@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={DE161050-81E7-4a52-93DA-85BBEB278A5F}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_89DA8D06_E2B7_41f2_8008_EDFC7776E05A" xmi:type="uml:Trigger" name="after( Times::MinorYellow)" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="16" ea_localid="1102" ea_eleType="element"/>
@@ -1657,7 +1688,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={0459AAF4-CA3F-4894-94D8-538DA91EB347}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={A15F826F-529F-4441-A7A5-7C62B642CD2C};RefName=;$DES;$CLT={89DA8D06-E2B7-41f2-8008-EDFC7776E05A}$CLT;$ENDXREF;$XREFPROP=$XID={D3F9EBE3-8BCC-419c-8EF0-1CD04A317CC8}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=Time@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={89DA8D06-E2B7-41f2-8008-EDFC7776E05A}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_D9F395A6_23A9_4c97_8D6C_B4686412A071" xmi:type="uml:Trigger" name="after( Times::MajorMinDuration)" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="17" ea_localid="1101" ea_eleType="element"/>
@@ -1667,7 +1698,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={E1B59DF1-5718-4e86-8F9B-179890EF7048}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={A7988A7D-1F21-443b-8890-85C70E53F3DB};RefName=;$DES;$CLT={D9F395A6-23A9-4c97-8D6C-B4686412A071}$CLT;$ENDXREF;$XREFPROP=$XID={A13E13E8-1231-446d-B406-3494C158AB0B}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=Time@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={D9F395A6-23A9-4c97-8D6C-B4686412A071}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_B8A3F28D_6BC8_4a81_9008_157E1DDFB3CC" xmi:type="uml:Trigger" name="after( Times::MajorYellow)" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_83DB2251_69DD_429f_90AB_78FA4679FEE3" tpos="18" ea_localid="1100" ea_eleType="element"/>
@@ -1677,7 +1708,161 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={AA0882AA-2756-4c1c-AD26-577E645A9851}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={6BA84329-BC2B-40b3-AD10-3F1093DC6ECF};RefName=;$DES;$CLT={B8A3F28D-6BC8-4a81-9008-157E1DDFB3CC}$CLT;$ENDXREF;$XREFPROP=$XID={62E005A9-9626-4c76-9D5B-6933AD35CE53}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=Time@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={B8A3F28D-6BC8-4a81-9008-157E1DDFB3CC}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
+			</element>
+			<element xmi:idref="EAID_B30C49E9_3C33_49a6_B70F_C6F1048156CD" xmi:type="uml:Interface" name="Timer" scope="public">
+				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" tpos="0" ea_localid="1147" ea_eleType="element"/>
+				<properties isSpecification="false" sType="Interface" nType="0" scope="public" isRoot="false" isLeaf="false" isAbstract="true"/>
+				<project author="Gerd" version="1.0" phase="1.0" created="2021-04-08 10:01:13" modified="2021-04-08 10:04:11" complexity="1" status="Proposed"/>
+				<code gentype="Java"/>
+				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
+				<tags/>
+				<xrefs/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
+				<operations>
+					<operation xmi:idref="EAID_F2D82C1B_ECEB_4848_B040_3B28106C3415" name="add" scope="Public">
+						<properties position="0"/>
+						<stereotype/>
+						<model ea_guid="{F2D82C1B-ECEB-4848-B040-3B28106C3415}" ea_localid="778"/>
+						<type type="void" const="false" static="false" isAbstract="false" synchronised="0" concurrency="Sequential" pure="0" isQuery="false"/>
+						<behaviour/>
+						<code/>
+						<style/>
+						<styleex/>
+						<documentation/>
+						<tags/>
+						<parameters>
+							<parameter xmi:idref="EAID_RETURNID_ECEB_4848_B040_3B28106C3415" visibility="public">
+								<properties pos="0" type="void" const="false" ea_guid="{RETURNID-ECEB-4848-B040-3B28106C3415}"/>
+								<style/>
+								<styleex/>
+								<documentation/>
+								<tags/>
+								<xrefs/>
+							</parameter>
+							<parameter xmi:idref="EAID_35E5D56F_7D81_4c74_98FB_2F6445A2BCF3" visibility="public">
+								<properties pos="0" type="CrossRoad&amp;" const="false" ea_guid="{35E5D56F-7D81-4c74-98FB-2F6445A2BCF3}"/>
+								<style/>
+								<styleex/>
+								<documentation/>
+								<tags/>
+								<xrefs/>
+							</parameter>
+						</parameters>
+						<xrefs/>
+					</operation>
+					<operation xmi:idref="EAID_76A67970_CD96_4b58_885F_870D90F94F66" name="setCallBack" scope="Public">
+						<properties position="1"/>
+						<stereotype/>
+						<model ea_guid="{76A67970-CD96-4b58-885F-870D90F94F66}" ea_localid="779"/>
+						<type type="void" const="false" static="false" isAbstract="false" synchronised="0" concurrency="Sequential" pure="0" isQuery="false"/>
+						<behaviour/>
+						<code/>
+						<style/>
+						<styleex/>
+						<documentation/>
+						<tags/>
+						<parameters>
+							<parameter xmi:idref="EAID_RETURNID_CD96_4b58_885F_870D90F94F66" visibility="public">
+								<properties pos="0" type="void" const="false" ea_guid="{RETURNID-CD96-4b58-885F-870D90F94F66}"/>
+								<style/>
+								<styleex/>
+								<documentation/>
+								<tags/>
+								<xrefs/>
+							</parameter>
+							<parameter xmi:idref="EAID_902BDC76_50EA_4fb5_A223_E92958CC871A" visibility="public">
+								<properties pos="0" type="CallbackType" const="false" ea_guid="{902BDC76-50EA-4fb5-A223-E92958CC871A}"/>
+								<style/>
+								<styleex/>
+								<documentation/>
+								<tags/>
+								<xrefs/>
+							</parameter>
+						</parameters>
+						<xrefs/>
+					</operation>
+					<operation xmi:idref="EAID_1BB7E870_434C_46fb_8238_D9EC8C90A2D1" name="setIntervalDuration" scope="Public">
+						<properties position="2"/>
+						<stereotype/>
+						<model ea_guid="{1BB7E870-434C-46fb-8238-D9EC8C90A2D1}" ea_localid="780"/>
+						<type type="void" const="false" static="false" isAbstract="false" synchronised="0" concurrency="Sequential" pure="0" isQuery="false"/>
+						<behaviour/>
+						<code/>
+						<style/>
+						<styleex/>
+						<documentation/>
+						<tags/>
+						<parameters>
+							<parameter xmi:idref="EAID_RETURNID_434C_46fb_8238_D9EC8C90A2D1" visibility="public">
+								<properties pos="0" type="void" const="false" ea_guid="{RETURNID-434C-46fb-8238-D9EC8C90A2D1}"/>
+								<style/>
+								<styleex/>
+								<documentation/>
+								<tags/>
+								<xrefs/>
+							</parameter>
+							<parameter xmi:idref="EAID_1EC4AB29_914C_405a_A749_74888A95BB45" visibility="public">
+								<properties pos="0" type="IntervalDuration" const="false" ea_guid="{1EC4AB29-914C-405a-A749-74888A95BB45}"/>
+								<style/>
+								<styleex/>
+								<documentation/>
+								<tags/>
+								<xrefs/>
+							</parameter>
+						</parameters>
+						<xrefs/>
+					</operation>
+					<operation xmi:idref="EAID_6888029F_CC97_4cbc_9204_FDDEAB38E5A7" name="stopTimer" scope="Public">
+						<properties position="3"/>
+						<stereotype/>
+						<model ea_guid="{6888029F-CC97-4cbc-9204-FDDEAB38E5A7}" ea_localid="781"/>
+						<type type="void" const="false" static="false" isAbstract="false" synchronised="0" concurrency="Sequential" pure="0" isQuery="false"/>
+						<behaviour/>
+						<code/>
+						<style/>
+						<styleex/>
+						<documentation/>
+						<tags/>
+						<parameters>
+							<parameter xmi:idref="EAID_RETURNID_CC97_4cbc_9204_FDDEAB38E5A7" visibility="public">
+								<properties pos="0" type="void" const="false" ea_guid="{RETURNID-CC97-4cbc-9204-FDDEAB38E5A7}"/>
+								<style/>
+								<styleex/>
+								<documentation/>
+								<tags/>
+								<xrefs/>
+							</parameter>
+						</parameters>
+						<xrefs/>
+					</operation>
+					<operation xmi:idref="EAID_70B56754_3BF8_4d1a_8C8E_24D861FDD3CC" name="startTimer" scope="Public">
+						<properties position="4"/>
+						<stereotype/>
+						<model ea_guid="{70B56754-3BF8-4d1a-8C8E-24D861FDD3CC}" ea_localid="782"/>
+						<type type="void" const="false" static="false" isAbstract="false" synchronised="0" concurrency="Sequential" pure="0" isQuery="false"/>
+						<behaviour/>
+						<code/>
+						<style/>
+						<styleex/>
+						<documentation/>
+						<tags/>
+						<parameters>
+							<parameter xmi:idref="EAID_RETURNID_3BF8_4d1a_8C8E_24D861FDD3CC" visibility="public">
+								<properties pos="0" type="void" const="false" ea_guid="{RETURNID-3BF8-4d1a-8C8E-24D861FDD3CC}"/>
+								<style/>
+								<styleex/>
+								<documentation/>
+								<tags/>
+								<xrefs/>
+							</parameter>
+						</parameters>
+						<xrefs/>
+					</operation>
+				</operations>
+				<links>
+					<Association xmi:id="EAID_3505345B_9F49_44da_92C1_65100831C1AA" start="EAID_833FF559_E3B3_408b_B692_148191068ECF" end="EAID_B30C49E9_3C33_49a6_B70F_C6F1048156CD"/>
+				</links>
 			</element>
 			<element xmi:idref="EAID_721841C7_54FF_40fd_94E5_126B71A09488" xmi:type="uml:Interface" name="TrafficLight" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" tpos="0" ea_localid="1085" ea_eleType="element"/>
@@ -1687,7 +1872,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={A12C360A-55EC-4aac-AAF5-A6D082B70835}$XID;$NAM=DefaultDiagram$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$CLT={721841C7-54FF-40fd-94E5-126B71A09488}$CLT;$SUP={2F18C1BE-13A0-49fb-9F80-78AC5995D862}$SUP;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad" eventflags="OBJ=d168;" ea_classified="{3E2E2639-98B9-4dee-9B66-F23D07185FF0},{1A26CA76-7A55-406f-A5FF-9336918DCB8F}" diagram="EAID_2F18C1BE_13A0_49fb_9F80_78AC5995D862"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib" eventflags="OBJ=d168;" ea_classified="{3E2E2639-98B9-4dee-9B66-F23D07185FF0},{1A26CA76-7A55-406f-A5FF-9336918DCB8F}" diagram="EAID_2F18C1BE_13A0_49fb_9F80_78AC5995D862"/>
 				<operations>
 					<operation xmi:idref="EAID_C6AA988F_8717_4773_952A_911B2B98CBEC" name="off" scope="Public">
 						<properties position="0"/>
@@ -1783,7 +1968,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_B81D48CF_21B5_4633_9237_F4B4A1927B18" xmi:type="uml:State" name="Off" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_CF2992FE_D8E4_4085_92C4_0D2239C44A7D" tpos="2" ea_localid="1094" ea_eleType="element"/>
@@ -1793,7 +1978,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={0ACF1FDB-B2C7-4034-AA73-62E533AC5007}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={B81D48CF-21B5-4633-9237-F4B4A1927B18}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad">
+				<extendedProperties tagged="0" package_name="CrossRoadLib">
 					<states type="entry" name="turnOffLamps" visibility="private" isAsynchronous="false">
 						<model ea_guid="{B5897CC2-FC86-406f-8438-CB192D539F88}" ea_localid="760"/>
 						<type type="entry" const="false" static="false" isAbstract="false" synchronised="0" concurrency="Sequential" returnarray="0" pure="0" isQuery="false"/>
@@ -1834,7 +2019,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={43DF6DCB-B91B-4fe4-939D-27A2F054B555}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={7B0E37AF-2BE9-4712-A5BB-BCC84DE12646}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_58185EDE_0A87_4f94_A597_FAA5FBC2FCD7" start="EAID_7B0E37AF_2BE9_4712_A5BB_BCC84DE12646" end="EAID_7B0E37AF_2BE9_4712_A5BB_BCC84DE12646"/>
 					<StateFlow xmi:id="EAID_A6FDB66B_E223_4941_9402_A4671B86E031" start="EAID_7B0E37AF_2BE9_4712_A5BB_BCC84DE12646" end="EAID_3DB9C88B_038D_4fdf_B25F_BE7033563981"/>
@@ -1850,7 +2035,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={C6B546E7-EF23-441d-B6BF-3EDD4CA179EF}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={0A23A45C-E4B0-492b-9ABB-5838EA2B0B12}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_A11CBB5C_2E31_46ca_B2CF_DFB19635A7A2" start="EAID_0A23A45C_E4B0_492b_9ABB_5838EA2B0B12" end="EAID_1172EF20_C158_4f76_8123_769EAC0D7727"/>
 					<StateFlow xmi:id="EAID_AE39A4B8_4188_4593_A12A_5915BA09D622" start="EAID_24E85AB8_EE22_466c_94BA_EC9D32CA1535" end="EAID_0A23A45C_E4B0_492b_9ABB_5838EA2B0B12"/>
@@ -1864,7 +2049,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={EF6485E9-AED7-40d7-9BCE-8F0412308122}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={21F69DC7-1236-4558-97DC-FFD2968A2FAB}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_F5AD132A_171C_4f72_9B47_3ADF0E1A314A" start="EAID_21F69DC7_1236_4558_97DC_FFD2968A2FAB" end="EAID_24E85AB8_EE22_466c_94BA_EC9D32CA1535"/>
 					<StateFlow xmi:id="EAID_B694EBBC_4BA2_4fc6_B7F0_EC74E2BAB278" start="EAID_1172EF20_C158_4f76_8123_769EAC0D7727" end="EAID_21F69DC7_1236_4558_97DC_FFD2968A2FAB"/>
@@ -1878,7 +2063,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={0BEAF596-F5A7-4052-8EA5-0C7BE4ACBDDB}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={24E85AB8-EE22-466c-94BA-EC9D32CA1535}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_AE39A4B8_4188_4593_A12A_5915BA09D622" start="EAID_24E85AB8_EE22_466c_94BA_EC9D32CA1535" end="EAID_0A23A45C_E4B0_492b_9ABB_5838EA2B0B12"/>
 					<StateFlow xmi:id="EAID_F5AD132A_171C_4f72_9B47_3ADF0E1A314A" start="EAID_21F69DC7_1236_4558_97DC_FFD2968A2FAB" end="EAID_24E85AB8_EE22_466c_94BA_EC9D32CA1535"/>
@@ -1892,7 +2077,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={DB9590DB-B39A-41a6-91B2-2B71533FCD5F}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={1172EF20-C158-4f76-8123-769EAC0D7727}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_B694EBBC_4BA2_4fc6_B7F0_EC74E2BAB278" start="EAID_1172EF20_C158_4f76_8123_769EAC0D7727" end="EAID_21F69DC7_1236_4558_97DC_FFD2968A2FAB"/>
 					<StateFlow xmi:id="EAID_A11CBB5C_2E31_46ca_B2CF_DFB19635A7A2" start="EAID_0A23A45C_E4B0_492b_9ABB_5838EA2B0B12" end="EAID_1172EF20_C158_4f76_8123_769EAC0D7727"/>
@@ -1907,7 +2092,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={5BE6F435-2288-4090-9026-4C48D61D60EB}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=PseudoStateKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={F0FFE306-7BB8-4809-A11E-2FC49D1A37F1}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_EB647A20_FADA_4f0f_AC10_DD869CABDBF3" start="EAID_F0FFE306_7BB8_4809_A11E_2FC49D1A37F1" end="EAID_1172EF20_C158_4f76_8123_769EAC0D7727"/>
 				</links>
@@ -1920,7 +2105,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=0;HSwimLanes=0;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={E8E42E0E-51A8-4a45-AC4D-4B9B1475178D}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=isSimple@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isSubmachineState@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isOrthogonal@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=0@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=isComposite@ENDNAME;@TYPE=Boolean@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={3DB9C88B-038D-4fdf-B25F-BE7033563981}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad" diagram="EAID_D772B396_F4CD_475a_9464_D3C0E372E3ED">
+				<extendedProperties tagged="0" package_name="CrossRoadLib" diagram="EAID_D772B396_F4CD_475a_9464_D3C0E372E3ED">
 					<states type="entry" name="turnOffLamps" visibility="private" isAsynchronous="false">
 						<model ea_guid="{1A30F8C9-DC97-44b4-8E46-F2B5CCDDEE3B}" ea_localid="755"/>
 						<type type="entry" const="false" static="false" isAbstract="false" synchronised="0" concurrency="Sequential" returnarray="0" pure="0" isQuery="false"/>
@@ -1981,7 +2166,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={878CAE05-9463-435e-A2CD-4E8B27256A80}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={A7509221-058D-492e-AE53-220266521AFD};RefName=blinke();$DES;$CLT={36AB4D5D-8BD4-41aa-A348-C213481B0D10}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={1E46DD89-A31E-47ae-A54A-316C44CE6C3E}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={36AB4D5D-8BD4-41aa-A348-C213481B0D10}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_357D7B67_EB3A_4bf3_9670_DFDA35ED2D1D" xmi:type="uml:Trigger" name="off" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_CF2992FE_D8E4_4085_92C4_0D2239C44A7D" tpos="0" ea_localid="1144" ea_eleType="element"/>
@@ -1991,7 +2176,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={DEE0B06D-A211-40d9-BACE-9819F3D67BEE}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={E0BCEF23-854F-48f5-8848-847AA8068A36};RefName=aus();$DES;$CLT={357D7B67-EB3A-4bf3-9670-DFDA35ED2D1D}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={2C65B656-8955-4c3b-BC05-BCE16B3BCA87}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={357D7B67-EB3A-4bf3-9670-DFDA35ED2D1D}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_A34DE169_C399_4185_8C53_DA750746C8C9" xmi:type="uml:Trigger" name="switchOver" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_CF2992FE_D8E4_4085_92C4_0D2239C44A7D" tpos="0" ea_localid="1142" ea_eleType="element"/>
@@ -2001,7 +2186,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={DA9DA3A9-1F95-499c-BE59-6C35811FDC08}$XID;$NAM=MOFProps$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$BEH=event$BEH;$PAR=0$PAR;$DES=RefGUID={93D7C9E3-B3AA-41ad-9427-FFAF6FA9D9E9};$DES;$CLT={A34DE169-C399-4185-8C53-DA750746C8C9}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={803782A5-FD03-4f7b-B39E-33430B28105D}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=TriggerKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={A34DE169-C399-4185-8C53-DA750746C8C9}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 			</element>
 			<element xmi:idref="EAID_57FDADCD_9B43_4604_8CDC_584330CEC621" xmi:type="uml:StateNode" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" owner="EAID_CF2992FE_D8E4_4085_92C4_0D2239C44A7D" tpos="4" ea_localid="1088" ea_eleType="element"/>
@@ -2011,7 +2196,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={2F8F4A58-0B18-4e60-9CB3-5CA4A931A62F}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=PseudoStateKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={57FDADCD-9B43-4604-8CDC-584330CEC621}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_F9AF01BB_B5E9_4044_AC13_D6B9035E967D" start="EAID_57FDADCD_9B43_4604_8CDC_584330CEC621" end="EAID_B81D48CF_21B5_4633_9237_F4B4A1927B18"/>
 				</links>
@@ -2024,7 +2209,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={C634C84A-F819-4f78-8F82-C6370FCBF59C}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$DES=@PROP=@NAME=kind@ENDNAME;@TYPE=PseudoStateKind@ENDTYPE;@VALU=@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={30DA3BC6-3CEF-47fb-9743-F49392D313CD}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<links>
 					<StateFlow xmi:id="EAID_CD2E2DB3_D6DA_4287_99EB_1067308F3FCE" start="EAID_B81D48CF_21B5_4633_9237_F4B4A1927B18" end="EAID_30DA3BC6_3CEF_47fb_9743_F49392D313CD"/>
 				</links>
@@ -2037,7 +2222,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=3;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad" diagram="EAID_2F18C1BE_13A0_49fb_9F80_78AC5995D862"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib" diagram="EAID_2F18C1BE_13A0_49fb_9F80_78AC5995D862"/>
 				<links>
 					<Abstraction xmi:id="EAID_632886D3_599A_4f15_9942_B7EF9301B042" start="EAID_721841C7_54FF_40fd_94E5_126B71A09488" end="EAID_78E7C8C8_A84B_42f5_9AA5_25A651AB4D8F"/>
 				</links>
@@ -2050,7 +2235,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad" diagram="EAID_E98529CA_3557_4d00_90E8_417EEBEEB4F1"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib" diagram="EAID_E98529CA_3557_4d00_90E8_417EEBEEB4F1"/>
 			</element>
 			<element xmi:idref="EAID_2E3497BE_A3C4_40bf_8D95_7C21828E0220" xmi:type="uml:Constraint" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" tpos="0" ea_localid="1119" ea_eleType="element"/>
@@ -2060,7 +2245,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={6580BC22-C9FA-4732-A885-25EA5679BD76}$XID;$NAM=Stereotypes$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=invariant;GUID={3E5E34CF-5B1E-4a18-94FF-B22A3BB06442};@ENDSTEREO;$DES;$CLT={2E3497BE-A3C4-40bf-8D95-7C21828E0220}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="CrossRoad" relatedlinks="idref1=EAID_ADDB8EC5_D55C_4fa5_9667_9C9A72BBCF5A;idref2=EAID_FD9BE925_F3B6_44fc_8DA1_460FD117F04E;"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib" relatedlinks="idref1=EAID_ADDB8EC5_D55C_4fa5_9667_9C9A72BBCF5A;idref2=EAID_FD9BE925_F3B6_44fc_8DA1_460FD117F04E;"/>
 			</element>
 			<element xmi:idref="EAID_47EDF965_F2CE_4eab_8039_B8096799B656" xmi:type="uml:Note" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" tpos="0" ea_localid="1067" ea_eleType="element"/>
@@ -2070,7 +2255,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad" relatedlinks="idref1=;"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib" relatedlinks="idref1=;"/>
 			</element>
 			<element xmi:idref="EAID_6F4D027A_E5EE_4479_8B3F_28108CDBE3AE" xmi:type="uml:Note" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" tpos="0" ea_localid="1068" ea_eleType="element"/>
@@ -2080,7 +2265,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad" relatedlinks="idref1=;"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib" relatedlinks="idref1=;"/>
 			</element>
 			<element xmi:idref="EAID_7D69A732_F927_4484_8ADB_79D7A55E06A4" xmi:type="uml:Note" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" tpos="0" ea_localid="1117" ea_eleType="element"/>
@@ -2090,7 +2275,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad" relatedlinks="idref1=EAID_5A9311D5_EE29_4755_80EC_D565B4D43A0E;idref2=EAID_07322165_03D2_4501_93B3_68D1C83ED3F8;" linkTags="true" linkedFeature="&lt;P1&gt;=Link Tags;&lt;P2&gt;=;&lt;P3&gt;=;"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib" relatedlinks="idref1=EAID_5A9311D5_EE29_4755_80EC_D565B4D43A0E;idref2=EAID_07322165_03D2_4501_93B3_68D1C83ED3F8;" linkTags="true" linkedFeature="&lt;P1&gt;=Link Tags;&lt;P2&gt;=;&lt;P3&gt;=;"/>
 			</element>
 			<element xmi:idref="EAID_89D038A3_AE48_47bd_BE24_0C2D68BD6EA8" xmi:type="uml:Note" scope="public">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" tpos="0" ea_localid="1118" ea_eleType="element"/>
@@ -2100,7 +2285,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad" relatedlinks="idref1=EAID_00BCF2FA_07DA_4073_8371_03AE417D0C5F;" linkTags="true" linkedFeature="&lt;P1&gt;=Link Tags;&lt;P2&gt;=;&lt;P3&gt;=;"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib" relatedlinks="idref1=EAID_00BCF2FA_07DA_4073_8371_03AE417D0C5F;" linkTags="true" linkedFeature="&lt;P1&gt;=Link Tags;&lt;P2&gt;=;&lt;P3&gt;=;"/>
 			</element>
 			<element xmi:idref="EAPK_53810573_FBBF_4713_874B_FEB78199A913" xmi:type="uml:Package" name="Timings" scope="public">
 				<model package2="EAID_53810573_FBBF_4713_874B_FEB78199A913" package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" tpos="0" ea_localid="85" ea_eleType="package"/>
@@ -2110,7 +2295,7 @@
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs/>
-				<extendedProperties tagged="0" package_name="CrossRoad"/>
+				<extendedProperties tagged="0" package_name="CrossRoadLib"/>
 				<packageproperties version="1.0" tpos="0"/>
 				<paths/>
 				<times created="2021-04-06 20:36:02" modified="2021-04-07 22:52:08" lastloaddate="2021-04-06 20:36:02" lastsavedate="2021-04-06 20:36:02"/>
@@ -2220,6 +2405,41 @@
 			</element>
 		</elements>
 		<connectors>
+			<connector xmi:idref="EAID_3505345B_9F49_44da_92C1_65100831C1AA">
+				<source xmi:idref="EAID_833FF559_E3B3_408b_B692_148191068ECF">
+					<model ea_localid="1099" type="Class" name="CrossRoad"/>
+					<role visibility="Public" targetScope="instance"/>
+					<type aggregation="none" containment="Unspecified"/>
+					<constraints/>
+					<modifiers isOrdered="false" changeable="none" isNavigable="false"/>
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Unspecified;"/>
+					<documentation/>
+					<xrefs/>
+					<tags/>
+				</source>
+				<target xmi:idref="EAID_B30C49E9_3C33_49a6_B70F_C6F1048156CD">
+					<model ea_localid="1147" type="Interface" name="Timer"/>
+					<role name="timer" visibility="Private" targetScope="instance"/>
+					<type aggregation="none" containment="Unspecified"/>
+					<constraints/>
+					<modifiers isOrdered="false" changeable="none" isNavigable="false"/>
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;"/>
+					<documentation/>
+					<xrefs/>
+					<tags/>
+				</target>
+				<model ea_localid="1264"/>
+				<properties ea_type="Association" direction="Source -&gt; Destination"/>
+				<modifiers isRoot="false" isLeaf="false"/>
+				<parameterSubstitutions/>
+				<documentation/>
+				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0"/>
+				<labels rt="-timer"/>
+				<extendedProperties virtualInheritance="0"/>
+				<style/>
+				<xrefs/>
+				<tags/>
+			</connector>
 			<connector xmi:idref="EAID_3538C98A_D3E8_4b38_BEA5_10AE9D0E6BC1">
 				<source xmi:idref="EAID_833FF559_E3B3_408b_B692_148191068ECF">
 					<model ea_localid="1099" type="Class" name="CrossRoad"/>
@@ -4214,6 +4434,10 @@
 				</packagedElement>
 				<packagedElement xmi:type="uml:Package" xmi:id="EAJavaTypesPackage" name="EA_Java_Types_Package" visibility="public">
 					<packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAJava_entry" name="entry" visibility="public"/>
+					<packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAJava_CrossRoad_" name="CrossRoad&amp;" visibility="public"/>
+					<packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAJava_void" name="void" visibility="public"/>
+					<packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAJava_CallbackType" name="CallbackType" visibility="public"/>
+					<packagedElement xmi:type="uml:PrimitiveType" xmi:id="EAJava_IntervalDuration" name="IntervalDuration" visibility="public"/>
 				</packagedElement>
 			</packagedElement>
 		</primitivetypes>
@@ -5078,20 +5302,22 @@
 			<diagram xmi:id="EAID_F0D68D92_9F04_42db_A02A_E3D5ED791A72">
 				<model package="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C" localID="137" owner="EAPK_25BFAF8C_2010_4552_9405_2E7F26AB681C"/>
 				<properties name="CrossRoad" type="Logical"/>
-				<project author="Gerd" version="1.0" created="2021-04-07 00:00:00" modified="2021-04-08 09:11:42"/>
+				<project author="Gerd" version="1.0" created="2021-04-07 00:00:00" modified="2021-04-08 10:07:35"/>
 				<style1 value="ShowPrivate=1;ShowProtected=1;ShowPublic=1;HideRelationships=0;Locked=0;Border=1;HighlightForeign=1;PackageContents=1;SequenceNotes=0;ScalePrintImage=0;PPgs.cx=1;PPgs.cy=1;DocSize.cx=795;DocSize.cy=1134;ShowDetails=0;Orientation=P;Zoom=100;ShowTags=0;OpParams=3;VisibleAttributeDetail=0;ShowOpRetType=1;ShowIcons=1;CollabNums=0;HideProps=0;ShowReqs=0;ShowCons=0;PaperSize=9;HideParents=0;UseAlias=1;HideAtts=1;HideOps=0;HideStereo=0;HideElemStereo=0;ShowTests=0;ShowMaint=0;ConnectorNotation=UML 2.1;ExplicitNavigability=0;ShowShape=1;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;m_bElementClassifier=1;ShowNotes=0;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;"/>
-				<style2 value="ExcludeRTF=0;DocAll=0;HideQuals=0;AttPkg=1;ShowTests=0;ShowMaint=0;SuppressFOC=1;MatrixActive=0;SwimlanesActive=1;KanbanActive=0;MatrixLineWidth=1;MatrixLineClr=0;MatrixLocked=0;TConnectorNotation=UML 2.1;TExplicitNavigability=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;m_bElementClassifier=1;ProfileData=;MDGDgm=;STBLDgm=;ShowNotes=0;VisibleAttributeDetail=0;ShowOpRetType=1;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;SuppressedCompartments=;Theme=:119;SaveTag=3574ED53;"/>
+				<style2 value="ExcludeRTF=0;DocAll=0;HideQuals=0;AttPkg=1;ShowTests=0;ShowMaint=0;SuppressFOC=1;MatrixActive=0;SwimlanesActive=1;KanbanActive=0;MatrixLineWidth=1;MatrixLineClr=0;MatrixLocked=0;TConnectorNotation=UML 2.1;TExplicitNavigability=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;m_bElementClassifier=1;ProfileData=;MDGDgm=;STBLDgm=;ShowNotes=0;VisibleAttributeDetail=0;ShowOpRetType=1;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;SuppressedCompartments=;Theme=:119;SaveTag=AAB86F67;"/>
 				<swimlanes value="locked=false;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=0;ufh=0;cls=0;SwimlaneFont=lfh:-13,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;"/>
 				<matrixitems value="locked=false;matrixactive=false;swimlanesactive=true;kanbanactive=false;width=1;clrLine=0;"/>
 				<extendedProperties/>
 				<elements>
-					<element geometry="Left=137;Top=224;Right=514;Bottom=664;" subject="EAID_78E7C8C8_A84B_42f5_9AA5_25A651AB4D8F" seqno="1" style="DUID=46843748;"/>
-					<element geometry="Left=58;Top=35;Right=230;Bottom=173;" subject="EAID_833FF559_E3B3_408b_B692_148191068ECF" seqno="2" style="DUID=466F1348;NSL=0;BCol=-1;BFol=-1;LCol=-1;LWth=-1;fontsz=0;bold=0;black=0;italic=0;ul=0;charset=0;pitch=0;"/>
-					<element geometry="Left=338;Top=35;Right=514;Bottom=147;" subject="EAID_721841C7_54FF_40fd_94E5_126B71A09488" seqno="3" style="DUID=035985CB;NSL=0;BCol=-1;BFol=-1;LCol=-1;LWth=-1;fontsz=0;bold=0;black=0;italic=0;ul=0;charset=0;pitch=0;"/>
+					<element geometry="Left=347;Top=5;Right=527;Bottom=117;" subject="EAID_B30C49E9_3C33_49a6_B70F_C6F1048156CD" seqno="1" style="DUID=844DED2D;"/>
+					<element geometry="Left=150;Top=328;Right=527;Bottom=768;" subject="EAID_78E7C8C8_A84B_42f5_9AA5_25A651AB4D8F" seqno="2" style="DUID=46843748;"/>
+					<element geometry="Left=150;Top=139;Right=322;Bottom=277;" subject="EAID_833FF559_E3B3_408b_B692_148191068ECF" seqno="3" style="DUID=466F1348;NSL=0;BCol=-1;BFol=-1;LCol=-1;LWth=-1;fontsz=0;bold=0;black=0;italic=0;ul=0;charset=0;pitch=0;"/>
+					<element geometry="Left=370;Top=139;Right=527;Bottom=251;" subject="EAID_721841C7_54FF_40fd_94E5_126B71A09488" seqno="4" style="DUID=035985CB;NSL=0;BCol=-1;BFol=-1;LCol=-1;LWth=-1;fontsz=0;bold=0;black=0;italic=0;ul=0;charset=0;pitch=0;"/>
+					<element geometry="SX=0;SY=0;EX=0;EY=-36;EDGE=1;$LLB=;LLT=;LMT=;LMB=;LRT=CX=24:CY=13:OX=0:OY=0:HDN=0:BLD=0:ITA=0:UND=0:CLR=-1:ALN=1:DIR=0:ROT=0;LRB=;IRHS=;ILHS=;Path=236:-96$;" subject="EAID_3505345B_9F49_44da_92C1_65100831C1AA" style="Mode=3;EOID=844DED2D;SOID=466F1348;Color=-1;LWidth=0;Hidden=0;"/>
 					<element geometry="SX=0;SY=-26;EX=0;EY=-39;EDGE=2;$LLB=;LLT=;LMT=;LMB=;LRT=CX=13:CY=13:OX=0:OY=0:HDN=0:BLD=0:ITA=0:UND=0:CLR=-1:ALN=1:DIR=0:ROT=0;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_3538C98A_D3E8_4b38_BEA5_10AE9D0E6BC1" style="Mode=3;EOID=035985CB;SOID=466F1348;Color=-1;LWidth=0;Hidden=0;"/>
 					<element geometry="SX=-6;SY=10;EX=-6;EY=-3;EDGE=2;$LLB=;LLT=;LMT=;LMB=;LRT=CX=13:CY=13:OX=0:OY=0:HDN=0:BLD=0:ITA=0:UND=0:CLR=-1:ALN=1:DIR=0:ROT=0;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_F95764CF_40AA_4ce4_A481_5D78F60AC381" style="Mode=3;EOID=035985CB;SOID=466F1348;Color=-1;LWidth=0;Hidden=0;"/>
 					<element geometry="SX=9;SY=50;EX=9;EY=37;EDGE=2;$LLB=;LLT=;LMT=;LMB=;LRT=CX=13:CY=13:OX=0:OY=0:HDN=0:BLD=0:ITA=0:UND=0:CLR=-1:ALN=1:DIR=0:ROT=0;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_F9113F14_9975_4858_8BF8_245B1D541A0F" style="Mode=3;EOID=035985CB;SOID=466F1348;Color=-1;LWidth=0;Hidden=0;"/>
-					<element geometry="SX=0;SY=0;EX=0;EY=0;EDGE=3;$LLB=;LLT=;LMT=;LMB=CX=30:CY=13:OX=0:OY=0:HDN=0:BLD=0:ITA=0:UND=0:CLR=-1:ALN=1:DIR=0:ROT=0;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_632886D3_599A_4f15_9942_B7EF9301B042" style="Mode=3;EOID=46843748;SOID=035985CB;Color=-1;LWidth=0;Hidden=0;"/>
+					<element geometry="SX=-26;SY=-55;EX=84;EY=219;EDGE=3;$LLB=;LLT=;LMT=;LMB=CX=30:CY=13:OX=0:OY=0:HDN=0:BLD=0:ITA=0:UND=0:CLR=-1:ALN=1:DIR=0:ROT=0;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_632886D3_599A_4f15_9942_B7EF9301B042" style="Mode=3;EOID=46843748;SOID=035985CB;Color=-1;LWidth=0;Hidden=0;"/>
 				</elements>
 			</diagram>
 			<diagram xmi:id="EAID_7E1988D5_CA54_49a0_A437_F62475F9D2E9">
