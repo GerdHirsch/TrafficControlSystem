@@ -229,6 +229,7 @@ void TrafficLightTest<SUTImpl>::testFlashing_switchOver(){
 
 	rm.beginTest();
 	sut.switchOver();
+	timer.tick();
 	rm.endTest();
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
