@@ -1,3 +1,5 @@
 # TrafficControlSystem
 Library for TrafficControlSystem Workshop OOADP    
-see wiki for further information
+see 
+[wiki](https://github.com/GerdHirsch/TrafficControlSystem/wiki)
+for further information
