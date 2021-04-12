@@ -34,28 +34,26 @@ public:
 	// tests
 	void testConstructor();
 	virtual void initConstructor() = 0;
-
+	// Off
 	void testOff_off();
 	virtual void initOff_off() = 0;
 	void testOff_flash_6_ticks();
 	virtual void initOff_flash_6_ticks() = 0;
+	// Flashing
 	void testFlashing_off();
 	virtual void initFlashing_off() = 0;
 	void testFlashing_flash();
 	virtual void initFlashing_flash() = 0;
-
 	void testFlashing_switchOver();
-	 virtual void initFlashing_switchOver() = 0;
-
+	virtual void initFlashing_switchOver() = 0;
+	// Operation
 	void testOperation_flash_5_ticks();
 	virtual void initOperation_flash_5_ticks() = 0;
-
 	void testOperation_5_times_switchOver();
 	virtual void initOperation_5_times_switchOver() = 0;
-
 	void testOperation_timerTick();
 	virtual void initOperation_timerTick() = 0;
-
+	// Exceptions
 	void testExceptionOff_switchOver();
 	virtual void initExceptionOff_switchOver() = 0;
 	void testExceptionOperation_off();
