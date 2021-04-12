@@ -45,7 +45,7 @@ public:
 	void testFlashing_switchOver();
 	 virtual void initFlashing_switchOver() = 0;
 
-	void testOperation_switchOver();
+	void testOperation_5_times_switchOver();
 	virtual void initOperation_switchOver() = 0;
 
 	void testOperation_timerTick();
@@ -84,7 +84,7 @@ public:
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOff_flash));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_off));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_flash));
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_switchOver));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_5_times_switchOver));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_timerTick));
 
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testExceptionOff_switchOver));
@@ -121,8 +121,8 @@ void TrafficLightTest<SUTImpl>::testOff_flash(){
 
 	rm.beginTest();
 	sut.flash();
-	ASSERTM("hasReceiver", timer.hasReceiver());
-	ASSERTM("hasCallback", timer.hasCallback());
+//	ASSERTM("hasReceiver", timer.hasReceiver());
+//	ASSERTM("hasCallback", timer.hasCallback());
 
 	for(int i=0; i<6; ++i)
 		timer.tick();
@@ -168,7 +168,7 @@ void TrafficLightTest<SUTImpl>::testFlashing_flash(){
 }
 template<class SUTImpl>
 inline
-void TrafficLightTest<SUTImpl>::testOperation_switchOver(){
+void TrafficLightTest<SUTImpl>::testOperation_5_times_switchOver(){
 	auto &sut = getSUT();
 
 	rm.beginInit();
