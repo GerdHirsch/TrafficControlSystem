@@ -34,13 +34,18 @@ protected:
 	// init tests
 	void initConstructor() 	{ allOff();	}
 	void initFlashing_off() { allOff();	}
-	void initOff_flash() { /* 6 ticks */
+	void initOff_flash_6_ticks() {
 		allOff();
 		yellow.on(); yellow.off(); yellow.on();  yellow.off(); yellow.on();  yellow.off();
 	}
-	void initFlashing_flash(){ 	}
+	void initOperation_flash_5_ticks() {
+		allOff();
+		yellow.on(); yellow.off(); yellow.on();  yellow.off(); yellow.on();
+	}
+	void initOff_off(){ ; }
+	void initFlashing_flash(){ ; }
 	void initFlashing_switchOver(){ red.off(); yellow.on(); green.off();}
-	void initOperation_switchOver(){ /*5 times switchOver */
+	void initOperation_5_times_switchOver(){ /*5 times switchOver */
 		red.on(); yellow.off(); green.off();
 		red.on(); yellow.on(); green.off();
 		red.off(); yellow.off(); green.on();

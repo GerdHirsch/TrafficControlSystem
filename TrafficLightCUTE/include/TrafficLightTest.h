@@ -35,8 +35,10 @@ public:
 	void testConstructor();
 	virtual void initConstructor() = 0;
 
-	void testOff_flash();
-	virtual void initOff_flash() = 0;
+	void testOff_off();
+	virtual void initOff_off() = 0;
+	void testOff_flash_6_ticks();
+	virtual void initOff_flash_6_ticks() = 0;
 	void testFlashing_off();
 	virtual void initFlashing_off() = 0;
 	void testFlashing_flash();
@@ -45,8 +47,11 @@ public:
 	void testFlashing_switchOver();
 	 virtual void initFlashing_switchOver() = 0;
 
+	void testOperation_flash_5_ticks();
+	virtual void initOperation_flash_5_ticks() = 0;
+
 	void testOperation_5_times_switchOver();
-	virtual void initOperation_switchOver() = 0;
+	virtual void initOperation_5_times_switchOver() = 0;
 
 	void testOperation_timerTick();
 	virtual void initOperation_timerTick() = 0;
@@ -81,9 +86,11 @@ public:
 		cute::suite s {};
 
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testConstructor));
-		s.push_back(CUTE_SMEMFUN(DerivedTest, testOff_flash));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOff_off));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOff_flash_6_ticks));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_off));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testFlashing_flash));
+		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_flash_5_ticks));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_5_times_switchOver));
 		s.push_back(CUTE_SMEMFUN(DerivedTest, testOperation_timerTick));
 
@@ -93,7 +100,7 @@ public:
 		return s;
 	}
 };
-
+//--------------------------
 template<class SUTImpl>
 inline
 void TrafficLightTest<SUTImpl>::testConstructor(){
@@ -110,13 +117,30 @@ void TrafficLightTest<SUTImpl>::testConstructor(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 //	ASSERT_EQUAL(true, rm.success());
 }
+//--------------------------
 template<class SUTImpl>
 inline
-void TrafficLightTest<SUTImpl>::testOff_flash(){
+void TrafficLightTest<SUTImpl>::testOff_off(){
 	auto &sut = getSUT();
 
 	rm.beginInit();
-	initOff_flash();
+	initOff_off();
+	rm.endInit();
+
+	rm.beginTest();
+	sut.off();
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------
+template<class SUTImpl>
+inline
+void TrafficLightTest<SUTImpl>::testOff_flash_6_ticks(){
+	auto &sut = getSUT();
+
+	rm.beginInit();
+	initOff_flash_6_ticks();
 	rm.endInit();
 
 	rm.beginTest();
@@ -130,6 +154,7 @@ void TrafficLightTest<SUTImpl>::testOff_flash(){
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
+//--------------------------
 template<class SUTImpl>
 inline
 void TrafficLightTest<SUTImpl>::testFlashing_off(){
@@ -149,6 +174,7 @@ void TrafficLightTest<SUTImpl>::testFlashing_off(){
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
+//--------------------------
 template<class SUTImpl>
 inline
 void TrafficLightTest<SUTImpl>::testFlashing_flash(){
@@ -166,13 +192,35 @@ void TrafficLightTest<SUTImpl>::testFlashing_flash(){
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
+//--------------------------
+template<class SUTImpl>
+inline
+void TrafficLightTest<SUTImpl>::testOperation_flash_5_ticks(){
+	auto &sut = getSUT();
+
+	rm.beginInit();
+	initOperation_flash_5_ticks();
+	rm.endInit();
+
+	sut.flash();
+	sut.switchOver(); // yellow
+
+	rm.beginTest();
+	sut.flash();
+	for(int i=0; i<5; ++i)
+		timer.tick();
+	rm.endTest();
+
+	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
+}
+//--------------------------
 template<class SUTImpl>
 inline
 void TrafficLightTest<SUTImpl>::testOperation_5_times_switchOver(){
 	auto &sut = getSUT();
 
 	rm.beginInit();
-	initOperation_switchOver();
+	initOperation_5_times_switchOver();
 	rm.endInit();
 
 	sut.flash();
@@ -188,6 +236,7 @@ void TrafficLightTest<SUTImpl>::testOperation_5_times_switchOver(){
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 }
+//--------------------------
 template<class SUTImpl>
 inline
 void TrafficLightTest<SUTImpl>::testOperation_timerTick(){
@@ -208,6 +257,7 @@ void TrafficLightTest<SUTImpl>::testOperation_timerTick(){
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
 	ASSERTM("timer not inactive", !timer.hasReceiver());
 }
+//--------------------------
 template<class SUTImpl>
 inline
 void TrafficLightTest<SUTImpl>::testExceptionOperation_off(){
@@ -218,6 +268,7 @@ void TrafficLightTest<SUTImpl>::testExceptionOperation_off(){
 	ASSERT_THROWS(sut.off(), ProtocolViolationException);
 
 }
+//--------------------------
 template<class SUTImpl>
 inline
 void TrafficLightTest<SUTImpl>::testExceptionOff_switchOver(){
