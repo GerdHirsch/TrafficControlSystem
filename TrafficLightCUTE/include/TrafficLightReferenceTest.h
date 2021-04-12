@@ -27,7 +27,7 @@ public:
 
 	TrafficLightReferenceTest()
 	{
-		std::cout << __PRETTY_FUNCTION__ << std::endl;
+//		std::cout << __PRETTY_FUNCTION__ << std::endl;
 	}
 //	template<class DerivedTest = this_type>
 	static cute::suite make_suite(){

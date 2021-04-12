@@ -22,9 +22,9 @@ void demoTrafficLight(){
 
 	std::chrono::milliseconds sleepDuration(2000);
 
+	TrafficLightTimer timer;
+	timer.setIntervalDuration(500);
 	{
-		TrafficLightTimer timer;
-		timer.setIntervalDuration(500);
 
 		Factory factory;
 		auto a1red		= factory.createLamp("a1.red");
