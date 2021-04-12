@@ -12,7 +12,8 @@
 #include "Lamp.hpp"
 
 namespace TCS{
-
+/// Threadsafe ThreadingPolicy: std::timed_mutex myMutex
+/// all methods are guarded
 class TrafficLight : public CrossRoadLib::TrafficLight{
 public:
 	using Mutex = std::timed_mutex;
@@ -40,8 +41,8 @@ public:
 		switch(currentState){
 		case Flashing:
 			currentState = Yellow;
-			timer->removeReceiver(*this);
 			entryYellow();
+//			timer->removeReceiver(*this); // no failure in tests but wrong behavior
 			break;
 		case Yellow:
 			currentState = Red;
@@ -66,13 +67,12 @@ public:
 		}
 	}
 	void flash(){
-		Guard guard(myMutex, std::defer_lock);
-		std::chrono::milliseconds lockDuration(10);
-		while(!guard.try_lock_for(lockDuration))
-			;
+		Guard guard(myMutex);
+
 		if(currentState != Flashing){
 			currentState = Flashing;
 			entryFlashing();
+			timer->addReceiver(*this);
 		}
 	}
 	void off(){
@@ -91,13 +91,15 @@ private:
 	void doFlashing(){
 		Guard guard (myMutex);
 
-		//std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
+//		std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 		if(currentState != Flashing){
-			//std::cout << name << " removeReceiver(*this)" << std::endl;
+//			std::cout << name << " removeReceiver(*this)" << std::endl;
 			timer->removeReceiver(*this);
 		}
-		if(yellow->isOn()) yellow->off();
-		else yellow->on();
+		else{ // wrong behavior without else see switchOver case Flashing
+			if(yellow->isOn()) yellow->off();
+			else yellow->on();
+		}
 	}
 	// state entry behaviors
 	void entryRed(){
@@ -119,7 +121,6 @@ private:
 	void entryFlashing(){
 		//std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;
 		lampsOff();
-		timer->addReceiver(*this);
 	}
 	void entryOff(){
 		//std::cout << name << ": " << __PRETTY_FUNCTION__ << std::endl;

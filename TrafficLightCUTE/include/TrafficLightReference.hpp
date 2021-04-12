@@ -17,6 +17,7 @@
 namespace CR = CrossRoadLib;
 namespace SPT = SimplePeriodicTimer;
 
+/// Not Threadsafe
 class TrafficLightReference : public CR::TrafficLight{
 public:
 	enum AmpelState{ Off, Flashing, Red, RedYellow, Yellow, Green} state;
@@ -31,10 +32,11 @@ public:
 		this->timer->setCallback(&this_type::doFlashing);
 }
 	void off(){
-		if(state == Flashing){
+		if(state == Flashing ){
 			state = Off; // transition
 			entryOff();
-		}//else Todo handle ProtocolViolation
+		}else if(state != Off)
+			throw ProtocolViolationException("off in state Operation");
 	}
 	void flash(){
 		if(state != Flashing){
@@ -67,7 +69,7 @@ public:
 			break;
 		case Off:
 		default:
-			// throw ProtocolViolationException;
+			throw ProtocolViolationException("switchOver in State Off");
 			break;
 		}
 	}

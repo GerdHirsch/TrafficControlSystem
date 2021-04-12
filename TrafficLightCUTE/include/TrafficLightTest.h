@@ -140,9 +140,11 @@ void TrafficLightTest<SUTImpl>::testFlashing_off(){
 	rm.endInit();
 
 	sut.flash();
+	timer.tick();
 
 	rm.beginTest();
 	sut.off();
+	timer.tick();
 	rm.endTest();
 
 	ASSERT_EQUAL(rm.getExpected(), rm.getResult());
@@ -196,6 +198,7 @@ void TrafficLightTest<SUTImpl>::testOperation_timerTick(){
 	rm.endInit();
 
 	sut.flash();
+	timer.tick();
 	sut.switchOver();//yellow
 
 	rm.beginTest();

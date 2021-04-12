@@ -6,16 +6,8 @@
 		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest&lt;TrafficLightReference&gt;::testFlashing_flash"/>
 		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest&lt;TrafficLightReference&gt;::testOperation_switchOver"/>
 		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest&lt;TrafficLightReference&gt;::testOperation_timerTick"/>
-		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest&lt;TrafficLightReference&gt;::testExceptionOff_switchOver">
-			<failure message="../src/../include/TrafficLightTest.h:228 &quot; expecting &quot; &quot;sut.switchOver()&quot; &quot; to throw &quot; &quot;ProtocolViolationException&quot;">
-&quot; expecting &quot; &quot;sut.switchOver()&quot; &quot; to throw &quot; &quot;ProtocolViolationException&quot;
-			</failure>
-		</testcase>
-		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest&lt;TrafficLightReference&gt;::testExceptionOperation_off">
-			<failure message="../src/../include/TrafficLightTest.h:220 &quot; expecting &quot; &quot;sut.off()&quot; &quot; to throw &quot; &quot;ProtocolViolationException&quot;">
-&quot; expecting &quot; &quot;sut.off()&quot; &quot; to throw &quot; &quot;ProtocolViolationException&quot;
-			</failure>
-		</testcase>
+		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest&lt;TrafficLightReference&gt;::testExceptionOff_switchOver"/>
+		<testcase classname="TrafficLightReferenceTest" name="TrafficLightReferenceTest&lt;TrafficLightReference&gt;::testExceptionOperation_off"/>
 	</testsuite>
 	<testsuite name="TCSTrafficLightTest" tests="8">
 		<testcase classname="TCSTrafficLightTest" name="TrafficLightReferenceTest&lt;TCS::TrafficLight&gt;::testConstructor"/>

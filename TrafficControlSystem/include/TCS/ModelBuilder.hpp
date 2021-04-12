@@ -25,10 +25,10 @@ public:
 	using Lamp = typename Factory::Lamp;
 	using Sensor = typename Factory::Sensor;
 
-//	using TrafficLight = Demo::TrafficLight;
 	using TrafficLight = TCS::TrafficLight;
 	using TrafficLightTimerRepo = SimplePeriodicTimer::DefaultTimerRepository<TrafficLight, 3>;
 	using TrafficLightTimer = SimplePeriodicTimer::PeriodicTimerImpl<TrafficLightTimerRepo>;
+	using FlashingInterval= TrafficLightTimer::IntervalDuration;
 
 	using CrossRoad = CrossRoadLib::CrossRoad;
 	using CrossRoadTimerRepo = SimplePeriodicTimer::DefaultTimerRepository<CrossRoad, 1, CrossRoad::IntervalDuration>;
@@ -41,6 +41,7 @@ public:
 		sensor(hwFactory.createSensor("sensor")),
 
 		trafficLightTimer(),
+		flashingInterval(500),
 
 		a1Red(hwFactory.createLamp("a1.red")),
 		a1Yellow(hwFactory.createLamp("a1.yellow")),
@@ -66,6 +67,7 @@ public:
 		adapter(crossRoad)
 	{
 		sensor.addSensorListener(&adapter);
+		trafficLightTimer.setIntervalDuration(flashingInterval);
 	}
 	CrossRoad& getCrossRoad(){ return crossRoad; }
 	Sensor& getSensor(){ return sensor; }
@@ -75,6 +77,7 @@ private:
 	Sensor sensor;
 
 	TrafficLightTimer trafficLightTimer;
+	FlashingInterval flashingInterval;
 
 	Lamp a1Red, a1Yellow, a1Green;
 	TrafficLight a1;
