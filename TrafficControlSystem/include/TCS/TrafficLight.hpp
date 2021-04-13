@@ -72,6 +72,7 @@ public:
 		if(currentState != Flashing){
 			currentState = Flashing;
 			entryFlashing();
+			guard.unlock(); // no deadlock in case: flash->off->flash or flash->switchOver->flash
 			timer->addReceiver(*this);
 		}
 	}
