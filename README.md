@@ -16,3 +16,23 @@ There is a separate description for each component.
 to download the EA model for the libraries choose:
 `<_projectname_>/Model/<_libname_>.xmi` right click on Raw -> save link as.. and
 import the xmi file into EA
+
+## Build the examples
+
+Prerequisites:
+
+- CMake 3.12 (or greater)
+- A recent C++ compiler
+
+Create a buildfolder, configure the project and build:
+
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+Have a look at different CMake Generators for generating your desired project
+files. E.g. for Eclipse or VisualStudio. You can get a list by running `cmake
+--help`.
