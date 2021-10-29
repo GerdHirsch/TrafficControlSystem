@@ -35,5 +35,6 @@ cmake --build .
 ```
 
 Have a look at different CMake Generators for generating your desired project
-files. E.g. for Eclipse or VisualStudio. You can get a list by running `cmake
---help`.
+files. You can get a list by running `cmake --help`.
+
+E.g. for Eclipse you can pass `-G"Eclipse CDT4 - Unix Makefiles"` to the first CMake call.
