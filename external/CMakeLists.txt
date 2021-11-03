@@ -4,8 +4,8 @@ include(FetchContent)
 # TODO: Change URL to upstream repo, once merged
 FetchContent_Declare(
     PeriodicTimerRepo
-    GIT_REPOSITORY https://github.com/cbandera/PeriodicTimer.git
-    GIT_TAG v0.1
+    GIT_REPOSITORY https://github.com/GerdHirsch/PeriodicTimer.git
+    GIT_TAG master
 )
 
 FetchContent_GetProperties(PeriodicTimerRepo)
