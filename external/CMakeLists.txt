@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-include(FetchContentHelper)
+include(FetchContentHelper.cmake)
 
 FetchContentAndPopulate(
   PeriodicTimerRepo

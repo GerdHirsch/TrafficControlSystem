@@ -4,7 +4,7 @@
 #define INCLUDE_TCS_LAMP_H
 
 /**
- * @interface 
+ * @interface
  */
 class Lamp {
 public:
