@@ -1,5 +1,5 @@
-# Helper macro to perform both required FetchContentSteps at once
-# All additional arguments after name are passed on to Declare()
+# Helper macro to perform both required FetchContentSteps at once All additional
+# arguments after name are passed on to Declare()
 include(FetchContent)
 macro(FetchContentAndPopulate name)
   string(TOLOWER ${name} name_lower)
