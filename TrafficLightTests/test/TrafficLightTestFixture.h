@@ -13,19 +13,10 @@ namespace CR = CrossRoadLib;
 using namespace ::testing;
 using SUT = CR::TrafficLight;
 
-// Factory method for SUTs
-template <class SUTImplementation>
-std::unique_ptr<SUT> createSUT(MockLamp &red, MockLamp &yellow, MockLamp &green,
-                               MockPeriodicTimer<SUTImplementation> &timer);
-
-template <class SUTImplementation>
-// requires TrafficLightLike<SUTImplementation>
-class TrafficLightTestFixture : public Test {
+class TrafficLightTestPolicy {
 public:
-  TrafficLightTestFixture()
-      : rm(), red("r", rm), yellow("y", rm), green("g", rm), timer(rm){};
-
-protected:
+  TrafficLightTestPolicy(MockLamp &red_, MockLamp &yellow_, MockLamp &green_)
+      : red(red_), yellow(yellow_), green(green_){};
   virtual void initConstructor() = 0;
   virtual void initOff_off() = 0;
   virtual void initOff_timerTick() = 0;
@@ -40,12 +31,35 @@ protected:
   virtual void initExceptionOperation_off() = 0;
 
 protected:
+  MockLamp &red;
+  MockLamp &yellow;
+  MockLamp &green;
+};
+
+// Factory methods for SUTs and Policies
+template <class SUTImplementation>
+std::unique_ptr<SUT> createSUT(MockLamp &red, MockLamp &yellow, MockLamp &green,
+                               MockPeriodicTimer<SUTImplementation> &timer);
+template <class SUTImplementation>
+std::unique_ptr<TrafficLightTestPolicy>
+createPolicy(MockLamp &red, MockLamp &yellow, MockLamp &green);
+
+template <class SUTImplementation>
+// requires TrafficLightLike<SUTImplementation>
+class TrafficLightTestFixture : public Test {
+public:
+  TrafficLightTestFixture()
+      : rm(), red("r", rm), yellow("y", rm), green("g", rm), timer(rm),
+        policy(createPolicy<SUTImplementation>(red, yellow, green)){};
+
+protected:
   using Timer = MockPeriodicTimer<SUTImplementation>;
   Mock::ResultManager rm;
   MockLamp red;
   MockLamp yellow;
   MockLamp green;
   Timer timer;
+  std::unique_ptr<TrafficLightTestPolicy> policy;
 };
 
 TYPED_TEST_SUITE_P(TrafficLightTestFixture);
@@ -53,7 +67,7 @@ TYPED_TEST_SUITE_P(TrafficLightTestFixture);
 TYPED_TEST_P(TrafficLightTestFixture, testConstructor) {
 
   this->rm.beginInit();
-  this->initConstructor();
+  this->policy->initConstructor();
   this->rm.endInit();
 
   this->rm.beginTest();
@@ -68,7 +82,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOff_off) {
       createSUT<TypeParam>(this->red, this->yellow, this->green, this->timer);
 
   this->rm.beginInit();
-  this->initOff_off();
+  this->policy->initOff_off();
   this->rm.endInit();
 
   this->rm.beginTest();
@@ -83,7 +97,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOff_timerTick) {
       createSUT<TypeParam>(this->red, this->yellow, this->green, this->timer);
 
   this->rm.beginInit();
-  this->initOff_timerTick();
+  this->policy->initOff_timerTick();
   this->rm.endInit();
 
   sut->flash();
@@ -103,7 +117,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOff_flash_6_ticks) {
       createSUT<TypeParam>(this->red, this->yellow, this->green, this->timer);
 
   this->rm.beginInit();
-  this->initOff_flash_6_ticks();
+  this->policy->initOff_flash_6_ticks();
   this->rm.endInit();
 
   this->rm.beginTest();
@@ -123,7 +137,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testFlashing_off) {
       createSUT<TypeParam>(this->red, this->yellow, this->green, this->timer);
 
   this->rm.beginInit();
-  this->initFlashing_off();
+  this->policy->initFlashing_off();
   this->rm.endInit();
 
   sut->flash();
@@ -142,7 +156,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testFlashing_flash) {
       createSUT<TypeParam>(this->red, this->yellow, this->green, this->timer);
 
   this->rm.beginInit();
-  this->initFlashing_flash();
+  this->policy->initFlashing_flash();
   this->rm.endInit();
 
   sut->flash();
@@ -159,7 +173,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testFlashing_switchOver) {
       createSUT<TypeParam>(this->red, this->yellow, this->green, this->timer);
 
   this->rm.beginInit();
-  this->initFlashing_switchOver();
+  this->policy->initFlashing_switchOver();
   this->rm.endInit();
 
   sut->flash();
@@ -177,7 +191,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOperation_flash_5_ticks) {
       createSUT<TypeParam>(this->red, this->yellow, this->green, this->timer);
 
   this->rm.beginInit();
-  this->initOperation_flash_5_ticks();
+  this->policy->initOperation_flash_5_ticks();
   this->rm.endInit();
 
   sut->flash();
@@ -197,7 +211,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testYellow_5_times_switchOver) {
       createSUT<TypeParam>(this->red, this->yellow, this->green, this->timer);
 
   this->rm.beginInit();
-  this->initYellow_5_times_switchOver();
+  this->policy->initYellow_5_times_switchOver();
   this->rm.endInit();
 
   sut->flash();
@@ -219,7 +233,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOperation_timerTick) {
       createSUT<TypeParam>(this->red, this->yellow, this->green, this->timer);
 
   this->rm.beginInit();
-  this->initOperation_timerTick();
+  this->policy->initOperation_timerTick();
   this->rm.endInit();
 
   sut->flash();
