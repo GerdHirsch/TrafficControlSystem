@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.12)
+project(TrafficControlSystem)
+
+add_subdirectory(CrossRoadCUTE)
+add_subdirectory(CrossRoadLib)
+add_subdirectory(Demos)
+add_subdirectory(ResultManagerCUTE)
+add_subdirectory(ResultManagerMock)
+add_subdirectory(Sensor)
+add_subdirectory(TrafficControlSystem)
+add_subdirectory(TrafficLightCUTE)
+add_subdirectory(external)

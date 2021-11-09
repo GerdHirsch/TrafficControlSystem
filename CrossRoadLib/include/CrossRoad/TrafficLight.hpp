@@ -12,6 +12,7 @@ namespace CrossRoadLib{
 
 class TrafficLight{
 public:
+	virtual ~TrafficLight() = default;
 	/// Invariant: Operation: Red->RedYellow->Green->Yellow
 	///Pre: currentState == Flashing or Off
 	///Post: currentState == Off
