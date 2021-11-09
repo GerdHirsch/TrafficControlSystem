@@ -8,6 +8,7 @@
 #include <Mock/ResultManager.hpp>
 #include <gmock/gmock.h>
 #include <memory>
+#include <utility>
 
 namespace CR = CrossRoadLib;
 using namespace ::testing;
@@ -36,23 +37,18 @@ protected:
   MockLamp &green;
 };
 
-template <class SUTImplementation> struct TestPolicyLookup {
-  // using PolicyType = TrafficLightTestPolicy;
-};
-
-template <class SUTImplementation>
-// requires TrafficLightLike<SUTImplementation>
+template <class PairSUTandPolicy>
+// requires std::pair<TrafficLightLike, TrafficLightTestPolicyLike>
 class TrafficLightTestFixture : public Test {
 public:
+  using SUTImplementation = typename PairSUTandPolicy::first_type;
+  using PolicyType = typename PairSUTandPolicy::second_type;
+
   TrafficLightTestFixture() : timer(rm) {
-    using PolicyType = typename TestPolicyLookup<SUTImplementation>::PolicyType;
     policy = std::make_unique<PolicyType>(red, yellow, green);
   };
 
 protected:
-  std::unique_ptr<SUT> createSUT() {
-    return std::make_unique<SUTImplementation>(red, yellow, green, timer);
-  }
   MockFunction<void()> endArrangeStatements; // Checkpoint for starting the test
   void SetUp() override {
     ExpectationSet allowed_arrange_calls;
@@ -63,6 +59,9 @@ protected:
     allowed_arrange_calls += EXPECT_CALL(green, on).Times(AnyNumber());
     allowed_arrange_calls += EXPECT_CALL(green, off).Times(AnyNumber());
     EXPECT_CALL(endArrangeStatements, Call()).After(allowed_arrange_calls);
+  }
+  std::unique_ptr<SUT> createSUT() {
+    return std::make_unique<SUTImplementation>(red, yellow, green, timer);
   }
 
   using Timer = MockPeriodicTimer<SUTImplementation>;

@@ -10,10 +10,7 @@ public:
       : TCS::TrafficLightStatePattern() {}
 };
 
-template <> struct TestPolicyLookup<TrafficLightStatePatternSUT> {
-  using PolicyType = TrafficLightMiddleEuropeTestPolicy;
-};
-
+using PairSUTandPolicy =
+    std::pair<TrafficLightStatePatternSUT, TrafficLightMiddleEuropeTestPolicy>;
 INSTANTIATE_TYPED_TEST_SUITE_P(TrafficLightStatePatternTest,
-                               TrafficLightTestFixture,
-                               TrafficLightStatePatternSUT);
+                               TrafficLightTestFixture, PairSUTandPolicy);

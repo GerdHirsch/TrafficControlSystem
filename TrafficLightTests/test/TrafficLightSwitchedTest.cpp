@@ -2,9 +2,7 @@
 #include "TrafficLightTestFixture.h"
 #include <TCS/TrafficLight.hpp>
 
-template <> struct TestPolicyLookup<TCS::TrafficLight> {
-  using PolicyType = TrafficLightMiddleEuropeTestPolicy;
-};
-
+using PairSUTandPolicy =
+    std::pair<TCS::TrafficLight, TrafficLightMiddleEuropeTestPolicy>;
 INSTANTIATE_TYPED_TEST_SUITE_P(TrafficLightSwitchedTest,
-                               TrafficLightTestFixture, TCS::TrafficLight);
+                               TrafficLightTestFixture, PairSUTandPolicy);
