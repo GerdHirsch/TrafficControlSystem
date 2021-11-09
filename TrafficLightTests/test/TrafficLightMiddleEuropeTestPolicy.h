@@ -17,44 +17,48 @@ public:
   void initOff_timerTick() override { ; }
   void initOff_flash_6_ticks() override {
     allOff();
-    yellow.on();
-    yellow.off();
-    yellow.on();
-    yellow.off();
-    yellow.on();
-    yellow.off();
+    InSequence seq;
+    EXPECT_CALL(yellow, on());
+    EXPECT_CALL(yellow, off());
+    EXPECT_CALL(yellow, on());
+    EXPECT_CALL(yellow, off());
+    EXPECT_CALL(yellow, on());
+    EXPECT_CALL(yellow, off());
   }
   void initFlashing_off() override { allOff(); }
   void initFlashing_flash() override { ; }
   void initFlashing_switchOver() override {
-    red.off();
-    yellow.on();
-    green.off();
+    InSequence seq;
+    EXPECT_CALL(red, off());
+    EXPECT_CALL(yellow, on());
+    EXPECT_CALL(green, off());
   }
   void initOperation_flash_5_ticks() override {
     allOff();
-    yellow.on();
-    yellow.off();
-    yellow.on();
-    yellow.off();
-    yellow.on();
+    InSequence seq;
+    EXPECT_CALL(yellow, on());
+    EXPECT_CALL(yellow, off());
+    EXPECT_CALL(yellow, on());
+    EXPECT_CALL(yellow, off());
+    EXPECT_CALL(yellow, on());
   }
   void initYellow_5_times_switchOver() override { /*5 times switchOver */
-    red.on();
-    yellow.off();
-    green.off();
-    red.on();
-    yellow.on();
-    green.off();
-    red.off();
-    yellow.off();
-    green.on();
-    red.off();
-    yellow.on();
-    green.off();
-    red.on();
-    yellow.off();
-    green.off();
+    InSequence seq;
+    EXPECT_CALL(red, on());
+    EXPECT_CALL(yellow, off());
+    EXPECT_CALL(green, off());
+    EXPECT_CALL(red, on());
+    EXPECT_CALL(yellow, on());
+    EXPECT_CALL(green, off());
+    EXPECT_CALL(red, off());
+    EXPECT_CALL(yellow, off());
+    EXPECT_CALL(green, on());
+    EXPECT_CALL(red, off());
+    EXPECT_CALL(yellow, on());
+    EXPECT_CALL(green, off());
+    EXPECT_CALL(red, on());
+    EXPECT_CALL(yellow, off());
+    EXPECT_CALL(green, off());
   }
   void initOperation_timerTick() override {}
   void initExceptionOff_switchOver() override {}
@@ -62,9 +66,9 @@ public:
 
 private:
   void allOff() {
-    red.off();
-    yellow.off();
-    green.off();
+    EXPECT_CALL(red, off());
+    EXPECT_CALL(yellow, off());
+    EXPECT_CALL(green, off());
   }
 };
 
