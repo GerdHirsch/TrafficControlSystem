@@ -10,9 +10,7 @@
 #include <memory>
 #include <utility>
 
-namespace CR = CrossRoadLib;
-using namespace ::testing;
-using SUT = CR::TrafficLight;
+namespace gt = ::testing;
 
 class TrafficLightTestPolicy {
 public:
@@ -39,25 +37,26 @@ protected:
 
 template <class PairSUTandPolicy>
 // requires std::pair<TrafficLightLike, TrafficLightTestPolicyLike>
-class TrafficLightTestFixture : public Test {
+class TrafficLightTestFixture : public gt::Test {
 public:
   using SUTImplementation = typename PairSUTandPolicy::first_type;
   using PolicyType = typename PairSUTandPolicy::second_type;
+  using SUT = CrossRoadLib::TrafficLight;
 
   TrafficLightTestFixture() : timer(rm) {
     policy = std::make_unique<PolicyType>(red, yellow, green);
   };
 
 protected:
-  MockFunction<void()> endArrangeStatements; // Checkpoint for starting the test
+  gt::MockFunction<void()> endArrangeStatements; // Checkpoint for starting the test
   void SetUp() override {
-    ExpectationSet allowed_arrange_calls;
-    allowed_arrange_calls += EXPECT_CALL(red, on).Times(AnyNumber());
-    allowed_arrange_calls += EXPECT_CALL(red, off).Times(AnyNumber());
-    allowed_arrange_calls += EXPECT_CALL(yellow, on).Times(AnyNumber());
-    allowed_arrange_calls += EXPECT_CALL(yellow, off).Times(AnyNumber());
-    allowed_arrange_calls += EXPECT_CALL(green, on).Times(AnyNumber());
-    allowed_arrange_calls += EXPECT_CALL(green, off).Times(AnyNumber());
+    gt::ExpectationSet allowed_arrange_calls;
+    allowed_arrange_calls += EXPECT_CALL(red, on).Times(gt::AnyNumber());
+    allowed_arrange_calls += EXPECT_CALL(red, off).Times(gt::AnyNumber());
+    allowed_arrange_calls += EXPECT_CALL(yellow, on).Times(gt::AnyNumber());
+    allowed_arrange_calls += EXPECT_CALL(yellow, off).Times(gt::AnyNumber());
+    allowed_arrange_calls += EXPECT_CALL(green, on).Times(gt::AnyNumber());
+    allowed_arrange_calls += EXPECT_CALL(green, off).Times(gt::AnyNumber());
     EXPECT_CALL(endArrangeStatements, Call()).After(allowed_arrange_calls);
   }
   std::unique_ptr<SUT> createSUT() {
@@ -66,9 +65,9 @@ protected:
 
   using Timer = MockPeriodicTimer<SUTImplementation>;
   Mock::ResultManager rm{};
-  StrictMock<MockLamp> red{};
-  StrictMock<MockLamp> yellow{};
-  StrictMock<MockLamp> green{};
+  gt::StrictMock<MockLamp> red{};
+  gt::StrictMock<MockLamp> yellow{};
+  gt::StrictMock<MockLamp> green{};
   Timer timer;
   std::unique_ptr<TrafficLightTestPolicy> policy;
 };
@@ -85,7 +84,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testConstructor) {
   this->createSUT();
   this->rm.endTest();
 
-  ASSERT_THAT(this->rm.getResult(), Eq(this->rm.getExpected()));
+  ASSERT_THAT(this->rm.getResult(), gt::Eq(this->rm.getExpected()));
 }
 
 TYPED_TEST_P(TrafficLightTestFixture, testOff_off) {
@@ -100,7 +99,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOff_off) {
   sut->off();
   this->rm.endTest();
 
-  ASSERT_THAT(this->rm.getResult(), Eq(this->rm.getExpected()));
+  ASSERT_THAT(this->rm.getResult(), gt::Eq(this->rm.getExpected()));
 }
 
 TYPED_TEST_P(TrafficLightTestFixture, testOff_timerTick) {
@@ -118,7 +117,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOff_timerTick) {
   this->timer.tick();
   this->rm.endTest();
 
-  ASSERT_THAT(this->rm.getResult(), Eq(this->rm.getExpected()));
+  ASSERT_THAT(this->rm.getResult(), gt::Eq(this->rm.getExpected()));
   ASSERT_FALSE(this->timer.hasReceiver()) << "timer not inactive";
 }
 
@@ -139,7 +138,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOff_flash_6_ticks) {
     this->timer.tick();
   this->rm.endTest();
 
-  ASSERT_THAT(this->rm.getResult(), Eq(this->rm.getExpected()));
+  ASSERT_THAT(this->rm.getResult(), gt::Eq(this->rm.getExpected()));
 }
 
 TYPED_TEST_P(TrafficLightTestFixture, testFlashing_off) {
@@ -157,7 +156,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testFlashing_off) {
   this->timer.tick();
   this->rm.endTest();
 
-  ASSERT_THAT(this->rm.getResult(), Eq(this->rm.getExpected()));
+  ASSERT_THAT(this->rm.getResult(), gt::Eq(this->rm.getExpected()));
 }
 
 TYPED_TEST_P(TrafficLightTestFixture, testFlashing_flash) {
@@ -173,7 +172,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testFlashing_flash) {
   sut->flash();
   this->rm.endTest();
 
-  ASSERT_THAT(this->rm.getResult(), Eq(this->rm.getExpected()));
+  ASSERT_THAT(this->rm.getResult(), gt::Eq(this->rm.getExpected()));
 }
 
 TYPED_TEST_P(TrafficLightTestFixture, testFlashing_switchOver) {
@@ -190,7 +189,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testFlashing_switchOver) {
   this->timer.tick();
   this->rm.endTest();
 
-  ASSERT_THAT(this->rm.getResult(), Eq(this->rm.getExpected()));
+  ASSERT_THAT(this->rm.getResult(), gt::Eq(this->rm.getExpected()));
 }
 
 TYPED_TEST_P(TrafficLightTestFixture, testOperation_flash_5_ticks) {
@@ -209,7 +208,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOperation_flash_5_ticks) {
     this->timer.tick();
   this->rm.endTest();
 
-  ASSERT_THAT(this->rm.getResult(), Eq(this->rm.getExpected()));
+  ASSERT_THAT(this->rm.getResult(), gt::Eq(this->rm.getExpected()));
 }
 
 TYPED_TEST_P(TrafficLightTestFixture, testYellow_5_times_switchOver) {
@@ -230,7 +229,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testYellow_5_times_switchOver) {
   sut->switchOver(); // red
   this->rm.endTest();
 
-  ASSERT_THAT(this->rm.getResult(), Eq(this->rm.getExpected()));
+  ASSERT_THAT(this->rm.getResult(), gt::Eq(this->rm.getExpected()));
 }
 
 TYPED_TEST_P(TrafficLightTestFixture, testOperation_timerTick) {
@@ -248,7 +247,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOperation_timerTick) {
   this->timer.tick();
   this->rm.endTest();
 
-  ASSERT_THAT(this->rm.getResult(), Eq(this->rm.getExpected()));
+  ASSERT_THAT(this->rm.getResult(), gt::Eq(this->rm.getExpected()));
   ASSERT_FALSE(this->timer.hasReceiver()) << "timer not inactive";
 }
 
