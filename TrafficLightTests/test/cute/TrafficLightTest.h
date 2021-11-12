@@ -8,8 +8,8 @@
 #ifndef INCLUDE_TRAFFICLIGHTTEST_H_
 #define INCLUDE_TRAFFICLIGHTTEST_H_
 
-#include "MockLamp.hpp"
-#include "MockPeriodicTimer.hpp"
+#include "Mocks/MockLamp.hpp"
+#include "Mocks/MockPeriodicTimer.hpp"
 #include <CrossRoad/ProtocolViolationException.hpp>
 #include <CrossRoad/TrafficLight.hpp>
 #include <Mock/ResultManager.hpp>

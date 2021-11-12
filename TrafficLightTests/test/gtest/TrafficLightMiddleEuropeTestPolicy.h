@@ -8,8 +8,8 @@ using namespace ::testing;
 
 class TrafficLightMiddleEuropeTestPolicy : public TrafficLightTestPolicy {
 public:
-  TrafficLightMiddleEuropeTestPolicy(MockLamp &red_, MockLamp &yellow_,
-                                     MockLamp &green_)
+  TrafficLightMiddleEuropeTestPolicy(GMockLamp &red_, GMockLamp &yellow_,
+                                     GMockLamp &green_)
       : TrafficLightTestPolicy(red_, yellow_, green_) {}
 
   void initConstructor() override { allOff(); }
