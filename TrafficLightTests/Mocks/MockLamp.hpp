@@ -1,21 +1,34 @@
-#ifndef INCLUDE_MOCKLAMP_HPP_
-#define INCLUDE_MOCKLAMP_HPP_
+/*
+ * MockLampe.h
+ *
+ *  Created on: 26.11.2017
+ *      Author: Gerd
+ */
 
+#ifndef MOCKS_MOCKLAMP_HPP_
+#define MOCKS_MOCKLAMP_HPP_
+
+#include <Mock/ResultManager.hpp>
 #include <TCS/Lamp.hpp>
-#include <gmock/gmock.h>
+#include <string>
 
-class MockLamp : public Lamp {
+class MockLamp : public Lamp{
 public:
-  MockLamp() {
-    ON_CALL(*this, off).WillByDefault([this]() { m_isOn = false; });
-    ON_CALL(*this, on).WillByDefault([this]() { m_isOn = true; });
-  }
-  MOCK_METHOD(void, off, (), (override));
-  MOCK_METHOD(void, on, (), (override));
-  bool isOn() override { return m_isOn; };
+	MockLamp(std::string name, Mock::ResultManager& rm): rm(rm), name(name), an(false){}
 
+	void on(){
+		an = true;
+		rm.addString(name + ".on | ");
+	}
+	void off(){
+		an = false;
+		rm.addString(name + ".off | ");
+	}
+	bool isOn() { return an; }
 private:
-  bool m_isOn{false};
+	Mock::ResultManager& rm;
+	std::string name;
+	bool an;
 };
 
-#endif /* INCLUDE_MOCKLAMP_HPP_ */
+#endif /* MOCKS_MOCKLAMP_HPP_ */

@@ -1,7 +1,7 @@
 #ifndef INCLUDE_TRAFFICLIGHTTESTFIXTURE_H_
 #define INCLUDE_TRAFFICLIGHTTESTFIXTURE_H_
 
-#include "MockLamp.hpp"
+#include "GMockLamp.hpp"
 #include "MockPeriodicTimer.hpp"
 #include <CrossRoad/ProtocolViolationException.hpp>
 #include <CrossRoad/TrafficLight.hpp>
