@@ -13,7 +13,6 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC") # using Visual Studio C++
 endif()
 
 # Add subdirs
-add_subdirectory(CrossRoadCUTE)
 add_subdirectory(CrossRoadLib)
 add_subdirectory(Demos)
 add_subdirectory(ResultManagerMock)

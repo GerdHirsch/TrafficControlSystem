@@ -3,7 +3,6 @@
 
 #include "TrafficLight.hpp"
 #include "Timer.hpp"
-
 #include <mutex>
 
 namespace CrossRoadLib{
