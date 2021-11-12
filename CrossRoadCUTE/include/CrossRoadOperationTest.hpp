@@ -15,7 +15,7 @@
 
 #include <CrossRoad/CrossRoad.hpp>
 
-#include "cute.h"
+#include <cute/cute.h>
 
 #include <memory>
 

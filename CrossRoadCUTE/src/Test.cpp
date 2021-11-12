@@ -1,17 +1,16 @@
-
-#include "../include/StartTest.hpp"
-#include "../include/StartIgnoredEventsTest.hpp"
+#include "../include/DefectTest.hpp"
 #include "../include/OperationflashTest.hpp"
 #include "../include/OperationtriggerTest.hpp"
-#include "../include/RegulateTrafficDeferredTest.hpp"
 #include "../include/PriorityTest.hpp"
-#include "../include/DefectTest.hpp"
+#include "../include/RegulateTrafficDeferredTest.hpp"
+#include "../include/StartIgnoredEventsTest.hpp"
+#include "../include/StartTest.hpp"
+#include <cute/ide_listener.h>
+#include <cute/xml_listener.h>
+#include <cstdlib>
+#include <cute/cute.h>
+#include <cute/cute_runner.h>
 
-
-#include "cute.h"
-#include "ide_listener.h"
-#include "xml_listener.h"
-#include "cute_runner.h"
 
 void runAllTests(int argc, char const *argv[]) {
 
