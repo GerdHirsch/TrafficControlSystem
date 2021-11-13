@@ -58,4 +58,4 @@ inline void MockTimer::stopTimer() { resultManager->addString("stopTimer|"); }
 inline void MockTimer::startTimer() { resultManager->addString("startTimer|"); }
 
 } // namespace Mock
-#endif /* MOCKS_MOCKTIMER_HPP_ */
+#endif // MOCKS_MOCKTIMER_HPP_

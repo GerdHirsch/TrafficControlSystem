@@ -1,10 +1,3 @@
-/*
- * MockTrafficLight.hpp
- *
- *  Created on: 18.03.2021
- *      Author: Gerd
- */
-
 #ifndef MOCKS_MOCKTRAFFICLIGHT_HPP_
 #define MOCKS_MOCKTRAFFICLIGHT_HPP_
 
@@ -17,9 +10,7 @@ namespace Mock {
 class MockTrafficLight : public CR::TrafficLight {
 public:
   MockTrafficLight(std::string name, ResultManager &resultManager)
-      :
-
-        name(name), resultManager(&resultManager), state(Off) {}
+      : name(name), resultManager(&resultManager), state(Off) {}
   void off() override;
   void flash() override;
   void switchOver() override;
@@ -30,7 +21,7 @@ public:
   ResultManager *resultManager = nullptr;
   enum States { Off, Flashing, Red, RedYellow, Yellow, Green } state;
 };
-//-----------------------------------------------
+
 inline void MockTrafficLight::off() {
   //	state = Off;
   resultManager->addString(name);
@@ -39,15 +30,18 @@ inline void MockTrafficLight::off() {
   //	resultManager->addString(stateToString());
   //	resultManager->addString("|");
 }
+
 inline void MockTrafficLight::flash() {
   state = Flashing;
   resultManager->addString(name);
   resultManager->addString(".flash|");
 }
+
 inline void MockTrafficLight::switchOver() {
   resultManager->addString(name);
   resultManager->addString(".switchOver|");
 }
+
 inline std::string MockTrafficLight::stateToString() {
   switch (state) {
   case Off:
@@ -73,4 +67,4 @@ inline std::string MockTrafficLight::stateToString() {
 
 } // namespace Mock
 
-#endif /* MOCKS_MOCKTRAFFICLIGHT_HPP_ */
+#endif // MOCKS_MOCKTRAFFICLIGHT_HPP_

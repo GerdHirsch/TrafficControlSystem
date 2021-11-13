@@ -4,8 +4,6 @@
 #include <chrono>
 #include <iostream>
 
-namespace std {
-
 template <class Rep, class Period>
 std::ostream &operator<<(std::ostream &out,
                          std::chrono::duration<Rep, Period> duration) {
@@ -13,6 +11,4 @@ std::ostream &operator<<(std::ostream &out,
   return out;
 }
 
-} // namespace std
-
-#endif /* DURATIONSTREAMOPERATOR_HPP_ */
+#endif // DURATIONSTREAMOPERATOR_HPP_

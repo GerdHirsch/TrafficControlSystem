@@ -1,24 +1,15 @@
 #ifndef PROTOCOLVIOLATIONEXCEPTION_H
 #define PROTOCOLVIOLATIONEXCEPTION_H
 
+#include <stdexcept>
 #include <string>
-#include<stdexcept>
 
 class ProtocolViolationException : public std::logic_error {
 public:
-
-	explicit ProtocolViolationException(std::string const& message);
-	ProtocolViolationException(const ProtocolViolationException& e);
-
+  explicit ProtocolViolationException(std::string const &message)
+      : std::logic_error(message){};
+  ProtocolViolationException(const ProtocolViolationException &e)
+      : std::logic_error(e){};
 };
-inline
-ProtocolViolationException::ProtocolViolationException(std::string const& message)
-:std::logic_error(message)
-{}
-inline
-ProtocolViolationException::ProtocolViolationException(ProtocolViolationException const& e)
-:std::logic_error(e)
-{}
 
-
-#endif //PROTOCOLVIOLATIONEXCEPTION_H
+#endif // PROTOCOLVIOLATIONEXCEPTION_H
