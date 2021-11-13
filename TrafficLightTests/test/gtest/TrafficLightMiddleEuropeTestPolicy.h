@@ -1,7 +1,7 @@
 #ifndef INCLUDE_TRAFFICLIGHTMIDDLEEUROPETESTPOLICY_H_
 #define INCLUDE_TRAFFICLIGHTMIDDLEEUROPETESTPOLICY_H_
 
-#include "TrafficLightTestFixture.h"
+#include "TrafficLightTestPolicy.h"
 #include <gmock/gmock.h>
 
 using namespace ::testing;

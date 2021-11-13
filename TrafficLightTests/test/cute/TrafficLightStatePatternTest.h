@@ -1,26 +1,26 @@
-/*
- * TrafficLightStatePatternTest.hpp
- *
- *  Created on: 12.04.2021
- *      Author: Gerd
- */
-
 #ifndef INCLUDE_TRAFFICLIGHTSTATEPATTERNTEST_H_
 #define INCLUDE_TRAFFICLIGHTSTATEPATTERNTEST_H_
 
-#include "TrafficLightMiddleEuropeTest.h"
+#include "TrafficLightMiddleEuropeTestPolicy.h"
+#include "TrafficLightTestFixture.h"
 #include <TCS/TrafficLightStatePattern.hpp>
 
-class TrafficLightStatePatternTest
-    : public TrafficLightMiddleEuropeTest<TCS::TrafficLightStatePattern> {
+class TrafficLightStatePatternSUT : public TCS::TrafficLightStatePattern {
 public:
-  using this_type = TrafficLightStatePatternTest;
-  using base_type = TrafficLightMiddleEuropeTest<TCS::TrafficLightStatePattern>;
+  using Timer = SimplePeriodicTimer::PeriodicTimer<TrafficLightStatePatternSUT>;
+  TrafficLightStatePatternSUT(Lamp & /* red */, Lamp & /* yellow */,
+                              Lamp & /* green */, Timer & /*  timer */)
+      : TCS::TrafficLightStatePattern() {}
+};
 
+using StatePatternPairSUTandPolicy =
+    std::pair<TrafficLightStatePatternSUT, TrafficLightMiddleEuropeTestPolicy>;
+
+class TrafficLightStatePatternTest
+    : public TrafficLightTestFixture<StatePatternPairSUTandPolicy> {
 protected:
-  std::unique_ptr<SUT> createSUT() {
-    return std::unique_ptr<SUT>(new TCS::TrafficLightStatePattern());
-  }
+  using this_type = TrafficLightStatePatternTest;
+  using base_type = TrafficLightTestFixture<StatePatternPairSUTandPolicy>;
 
 public:
   static cute::suite make_suite() {

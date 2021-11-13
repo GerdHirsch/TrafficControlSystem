@@ -1,8 +1,8 @@
 #ifndef INCLUDE_TRAFFICLIGHTTESTFIXTURE_H_
 #define INCLUDE_TRAFFICLIGHTTESTFIXTURE_H_
 
-#include "Mocks/GMockLamp.hpp"
 #include "Mocks/GMockPeriodicTimer.hpp"
+#include "TrafficLightTestPolicy.h"
 #include <CrossRoad/ProtocolViolationException.hpp>
 #include <CrossRoad/TrafficLight.hpp>
 #include <gmock/gmock.h>
@@ -10,29 +10,6 @@
 #include <utility>
 
 namespace gt = ::testing;
-
-class TrafficLightTestPolicy {
-public:
-  TrafficLightTestPolicy(GMockLamp &red_, GMockLamp &yellow_, GMockLamp &green_)
-      : red(red_), yellow(yellow_), green(green_){};
-  virtual void initConstructor() = 0;
-  virtual void initOff_off() = 0;
-  virtual void initOff_timerTick() = 0;
-  virtual void initOff_flash_6_ticks() = 0;
-  virtual void initFlashing_off() = 0;
-  virtual void initFlashing_flash() = 0;
-  virtual void initFlashing_switchOver() = 0;
-  virtual void initOperation_flash_5_ticks() = 0;
-  virtual void initYellow_5_times_switchOver() = 0;
-  virtual void initOperation_timerTick() = 0;
-  virtual void initExceptionOff_switchOver() = 0;
-  virtual void initExceptionOperation_off() = 0;
-
-protected:
-  GMockLamp &red;
-  GMockLamp &yellow;
-  GMockLamp &green;
-};
 
 template <class PairSUTandPolicy>
 // requires std::pair<TrafficLightLike, TrafficLightTestPolicyLike>
@@ -116,8 +93,6 @@ TYPED_TEST_P(TrafficLightTestFixture, testOff_flash_6_ticks) {
   this->expectation->initOff_flash_6_ticks();
 
   sut->flash();
-  // ASSERT_TRUE(this->timer.hasReceiver()) << "hasReceiver";
-  // ASSERT_TRUE(this->timer.hasCallback()) << "hasCallback";
 
   for (int i = 0; i < 6; ++i)
     this->timer.tick();

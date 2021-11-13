@@ -1,27 +1,18 @@
-/*
- * TrafficLightReferenceTest.h
- *
- *  Created on: 12.04.2021
- *      Author: Gerd
- */
-
 #ifndef INCLUDE_TRAFFICLIGHTREFERENCETEST_H_
 #define INCLUDE_TRAFFICLIGHTREFERENCETEST_H_
 
-#include "TrafficLightMiddleEuropeTest.h"
+#include "TrafficLightMiddleEuropeTestPolicy.h"
 #include "TrafficLightReference.hpp"
+#include "TrafficLightTestFixture.h"
+
+using ReferencePairSUTandPolicy =
+    std::pair<TrafficLightReference, TrafficLightMiddleEuropeTestPolicy>;
 
 class TrafficLightReferenceTest
-    : public TrafficLightMiddleEuropeTest<TrafficLightReference> {
-public:
+    : public TrafficLightTestFixture<ReferencePairSUTandPolicy> {
 protected:
   using this_type = TrafficLightReferenceTest;
-  using base_type = TrafficLightMiddleEuropeTest<TrafficLightReference>;
-
-  std::unique_ptr<SUT> createSUT() {
-    return std::unique_ptr<SUT>(
-        new TrafficLightReference(red, yellow, green, timer));
-  }
+  using base_type = TrafficLightTestFixture<ReferencePairSUTandPolicy>;
 
 public:
   static cute::suite make_suite() {

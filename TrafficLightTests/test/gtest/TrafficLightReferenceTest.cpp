@@ -1,5 +1,4 @@
-
-#include "../include/TrafficLightReference.hpp"
+#include "TrafficLightReference.hpp"
 #include "TrafficLightMiddleEuropeTestPolicy.h"
 #include "TrafficLightTestFixture.h"
 

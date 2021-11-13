@@ -1,27 +1,18 @@
-/*
- * TrafficLightSwitchedTest.h
- *
- *  Created on: 12.04.2021
- *      Author: Gerd
- */
-
 #ifndef INCLUDE_TRAFFICLIGHTSWITCHEDTEST_H_
 #define INCLUDE_TRAFFICLIGHTSWITCHEDTEST_H_
 
-#include "TrafficLightMiddleEuropeTest.h"
+#include "TrafficLightMiddleEuropeTestPolicy.h"
+#include "TrafficLightTestFixture.h"
 #include <TCS/TrafficLight.hpp>
 
+using SwitchedPairSUTandPolicy =
+    std::pair<TCS::TrafficLight, TrafficLightMiddleEuropeTestPolicy>;
+
 class TrafficLightSwitchedTest
-    : public TrafficLightMiddleEuropeTest<TCS::TrafficLight> {
-public:
+    : public TrafficLightTestFixture<SwitchedPairSUTandPolicy> {
 protected:
   using this_type = TrafficLightSwitchedTest;
-  using base_type = TrafficLightMiddleEuropeTest<TCS::TrafficLight>;
-
-  std::unique_ptr<SUT> createSUT() {
-    return std::unique_ptr<SUT>(
-        new TCS::TrafficLight(red, yellow, green, timer));
-  }
+  using base_type = TrafficLightTestFixture<SwitchedPairSUTandPolicy>;
 
 public:
   static cute::suite make_suite() {
