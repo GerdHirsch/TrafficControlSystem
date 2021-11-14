@@ -10,6 +10,11 @@ public:
     ON_CALL(*this, off).WillByDefault([this]() { m_isOn = false; });
     ON_CALL(*this, on).WillByDefault([this]() { m_isOn = true; });
   }
+  GMockLamp(const GMockLamp &other) : m_isOn{other.m_isOn} {}
+  GMockLamp &operator=(const GMockLamp &other) {
+    m_isOn = other.m_isOn;
+    return *this;
+  }
   MOCK_METHOD(void, off, (), (override));
   MOCK_METHOD(void, on, (), (override));
   bool isOn() override { return m_isOn; };

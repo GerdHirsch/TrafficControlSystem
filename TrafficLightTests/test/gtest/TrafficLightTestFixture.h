@@ -15,40 +15,37 @@ template <class PairSUTandPolicy>
 // requires std::pair<TrafficLightLike, TrafficLightTestPolicyLike>
 class TrafficLightTestFixture : public gt::Test {
 public:
-  using SUTImplementation = typename PairSUTandPolicy::first_type;
-  using PolicyType = typename PairSUTandPolicy::second_type;
-  using SUTInterface = CrossRoadLib::TrafficLight;
+  using SUTImpl = typename PairSUTandPolicy::first_type;
+  using PolicyImpl = typename PairSUTandPolicy::second_type;
+  using SUT = CrossRoadLib::TrafficLight;
 
-  TrafficLightTestFixture()
-      : expectation{std::make_unique<PolicyType>(red, yellow, green)} {};
+  TrafficLightTestFixture() : expectation{createPolicy()} {};
 
 protected:
-  gt::MockFunction<void()>
-      endArrangeStatements; // Checkpoint for starting the test
-
   void SetUp() override {
-    gt::ExpectationSet allowed_arrange_calls;
-    allowed_arrange_calls += EXPECT_CALL(red, on).Times(gt::AnyNumber());
-    allowed_arrange_calls += EXPECT_CALL(red, off).Times(gt::AnyNumber());
-    allowed_arrange_calls += EXPECT_CALL(yellow, on).Times(gt::AnyNumber());
-    allowed_arrange_calls += EXPECT_CALL(yellow, off).Times(gt::AnyNumber());
-    allowed_arrange_calls += EXPECT_CALL(green, on).Times(gt::AnyNumber());
-    allowed_arrange_calls += EXPECT_CALL(green, off).Times(gt::AnyNumber());
-    allowed_arrange_calls +=
-        EXPECT_CALL(timer, setIntervalDuration).Times(gt::AnyNumber());
-    EXPECT_CALL(endArrangeStatements, Call()).After(allowed_arrange_calls);
+    red = gt::NiceMock<GMockLamp>(red);
+    yellow = gt::NiceMock<GMockLamp>(yellow);
+    green = gt::NiceMock<GMockLamp>(green);
   }
 
-  void arrangeEnd() { this->endArrangeStatements.Call(); }
-
-  std::unique_ptr<SUTInterface> createSUT() {
-    return std::make_unique<SUTImplementation>(red, yellow, green, timer);
+  void SetUpEnd() {
+    red = gt::StrictMock<GMockLamp>(red);
+    yellow = gt::StrictMock<GMockLamp>(yellow);
+    green = gt::StrictMock<GMockLamp>(green);
   }
 
-  using Timer = GMockPeriodicTimer<SUTImplementation>;
-  gt::StrictMock<GMockLamp> red{};
-  gt::StrictMock<GMockLamp> yellow{};
-  gt::StrictMock<GMockLamp> green{};
+  std::unique_ptr<SUT> createSUT() {
+    return std::make_unique<SUTImpl>(red, yellow, green, timer);
+  }
+
+  std::unique_ptr<TrafficLightTestPolicy> createPolicy() {
+    return std::make_unique<PolicyImpl>(red, yellow, green);
+  }
+
+  using Timer = GMockPeriodicTimer<SUTImpl>;
+  GMockLamp red{};
+  GMockLamp yellow{};
+  GMockLamp green{};
   gt::StrictMock<Timer> timer{};
   std::unique_ptr<TrafficLightTestPolicy> expectation;
 };
@@ -56,7 +53,7 @@ protected:
 TYPED_TEST_SUITE_P(TrafficLightTestFixture);
 
 TYPED_TEST_P(TrafficLightTestFixture, testConstructor) {
-  this->arrangeEnd();
+  this->SetUpEnd();
 
   this->expectation->initConstructor();
 
@@ -65,7 +62,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testConstructor) {
 
 TYPED_TEST_P(TrafficLightTestFixture, testOff_off) {
   auto sut = this->createSUT();
-  this->arrangeEnd();
+  this->SetUpEnd();
 
   this->expectation->initOff_off();
 
@@ -77,7 +74,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOff_timerTick) {
   sut->flash();
   this->timer.tick();
   sut->off();
-  this->arrangeEnd();
+  this->SetUpEnd();
 
   this->expectation->initOff_timerTick();
 
@@ -88,7 +85,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOff_timerTick) {
 
 TYPED_TEST_P(TrafficLightTestFixture, testOff_flash_6_ticks) {
   auto sut = this->createSUT();
-  this->arrangeEnd();
+  this->SetUpEnd();
 
   this->expectation->initOff_flash_6_ticks();
 
@@ -102,7 +99,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testFlashing_off) {
   auto sut = this->createSUT();
   sut->flash();
   this->timer.tick();
-  this->arrangeEnd();
+  this->SetUpEnd();
 
   this->expectation->initFlashing_off();
 
@@ -113,7 +110,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testFlashing_off) {
 TYPED_TEST_P(TrafficLightTestFixture, testFlashing_flash) {
   auto sut = this->createSUT();
   sut->flash();
-  this->arrangeEnd();
+  this->SetUpEnd();
 
   this->expectation->initFlashing_flash();
 
@@ -123,7 +120,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testFlashing_flash) {
 TYPED_TEST_P(TrafficLightTestFixture, testFlashing_switchOver) {
   auto sut = this->createSUT();
   sut->flash();
-  this->arrangeEnd();
+  this->SetUpEnd();
 
   this->expectation->initFlashing_switchOver();
 
@@ -135,7 +132,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOperation_flash_5_ticks) {
   auto sut = this->createSUT();
   sut->flash();
   sut->switchOver(); // yellow
-  this->arrangeEnd();
+  this->SetUpEnd();
 
   this->expectation->initOperation_flash_5_ticks();
 
@@ -148,7 +145,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testYellow_5_times_switchOver) {
   auto sut = this->createSUT();
   sut->flash();
   sut->switchOver(); // yellow
-  this->arrangeEnd();
+  this->SetUpEnd();
 
   this->expectation->initYellow_5_times_switchOver();
 
@@ -164,7 +161,7 @@ TYPED_TEST_P(TrafficLightTestFixture, testOperation_timerTick) {
   sut->flash();
   this->timer.tick();
   sut->switchOver(); // yellow
-  this->arrangeEnd();
+  this->SetUpEnd();
 
   this->expectation->initOperation_timerTick();
 
@@ -177,14 +174,14 @@ TYPED_TEST_P(TrafficLightTestFixture, testExceptionOperation_off) {
   auto sut = this->createSUT();
   sut->flash();
   sut->switchOver(); // yellow
-  this->arrangeEnd();
+  this->SetUpEnd();
 
   EXPECT_THROW(sut->off(), ProtocolViolationException);
 }
 
 TYPED_TEST_P(TrafficLightTestFixture, testExceptionOff_switchOver) {
   auto sut = this->createSUT();
-  this->arrangeEnd();
+  this->SetUpEnd();
 
   EXPECT_THROW(sut->switchOver(), ProtocolViolationException);
 }
