@@ -1,0 +1,13 @@
+# Helper macro to perform both required FetchContentSteps at once All additional
+# arguments after name are passed on to Declare()
+include(FetchContent)
+macro(FetchContentAndPopulate name)
+  string(TOLOWER ${name} name_lower)
+  FetchContent_Declare(${name} ${ARGN})
+  FetchContent_GetProperties(${name})
+  if(NOT ${name_lower}_POPULATED)
+    message(STATUS "Fetching ${name}")
+    FetchContent_Populate(${name})
+    add_subdirectory(${${name_lower}_SOURCE_DIR} ${${name_lower}_BINARY_DIR})
+  endif()
+endmacro()
