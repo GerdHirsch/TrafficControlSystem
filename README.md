@@ -7,7 +7,7 @@ Analysis with UML" and the series "Object Oriented Design and Design Patterns".
 
 There is a separate description for each component.
 
-- [CrossRoad](./CrossRoadLib/CrossRoad.md)
+- [Intersection aka CrossRoad](./CrossRoadLib/CrossRoad.md)
 - [Sensor](./Sensor/Sensor.md)
 - [TrafficControlSystem](./TrafficControlSystem/TrafficControlSystem.md)
 - [PeriodicTimer](./PeriodicTimer/PeriodicTimer.md)
