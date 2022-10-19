@@ -10,7 +10,7 @@ There is a separate description for each component.
 - [Intersection aka CrossRoad](./CrossRoadLib/CrossRoad.md)
 - [Sensor](./Sensor/Sensor.md)
 - [TrafficControlSystem](./TrafficControlSystem/TrafficControlSystem.md)
-- [PeriodicTimer](./PeriodicTimer/README.md)
+- [PeriodicTimer](https://github.com/GerdHirsch/PeriodicTimer/blob/master/README.md)
 
 ## Models
 
