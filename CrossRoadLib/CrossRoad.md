@@ -1,4 +1,4 @@
-# CrossRoad
+# Intersection aka CrossRoad
 
 ## Purpose
 
