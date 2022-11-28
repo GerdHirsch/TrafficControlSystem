@@ -22,19 +22,17 @@ import the xmi file into EA
 
 Prerequisites:
 
-- CMake 3.12 (or greater)
-- A recent C++ compiler
+- VSCode
+- Docker + "Dev Containers" Extension
+- Internet Connection
 
-Create a buildfolder, configure the project and build:
+[Open the command palette in VSCode](https://googlethatforyou.com?q=How%20to%20open%20the%20command%20palette%20in%20VSCode) and select `Reopen in Container`.
 
-```bash
-mkdir build
-cd build
-cmake ..
-cmake --build .
-```
+![docs/img/reopen_in_container.png]
 
-Have a look at different CMake Generators for generating your desired project
-files. You can get a list by running `cmake --help`.
+You are now working inside a **DevContainer**! To start the build, select `Run Build Task` from the command palette.
 
-E.g. for Eclipse you can pass `-G"Eclipse CDT4 - Unix Makefiles"` to the first CMake call.
+To run the unittests, select `Run Test Task` from the command palette.
+Alternatively, you can use the graphical test explorer on the left side of VSCode.
+
+![docs/img/test_explorer.png]
