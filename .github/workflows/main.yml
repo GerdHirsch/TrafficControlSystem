@@ -1,35 +1,56 @@
-- name: Build Devcontainer
-  uses: devcontainers/ci@v0.2
-  with:
-    imageName: ghcr.io/GerdHirsch/TrafficControlSystem
-    cacheFrom: mcr.microsoft.com/devcontainers/cpp:0-ubuntu-22.04
-    push: never
+name: Main Workflow
 
-- name: Run CMake
-  uses: devcontainers/ci@v0.2.1900000118
-  with:
-    imageName: ghcr.io/GerdHirsch/TrafficControlSystem
-    imageTag: latest
-    runCmd: |
-      mkdir build
-      cmake -S ./ -B build/
-    push: never
+on:
+  pull_request:
+    branches: [main]
+    types:
+      - opened
+      - synchronize
+      - reopened
+  push:
+    branches: [main]
+  schedule:
+    - cron: "30 21 * * *"
+
+  workflow_dispatch: # for testing
+  
+jobs:
+  build-and-test:
+    name: Build And Test
+    runs-on: [default]
+    steps:
+    - name: Build Devcontainer
+      uses: devcontainers/ci@v0.2
+      with:
+        imageName: ghcr.io/GerdHirsch/TrafficControlSystem
+        cacheFrom: mcr.microsoft.com/devcontainers/cpp:0-ubuntu-22.04
+        push: never
     
-- name: Run Build
-  uses: devcontainers/ci@v0.2.1900000118
-  with:
-    imageName: ghcr.io/GerdHirsch/TrafficControlSystem
-    imageTag: latest
-    runCmd: |
-      cmake --build build/
-    push: never
-    
-- name: Run Test
-  uses: devcontainers/ci@v0.2.1900000118
-  with:
-    imageName: ghcr.io/GerdHirsch/TrafficControlSystem
-    imageTag: latest
-    runCmd: |
-      cd build && ctest --output-on-failure
-    push: never
-    
+    - name: Configure
+      uses: devcontainers/ci@v0.2.1900000118
+      with:
+        imageName: ghcr.io/GerdHirsch/TrafficControlSystem
+        imageTag: latest
+        runCmd: |
+          mkdir build
+          cmake -S ./ -B build/
+        push: never
+        
+    - name: Build
+      uses: devcontainers/ci@v0.2.1900000118
+      with:
+        imageName: ghcr.io/GerdHirsch/TrafficControlSystem
+        imageTag: latest
+        runCmd: |
+          cmake --build build/
+        push: never
+        
+    - name: Test
+      uses: devcontainers/ci@v0.2.1900000118
+      with:
+        imageName: ghcr.io/GerdHirsch/TrafficControlSystem
+        imageTag: latest
+        runCmd: |
+          cd build && ctest --output-on-failure
+        push: never
+        
