@@ -1,0 +1,57 @@
+name: Main Workflow
+
+on:
+  pull_request:
+    branches: [master]
+    types:
+      - opened
+      - synchronize
+      - reopened
+  push:
+    branches: [master]
+
+  workflow_dispatch: # for testing
+  
+permissions:
+  contents: read # required for checkout
+
+jobs:
+  build-and-test:
+    name: Build And Test
+    runs-on: [ubuntu-latest]
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    
+    - name: Build Devcontainer
+      uses: devcontainers/ci@v0.2
+      with:
+        imageName: local-devcontainer
+        cacheFrom: mcr.microsoft.com/devcontainers/cpp:0-ubuntu-22.04
+        push: never
+    
+    - name: Configure
+      uses: devcontainers/ci@v0.2.1900000118
+      with:
+        imageName: local-devcontainer
+        runCmd: |
+          mkdir build
+          cmake -S ./ -B build/
+        push: never
+        
+    - name: Build
+      uses: devcontainers/ci@v0.2.1900000118
+      with:
+        imageName: local-devcontainer
+        runCmd: |
+          cmake --build build/
+        push: never
+        
+    - name: Test
+      uses: devcontainers/ci@v0.2.1900000118
+      with:
+        imageName: local-devcontainer
+        runCmd: |
+          cd build && ctest --output-on-failure
+        push: never
+        
